@@ -1,0 +1,29 @@
+Need to load PMBUS modules manually under Linux. (Check docs.)
+There are three PMBUS controllers on the I2C at addresses 52, 53, 54 in I2C8 (under I2C0 multiplexer as port 7)
+
+Controller1 (52):
+1 VCCINT    1.00V 10A
+2 VCCPINT   1.00V 10A
+3 VCCAUX    1.80V 10A
+4 VCCPAUX   1.80V 10A
+
+Controller2 (53):
+1 VCCADJ    2.50V 10A
+2 VCC1V5    1.50V 10A
+3 VCCMIO_PS 1.80V 10A
+4 VCCBRAM   1.00V 10A
+
+Controller3 (54):
+1 VCC3V3    3.30V 10A
+2 VCC2V5    2.50V 10A
+
+Uncontrolled:
+- VTTDDR_PS 0.75V 3A
+
+Can be found under /sys/class/hwmon/hwmon{0-3}/*
+in1 - INPUT RAIL, in2-in5 = OUTPUTS 1-4
+
+V in{1-5}_input
+I curr{1-5}_input
+P power{1-5}_input
+T temp{1-5}_input
