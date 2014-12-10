@@ -1,4 +1,17 @@
-Need to load PMBUS modules manually under Linux. (Check docs.)
+Need to load PMBUS modules manually under Linux. Excerpt from Documentation/hwmon/pmbus:
+
+-------------------------------------------------------------
+This driver does not probe for PMBus devices, since there is no register
+which can be safely used to identify the chip (The MFG_ID register is not
+supported by all chips), and since there is no well defined address range for
+PMBus devices. You will have to instantiate the devices explicitly.
+
+Example: the following will load the driver for an LTC2978 at address 0x60
+on I2C bus #1:
+$ modprobe pmbus
+$ echo ltc2978 0x60 > /sys/bus/i2c/devices/i2c-1/new_device
+-------------------------------------------------------------
+
 There are three PMBUS controllers on the I2C at addresses 52, 53, 54 in I2C8 (under I2C0 multiplexer as port 7)
 
 Controller1 (52):
