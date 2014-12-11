@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 SYS_PATH = '/sys/class/hwmon/'
+MEMINFO_PATH = '/proc/meminfo'
 CTRL_BASE_ID = 52
 RAILS = {'VCCINT'  => {ctrl: 52, rail: 1, Vtarget: 1000},
          'VCCPINT' => {ctrl: 52, rail: 2, Vtarget: 1000},
@@ -26,21 +27,40 @@ def getRail(rail)
   stats
 end
 
+def getRails(rails = {})
+  rails = ['VCCINT','VCCPINT','VCCAUX','VCCPAUX','VCCADJ','VCC1V5','VCCMIO_PS','VCCBRAM','VCC3V3','VCC2V5'] if rails.empty?
+  stats = {}
+  rails.each do |name|
+    stats[name] = getRail(RAILS[name])
+  end
+
+  stats
+end
+
+def getMemory()
+  stats = {}
+  File.read(MEMINFO_PATH).each_line do |line|
+    parts = line.gsub(/\s+/," ").split(" ")
+    stats[parts[0]] = parts[1]
+  end
+
+  stats
+end
+
 while true do
   stats = {}
 
   begin
-    RAILS.each do |name, rail|
-      stats[name] = getRail(rail)
-    end
+    stats = getRails
   rescue
     stats = {}
     next
   end
 
-  stats.each do |name, s|
-    puts "#{(Time.now.to_f*1000*1000).to_i}\t#{name}\t#{s[:V]}\t#{s[:I]}\t#{s[:P]/1000.0}\t#{s[:T]/1000.0}"
-  end
+  puts "#{(Time.now.to_f*1000*1000).to_i}"
+  puts getRails
+  puts getMemory
+  puts "----------------------------------"
 
   sleep 0.5
 end
