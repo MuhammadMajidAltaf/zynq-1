@@ -13,22 +13,22 @@ RAILS = {'VCCINT'  => {ctrl: 52, rail: 1, Vtarget: 1000},
          'VCCBRAM' => {ctrl: 53, rail: 4, Vtarget: 1000},
          'VCC3V3'  => {ctrl: 54, rail: 1, Vtarget: 3300},
          'VCC2V5'  => {ctrl: 54, rail: 2, Vtarget: 2500}}
+RAIL_STATS = {:V => 'in',
+              :I => 'curr',
+              :P => 'power',
+              :T => 'temp'}
 
 #takes hash input, returns some stats as hash
 def getRail(rail)
   rail_path = File.join(SYS_PATH, "hwmon#{rail[:ctrl]-CTRL_BASE_ID}")
   stats = {}
-  stats[:V] = File.read(File.join(rail_path, "in#{rail[:rail]+1}_input")).to_i
-  stats[:I] = File.read(File.join(rail_path, "curr#{rail[:rail]+1}_input")).to_i
-  stats[:P] = File.read(File.join(rail_path, "power#{rail[:rail]+1}_input")).to_i
-  stats[:T] = File.read(File.join(rail_path, "temp#{rail[:rail]+1}_input")).to_i
-  stats[:Vdiff] = (stats[:V] - rail[:Vtarget]).abs
-
+  RAIL_STATS.each do |name, str|
+    stats[name] = File.read(File.join(rail_path, "#{str}#{rail[:rail]+1}_input")).to_i
+  end
   stats
 end
 
 def getRails(rails = {})
-  rails = ['VCCINT','VCCPINT','VCCAUX','VCCPAUX','VCCADJ','VCC1V5','VCCMIO_PS','VCCBRAM','VCC3V3','VCC2V5'] if rails.empty?
   stats = {}
   rails.each do |name|
     stats[name] = getRail(RAILS[name])
@@ -47,20 +47,46 @@ def getMemory()
   stats
 end
 
-while true do
-  stats = {}
+######################################################
+sleep_time   = ARGV.count > 0 ? ARGV[0] : 0.5
+reps         = ARGV.count > 1 ? ARGV[1] : 100
+rails        = ARGV.count > 2 ? ARGV[2] : ['VCCINT','VCCPINT','VCCAUX','VCCPAUX','VCCADJ','VCC1V5','VCCMIO_PS','VCCBRAM','VCC3V3','VCC2V5']
+stats_file = ARGV.count > 3 ? ARGV[3] : "stats-#{Time.now.to_i}"
 
-  begin
-    stats = getRails
-  rescue
-    stats = {}
-    next
+File.open(stats_file, "w") do |fd|
+  fd.print "t,"
+  rails.each do |rail|
+    RAIL_STATS.each do |name, str|
+      fd.print "#{rail}.#{name},"
+    end
   end
+  getMemory.keys.each do |key|
+    fd.print "M.#{key},"
+  end
+  fd.puts ""
 
-  puts "#{(Time.now.to_f*1000*1000).to_i}"
-  puts getRails
-  puts getMemory
-  puts "----------------------------------"
+  while (reps > 0 || reps == -1) do
+    cur_time = (Time.now.to_f*1000*1000).to_i
+    begin
+      r = getRails rails
+      m = getMemory
+    rescue
+      puts "Error getting data this loop: #{$!}"
+      next
+    end
 
-  sleep 0.5
+    buf = "#{cur_time},"
+    rails.each do |rail|
+      RAIL_STATS.each do |name, str|
+        buf << "#{r[rail][name]},"
+      end
+    end
+    m.each_value do |val|
+      buf << "#{val},"
+    end
+    fd.puts buf
+
+    sleep sleep_time
+    reps = reps - 1
+  end
 end
