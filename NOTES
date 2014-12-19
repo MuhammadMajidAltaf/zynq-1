@@ -10,6 +10,11 @@ Example: the following will load the driver for an LTC2978 at address 0x60
 on I2C bus #1:
 $ modprobe pmbus
 $ echo ltc2978 0x60 > /sys/bus/i2c/devices/i2c-1/new_device
+
+In our particular case
+$ echo ucd9200 52 > /sys/bus/i2c/devices/i2c-8/new_device
+
+Sometimes the multiplexer seems to crash, deleting and re-adding the devices seems to
 -------------------------------------------------------------
 
 There are three PMBUS controllers on the I2C at addresses 52, 53, 54 in I2C8 (under I2C0 multiplexer as port 7)
