@@ -1,0 +1,173 @@
+From 2559dbb5e53d650a075c59ad1edd95bcdecda190 Mon Sep 17 00:00:00 2001
+From: Ali Lown <ali@lown.me.uk>
+Date: Sun, 21 Dec 2014 14:46:17 -0800
+Subject: [PATCH] Assorted run-time fixes
+
+---
+ ODIN_II/SRC/types.h                            |  4 ++--
+ abc_with_bb_support/Makefile                   |  3 +--
+ abc_with_bb_support/src/base/main/main.c       | 13 +++++++++++--
+ abc_with_bb_support/src/misc/espresso/cvrm.c   |  4 ++--
+ abc_with_bb_support/src/misc/espresso/cvrout.c |  2 +-
+ abc_with_bb_support/src/misc/espresso/hack.c   |  6 +++---
+ abc_with_bb_support/src/misc/espresso/pair.c   |  2 +-
+ 7 files changed, 21 insertions(+), 13 deletions(-)
+
+diff --git a/ODIN_II/SRC/types.h b/ODIN_II/SRC/types.h
+index 9a70a61..5db0ecf 100644
+--- a/ODIN_II/SRC/types.h
++++ b/ODIN_II/SRC/types.h
+@@ -82,8 +82,8 @@ typedef struct chain_information_t_t chain_information_t;
+ #define LEVELIZE 12
+ #define ACTIVATION 13
+ 
+-//#define oassert(x) {if(!(x)){exit(-1);}} // causes an interrupt in GDB
+-#define oassert(x) {if(!(x)){__asm("int3");}} // causes an interrupt in GDB
++#define oassert(x) {if(!(x)){exit(-1);}} // causes an interrupt in GDB
++//#define oassert(x) {if(!(x)){__asm("int3");}} // causes an interrupt in GDB
+ // bitvector library (PETER_LIB) defines it, so we don't
+ 
+ /* This is the data structure that holds config file details */
+diff --git a/abc_with_bb_support/Makefile b/abc_with_bb_support/Makefile
+index 93a0b61..92d0208 100644
+--- a/abc_with_bb_support/Makefile
++++ b/abc_with_bb_support/Makefile
+@@ -27,7 +27,7 @@ MODULES := src/base/abc src/base/abci src/base/cmd \
+ default: $(PROG)
+ 
+ #OPTFLAGS  := -DNDEBUG -O3
+-OPTFLAGS  := -g -O
++OPTFLAGS  := -g -O0
+ 
+ CFLAGS   += -w $(OPTFLAGS) $(patsubst %, -I%, $(MODULES)) 
+ CFLAGS   += -MD -MP
+@@ -79,4 +79,3 @@ lib$(PROG).a: $(OBJ)
+ 
+ docs:
+ 	doxygen doxygen.conf
+-
+diff --git a/abc_with_bb_support/src/base/main/main.c b/abc_with_bb_support/src/base/main/main.c
+index 737f299..f7bf65b 100644
+--- a/abc_with_bb_support/src/base/main/main.c
++++ b/abc_with_bb_support/src/base/main/main.c
+@@ -51,7 +51,7 @@ int main( int argc, char * argv[] )
+     Abc_Frame_t * pAbc;
+     char sCommandUsr[500], sCommandTmp[100], sReadCmd[20], sWriteCmd[20], c;
+     char * sCommand, * sOutFile, * sInFile;
+-    int  fStatus = 0;
++    int  fStatus = 0, fExit;
+     bool fBatch, fInitSource, fInitRead, fFinalWrite;
+ 
+     // added to detect memory leaks:
+@@ -71,12 +71,20 @@ int main( int argc, char * argv[] )
+     fInitSource = 1;
+     fInitRead   = 0;
+     fFinalWrite = 0;
++    fExit = 0;
+     sInFile = sOutFile = NULL;
+     sprintf( sReadCmd,  "read"  );
+     sprintf( sWriteCmd, "write" );
+     
+     Extra_UtilGetoptReset();
+-    while ((c = Extra_UtilGetopt(argc, argv, "c:hf:F:o:st:T:x")) != EOF) {
++    while(!fExit) {
++	c = Extra_UtilGetopt(argc, argv, "c:hf:F:o:st:T:x");
++        if (c == EOF || c == 0xff) {
++		fExit = 1;
++		continue;
++	}
++
++
+         switch(c) {
+             case 'c':
+                 strcpy( sCommandUsr, globalUtilOptarg );
+@@ -147,6 +155,7 @@ int main( int argc, char * argv[] )
+         }
+     }
+     
++end:
+     if ( fBatch )
+     {
+ 		pAbc->fBatchMode = 1;
+diff --git a/abc_with_bb_support/src/misc/espresso/cvrm.c b/abc_with_bb_support/src/misc/espresso/cvrm.c
+index 66b00d7..09fe5c9 100644
+--- a/abc_with_bb_support/src/misc/espresso/cvrm.c
++++ b/abc_with_bb_support/src/misc/espresso/cvrm.c
+@@ -377,7 +377,7 @@ int (*func1)();
+ 	/* Call a routine to do something with the cover */
+ 	if ((*func)(PLA1, i) == 0) {
+ 	    free_PLA(PLA1);
+-	    return;
++	    return NULL;
+ 	}
+ 
+ 	/* intersect with the particular output part again */
+@@ -388,7 +388,7 @@ int (*func1)();
+ 	/* Call a routine to do something with the final result */
+ 	if ((*func1)(PLA1, i) == 0) {
+ 	    free_PLA(PLA1);
+-	    return;
++	    return NULL;
+ 	}
+ 
+ 	/* Cleanup for next go-around */
+diff --git a/abc_with_bb_support/src/misc/espresso/cvrout.c b/abc_with_bb_support/src/misc/espresso/cvrout.c
+index 4850fa9..62ed78b 100644
+--- a/abc_with_bb_support/src/misc/espresso/cvrout.c
++++ b/abc_with_bb_support/src/misc/espresso/cvrout.c
+@@ -525,7 +525,7 @@ int output_symbolic;
+     int size, var, npermute, *permute, *weight, noweight;
+ 
+     if ((cube.num_vars - cube.num_binary_vars) <= 1) {
+-	return;
++	return NULL;
+     }
+     makeup_labels(PLA);
+ 
+diff --git a/abc_with_bb_support/src/misc/espresso/hack.c b/abc_with_bb_support/src/misc/espresso/hack.c
+index 105aeba..0d2c1c0 100644
+--- a/abc_with_bb_support/src/misc/espresso/hack.c
++++ b/abc_with_bb_support/src/misc/espresso/hack.c
+@@ -18,7 +18,7 @@ pPLA PLA;
+     pcube cplus, cminus, last, p;
+ 
+     if (PLA->label == NIL(char *) || PLA->label[0] == NIL(char))
+-	return;
++	return NULL;
+ 
+     /* try to find a binary variable named "DONT_CARE" */
+     var = -1;
+@@ -32,7 +32,7 @@ pPLA PLA;
+ 	}
+     }
+     if (var == -1) {
+-	return;
++	return NULL;
+     }
+ 
+     /* form the cofactor cubes for the don't-care variable */
+@@ -417,7 +417,7 @@ int new_size, old_size, size_added;
+ 
+     /* hack with the labels */
+     if ((oldlabel = PLA->label) == NIL(char *))
+-	return;
++	return NULL;
+     PLA->label = ALLOC(char *, new_size);
+     for(i = 0; i < new_size; i++) {
+ 	PLA->label[i] = NIL(char);
+diff --git a/abc_with_bb_support/src/misc/espresso/pair.c b/abc_with_bb_support/src/misc/espresso/pair.c
+index 8195ccf..16e5265 100644
+--- a/abc_with_bb_support/src/misc/espresso/pair.c
++++ b/abc_with_bb_support/src/misc/espresso/pair.c
+@@ -594,7 +594,7 @@ int (*action)();
+ 
+     if (set_ord(candidate) < 2) {
+ 	(*action)(pair);
+-	return;
++	return NULL;
+     }
+ 
+     recur_pair = pair_save(pair, n);
+-- 
+1.9.1
+
