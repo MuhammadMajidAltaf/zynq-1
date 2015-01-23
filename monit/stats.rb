@@ -48,10 +48,10 @@ def getMemory()
 end
 
 ######################################################
-sleep_time   = ARGV.count > 0 ? ARGV[0] : 0.5
-reps         = ARGV.count > 1 ? ARGV[1] : 100
-rails        = ARGV.count > 2 ? ARGV[2] : ['VCCINT','VCCPINT','VCCAUX','VCCPAUX','VCCADJ','VCC1V5','VCCMIO_PS','VCCBRAM','VCC3V3','VCC2V5']
-stats_file = ARGV.count > 3 ? ARGV[3] : "stats-#{Time.now.to_i}"
+sleep_time   = ARGV.count > 0 ? ARGV[0].to_i : 0.5
+reps         = ARGV.count > 1 ? ARGV[1].to_i : 100
+stats_file = ARGV.count > 2 ? ARGV[2] : "stats-#{Time.now.to_i}"
+rails        = ARGV.count > 3 ? ARGV[3] : ['VCCINT','VCCPINT','VCCAUX','VCCPAUX','VCCADJ','VCC1V5','VCCMIO_PS','VCCBRAM','VCC3V3','VCC2V5']
 
 File.open(stats_file, "w") do |fd|
   fd.print "t,"
