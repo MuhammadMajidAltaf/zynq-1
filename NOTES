@@ -27,7 +27,7 @@ Controller1 (52):
 
 Controller2 (53):
 1 VCCADJ    2.50V 10A
-2 VCC1V5    1.50V 10A
+2 VCC1V5    1.50V 10A -> feeds DDR memory
 3 VCCMIO_PS 1.80V 10A
 4 VCCBRAM   1.00V 10A
 
