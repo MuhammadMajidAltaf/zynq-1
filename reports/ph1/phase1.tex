@@ -1,5 +1,8 @@
 \documentclass[a4paper]{article}
 \usepackage{graphicx}
+\usepackage{listings}
+\usepackage{rotating}
+\usepackage{subcaption}
 %\usepackage[margin=1in]{geometry}
 \begin{document}
 \centerline{\Large \bf Individual Project - Phase 1}
@@ -22,8 +25,8 @@
       \begin{tabular}{l | l}
         Speed/MHz & Runtime/s \\
         \hline
-        333 & 640 \\
-        667 & 342 \\
+        333 & 645 \\
+        667 & 343 \\
       \end{tabular}
       \caption{Runtime vs Speed of PS for VTR}
       \label{tab:vtr:rt}
@@ -88,7 +91,46 @@
     \end{figure}
     At 667MHz, there is an increase of 250mW on VCCPINT for the ~62 seconds, but for 333MHz, there is an increase of only 120mW for the 122 seconds, indicating that running at 333MHz consumes less power in total for the same task.
 
-
   \subsection{Memory}
+    Figures \ref{fig:x264:mem:667} and \ref{fig:x264:mem:333} show system memory usage.
+    \begin{figure}[p]
+      \includegraphics[width=\textwidth]{data/fig/x264:mem:667.eps}
+      \caption{Memory usage of x264 at 667MHz}
+      \label{fig:x264:mem:667}
+    \end{figure}
+    \begin{figure}[p]
+      \includegraphics[width=\textwidth]{data/fig/x264:mem:333.eps}
+      \caption{Memory usage of x264 at 333MHz}
+      \label{fig:x264:mem:333}
+    \end{figure}
+    These show a fairly constant memory profile, occupying almost half of the total memory to encode 1280x544p footage.
+
+  \subsection{Profiling}
+    The listings \ref{lst:x264:667} and \ref{lst:x264:333} show the gprof data collected from the benchmarked instances of x264.
+    \begin{sidewaysfigure}[p]
+      \lstinputlisting[firstline=4, lastline=20]{data/x264/vtr-gmount.out-667-profiled}
+      \caption{gprof data for x264 at 667MHz}
+      \label{lst:x264:667}
+    \end{sidewaysfigure}
+    \begin{sidewaysfigure}[p]
+      \lstinputlisting[firstline=4, lastline=20]{data/x264/vtr-gmount.out-333-profiled}
+      \caption{gprof data for x264 at 333MHz}
+      \label{lst:x264:333}
+    \end{sidewaysfigure}
+    At 667MHz, \verb x264_me_search_ref is the main hotspot - due to lots of stalls on memory accesses, which don't stall at 333MHz - due to the 'reduced' latency the PS sees. At 333MHz, \verb x264_pixel_* routines take up the majority of the time, as these routines are performing lots of arithemtic computation on a few pixels. These look like ideal candidates to offload to the PL. A few of the \verb x264_pixel_* routines are shown in listing \ref{lst:x264:ass} to demonstrate.
+    \begin{sidewaysfigure}[bp]
+      \centering
+      \begin{subfigure}[b]{0.45\textwidth}
+        \lstinputlisting[firstline=805, lastline=825]{pixel-a.S}
+        \caption{The saturation 8x8 calculations using NEON extensions}
+      \end{subfigure}
+      \qquad
+      \begin{subfigure}[b]{0.45\textwidth}
+        \lstinputlisting[firstline=401, lastline=417]{mc-a.S}
+        \caption{The average (width 16) calculations using NEON extensions}
+      \end{subfigure}
+      \caption{ARM Assembly for some of the pixel routines from x264}
+      \label{lst:x264:ass}
+    \end{sidewaysfigure}
 
 \end{document}
