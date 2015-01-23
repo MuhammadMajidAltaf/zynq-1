@@ -1,0 +1,33 @@
+=============================================
+    Verilog-to-Routing Regression Testing    
+=============================================
+
+Running regression test... 
+scripts/run_vtr_task.pl -l /root/vtr/vtr_flow/tasks/regression_tests/vtr_reg_basic/task_list.txt 
+
+regression_tests/vtr_reg_basic/basic_timing
+-----------------------------------------
+Current time: Jan-22 03:54 PM.  Expected runtime of next benchmark: 3 seconds
+k6_N10_mem32K_40nm/ch_intrinsics...OK
+Current time: Jan-22 03:55 PM.  Expected runtime of next benchmark: 22 seconds
+k6_N10_mem32K_40nm/diffeq1...OK
+
+regression_tests/vtr_reg_basic/basic_no_timing
+-----------------------------------------
+Current time: Jan-22 04:02 PM.  Expected runtime of next benchmark: 4 seconds
+k4_N10_memSize16384_memData64/ch_intrinsics...OK
+Current time: Jan-22 04:03 PM.  Expected runtime of next benchmark: 7 seconds
+k4_N10_memSize16384_memData64/diffeq1...OK
+
+Parsing test results... 
+scripts/parse_vtr_task.pl -l /root/vtr/vtr_flow/tasks/regression_tests/vtr_reg_basic/task_list.txt  
+
+Checking test results... 
+
+Calculating QoR results... 
+scripts/parse_vtr_task.pl -l /root/vtr/vtr_flow/tasks/regression_tests/vtr_reg_basic/task_list.txt -check_golden -calc_geomean  
+regression_tests/vtr_reg_basic/basic_no_timing...[Fail] k4_N10_memSize16384_memData64.xml-ch_intrinsics.v pack_time: result = 5.26905 golden = 0.47
+regression_tests/vtr_reg_basic/basic_timing...[Fail] k6_N10_mem32K_40nm.xml-ch_intrinsics.v pack_time: result = 5.45767 golden = 0.33
+
+Test complete
+

@@ -1,0 +1,2254 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+  7.09      5.95     5.95  2590560     0.00     0.01  x264_me_search_ref
+  6.65     11.53     5.58  2589500     0.00     0.00  refine_subpel
+  6.54     17.02     5.49                             x264_pixel_satd_8x16_neon
+  4.77     21.02     4.00                             x264_pixel_avg2_w16_neon
+  4.75     25.01     3.99 35155978     0.00     0.00  get_ref_neon
+  3.74     28.15     3.14                             x264_pixel_avg2_w8_neon
+  3.37     30.98     2.83                             x264_mc_chroma_neon
+  1.94     32.61     1.63                             x264_pixel_sad_16x16_neon
+  1.79     34.11     1.50                             x264_pixel_sad_x4_16x16_neon
+  1.75     35.58     1.47   779864     0.00     0.01  x264_rd_cost_mb
+  1.75     37.05     1.47   203182     0.01     0.18  x264_macroblock_analyse
+  1.74     38.51     1.46                             x264_pixel_sad_x4_8x8_neon
+  1.73     39.96     1.45   979763     0.00     0.00  x264_quant_4x4_trellis
+  1.68     41.37     1.41                             x264_pixel_satd_16x16_neon
+  1.64     42.75     1.38   408625     0.00     0.01  x264_quant_8x8_trellis
+  1.63     44.12     1.37  2302606     0.00     0.00  x264_cabac_block_residual_rd_c
+  1.57     45.44     1.32   786948     0.00     0.01  x264_mb_cache_mv_p8x8
+  1.50     46.70     1.26    59438     0.02     0.02  mbtree_propagate_list
+  1.41     47.88     1.18 13473596     0.00     0.00  x264_cabac_encode_decision_c
+  1.33     49.00     1.12  1018286     0.00     0.01  x264_macroblock_encode
+  1.32     50.11     1.11   142642     0.01     0.01  x264_mb_analyse_intra
+  1.27     51.18     1.07   471480     0.00     0.00  refine_subpel.constprop.0
+  1.20     52.19     1.01                             x264_pixel_sad_x3_8x8_neon
+  1.19     53.19     1.00                             x264_quant_4x4x4_neon
+  1.10     54.11     0.92                             x264_pixel_hadamard_ac_16x16_neon
+  1.08     55.02     0.91   207045     0.00     0.00  x264_macroblock_cache_load_progressive
+  1.05     55.90     0.88   913967     0.00     0.00  x264_mb_encode_chroma
+  1.04     56.77     0.87                             x264_pixel_sad_8x8_neon
+  1.00     57.61     0.84                             x264_pixel_satd_4x4_neon
+  0.95     58.41     0.80                             x264_pixel_sad_x3_16x16_neon
+  0.94     59.20     0.79  3051807     0.00     0.00  trellis_coef1_0
+  0.89     59.95     0.75  3128180     0.00     0.00  x264_mb_predict_mv
+  0.87     60.68     0.73                             x264_sub4x4_dct_neon
+  0.85     61.39     0.71    39607     0.02     0.02  mbtree_propagate_cost
+  0.77     62.04     0.65   758864     0.00     0.00  x264_analyse_update_cache
+  0.63     62.57     0.53  1595470     0.00     0.00  x264_macroblock_tree_finish
+  0.62     63.09     0.52                             x264_frame_init_lowres_core_neon
+  0.57     63.57     0.48   255656     0.00     0.00  x264_cabac_block_residual_8x8_rd_c
+  0.57     64.05     0.48                             x264_pixel_satd_8x8_neon
+  0.56     64.52     0.47   591167     0.00     0.00  x264_mb_predict_mv_ref16x16
+  0.56     64.99     0.47   205255     0.00     0.00  x264_macroblock_cache_save
+  0.56     65.46     0.47                             x264_pixel_avg_16x16_neon
+  0.52     65.90     0.44  1525366     0.00     0.00  x264_decimate_score16
+  0.50     66.32     0.42                             x264_mc_copy_w16_aligned_neon
+  0.48     66.72     0.40   453454     0.00     0.00  x264_cabac_block_residual_c
+  0.45     67.10     0.38  1079079     0.00     0.00  x264_cabac_mvd
+  0.45     67.48     0.38                             x264_quant_8x8_neon
+  0.42     67.83     0.35                             x264_sub8x8_dct8_neon
+  0.41     68.17     0.34   972605     0.00     0.00  x264_mb_mc_0xywh
+  0.38     68.49     0.32   860986     0.00     0.00  x264_mb_mc
+  0.38     68.81     0.32       65     4.92   654.23  x264_slice_write
+  0.37     69.12     0.31                             x264_dequant_4x4_neon
+  0.36     69.42     0.30   589632     0.00     0.00  x264_predict_8x8_filter_c
+  0.36     69.72     0.30    54638     0.01     0.06  x264_mb_analyse_inter_b8x8_mixed_ref
+  0.36     70.02     0.30                             x264_mc_weight_w16_offsetsub_neon
+  0.35     70.31     0.29                             x264_mc_weight_w8_neon
+  0.32     70.58     0.27                             memcpy_aligned_16_16_neon
+  0.32     70.85     0.27                             x264_hpel_filter_v_neon
+  0.31     71.11     0.26   100903     0.00     0.02  x264_mb_analyse_inter_b16x16
+  0.31     71.37     0.26                             x264_mc_weight_w8_offsetsub_neon
+  0.31     71.63     0.26                             x264_pixel_sa8d_16x16_neon
+  0.31     71.89     0.26                             x264_pixel_ssd_8x8_neon
+  0.30     72.14     0.25  1218923     0.00     0.00  mc_luma_neon
+  0.30     72.39     0.25                             x264_dequant_8x8_neon
+  0.30     72.64     0.25                             x264_pixel_ssd_16x16_neon
+  0.30     72.89     0.25                             x264_plane_copy_interleave_neon
+  0.29     73.13     0.24  2885128     0.00     0.00  trellis_coef0_0
+  0.29     73.37     0.24   136449     0.00     0.02  x264_macroblock_write_cabac
+  0.29     73.61     0.24                             x264_pixel_sad_x4_8x16_neon
+  0.29     73.85     0.24                             x264_pixel_var_16x16_neon
+  0.27     74.08     0.23   666614     0.00     0.00  x264_cabac_cbp_luma
+  0.27     74.31     0.23                             x264_pixel_avg2_w20_neon
+  0.26     74.53     0.22     1538     0.14     0.24  x264_frame_deblock_row
+  0.25     74.74     0.21   779988     0.00     0.00  zigzag_scan_8x8_frame
+  0.25     74.95     0.21                             x264_hpel_filter_c_neon
+  0.25     75.16     0.21                             x264_pixel_sad_x4_16x8_neon
+  0.25     75.37     0.21                             x264_pixel_satd_8x4_neon
+  0.24     75.57     0.20   307173     0.00     0.00  x264_mb_mc_01xywh
+  0.24     75.77     0.20                             x264_add8x8_idct8_neon
+  0.21     75.95     0.18   240541     0.00     0.00  x264_ac_energy_mb
+  0.21     76.13     0.18   225872     0.00     0.00  x264_decimate_score64
+  0.21     76.31     0.18                             memcpy_aligned_8_16_neon
+  0.20     76.48     0.17    95917     0.00     0.05  x264_slicetype_slice_cost
+  0.20     76.65     0.17                             x264_add4x4_idct_neon
+  0.20     76.82     0.17                             x264_mc_copy_w8_neon
+  0.19     76.98     0.16   776021     0.00     0.00  x264_mb_predict_mv_16x16
+  0.19     77.14     0.16    49641     0.00     0.02  x264_mb_analyse_inter_p16x8
+  0.19     77.30     0.16      459     0.35     0.35  x264_weight_cost_luma
+  0.18     77.45     0.15       71     2.11     2.11  x264_analyse_init_costs
+  0.18     77.60     0.15                             x264_hpel_filter_h_neon
+  0.18     77.75     0.15                             x264_quant_4x4_neon
+  0.15     77.88     0.13   276445     0.00     0.01  x264_intra_rd
+  0.15     78.01     0.13   196112     0.00     0.00  x264_cabac_mvd
+  0.15     78.14     0.13   100155     0.00     0.00  x264_mb_predict_mv_direct16x16
+  0.14     78.26     0.12   170309     0.00     0.00  x264_quant_chroma_dc_trellis
+  0.14     78.38     0.12                             x264_pixel_satd_16x8_neon
+  0.14     78.50     0.12                             x264_predict_8x8c_p_neon
+  0.13     78.61     0.11   522545     0.00     0.00  x264_predict_4x4_vr_c
+  0.13     78.72     0.11   376992     0.00     0.00  x264_cabac_qp_delta
+  0.13     78.83     0.11   120124     0.00     0.04  x264_mb_analyse_b_rd
+  0.13     78.94     0.11                             x264_memcpy_aligned_neon
+  0.13     79.05     0.11                             x264_quant_2x2_dc_neon
+  0.12     79.15     0.10  2183248     0.00     0.00  x264_cabac_encode_bypass_c
+  0.12     79.25     0.10   210125     0.00     0.00  x264_ratecontrol_mb_qp
+  0.12     79.35     0.10                             x264_deblock_h_luma_neon
+  0.12     79.45     0.10                             x264_mc_copy_w16_neon
+  0.12     79.55     0.10                             x264_pixel_sad_16x8_neon
+  0.12     79.65     0.10                             x264_pixel_sad_8x16_neon
+  0.12     79.75     0.10                             x264_pixel_var2_8x8_neon
+  0.11     79.84     0.09   660745     0.00     0.00  x264_cabac_ref_p
+  0.11     79.93     0.09   606582     0.00     0.00  x264_predict_4x4_hd_c
+  0.11     80.02     0.09   527769     0.00     0.00  x264_predict_4x4_vl_c
+  0.11     80.11     0.09   215425     0.00     0.00  x264_cabac_ref_b
+  0.11     80.20     0.09    22111     0.00     0.00  deblock_h_luma_intra_c
+  0.11     80.29     0.09     7316     0.01     0.02  x264_me_refine_bidir_satd
+  0.11     80.38     0.09                             x264_sub16x16_dct_neon
+  0.11     80.47     0.09                             x264_zigzag_scan_4x4_frame_neon
+  0.10     80.55     0.08   200720     0.00     0.00  x264_cabac_mb_skip
+  0.10     80.63     0.08    33491     0.00     0.01  x264_mb_encode_i16x16
+  0.10     80.71     0.08       86     0.93     3.18  x264_adaptive_quant_frame
+  0.10     80.79     0.08                             x264_pixel_sad_x3_8x16_neon
+  0.10     80.87     0.08                             x264_pixel_satd_4x8_neon
+  0.08     80.94     0.07   702063     0.00     0.00  x264_intra_satd_x3_4x4_neon
+  0.08     81.01     0.07   418491     0.00     0.00  x264_intra_satd_x3_8x8c_neon
+  0.08     81.08     0.07   207572     0.00     0.00  x264_mb_analyse_init_qp
+  0.08     81.15     0.07                             x264_coeff_last16_neon
+  0.08     81.22     0.07                             x264_predict_8x8c_dc_neon
+  0.08     81.29     0.07                             x264_store_interleave_chroma_neon
+  0.08     81.36     0.07                             x264_sub8x8_dct_dc_neon
+  0.07     81.42     0.06   209146     0.00     0.00  x264_ratecontrol_mb
+  0.07     81.48     0.06                             __aeabi_ldivmod
+  0.07     81.54     0.06                             x264_coeff_last64_neon
+  0.07     81.60     0.06                             x264_load_deinterleave_chroma_fenc_neon
+  0.07     81.66     0.06                             x264_pixel_avg_8x8_neon
+  0.07     81.72     0.06                             x264_predict_4x4_ddr_armv6
+  0.07     81.78     0.06                             x264_predict_8x8_dc_neon
+  0.07     81.84     0.06                             x264_predict_8x8_ddr_neon
+  0.07     81.90     0.06                             x264_predict_8x8_vl_neon
+  0.07     81.96     0.06                             x264_predict_8x8_vr_neon
+  0.06     82.01     0.05   604961     0.00     0.00  x264_predict_4x4_hu_c
+  0.06     82.06     0.05   212809     0.00     0.00  x264_mb_mc_1xywh
+  0.06     82.11     0.05   136178     0.00     0.00  x264_intra_satd_x3_16x16_neon
+  0.06     82.16     0.05    12727     0.00     0.03  x264_mb_analyse_inter_b8x16
+  0.06     82.21     0.05    12615     0.00     0.03  x264_mb_analyse_inter_b16x8
+  0.06     82.26     0.05       95     0.53     0.53  x264_frame_expand_border_lowres
+  0.06     82.31     0.05       44     1.14     1.14  x264_slicetype_frame_cost_recalculate
+  0.06     82.36     0.05                             x264_pixel_sa8d_8x8_neon
+  0.06     82.41     0.05                             x264_pixel_sad_x3_16x8_neon
+  0.06     82.46     0.05                             x264_predict_8x8_ddl_neon
+  0.06     82.51     0.05                             x264_predict_8x8_hd_neon
+  0.06     82.56     0.05                             x264_sub16x16_dct8_neon
+  0.05     82.60     0.04   443785     0.00     0.00  x264_me_refine_qpel_refdupe
+  0.05     82.64     0.04   257974     0.00     0.00  x264_intra_sa8d_x3_8x8_neon
+  0.05     82.68     0.04   130525     0.00     0.00  x264_cabac_ref_p
+  0.05     82.72     0.04   102033     0.00     0.00  ssd_mb
+  0.05     82.76     0.04    86914     0.00     0.00  optimize_chroma_2x2_dc
+  0.05     82.80     0.04                             x264_deblock_strength_neon
+  0.05     82.84     0.04                             x264_predict_4x4_ddl_neon
+  0.05     82.88     0.04                             x264_predict_8x8c_h_neon
+  0.05     82.92     0.04                             x264_prefetch_fenc_arm
+  0.04     82.95     0.03   852704     0.00     0.00  x264_copy_column8
+  0.04     82.98     0.03   149745     0.00     0.00  x264_decimate_score15
+  0.04     83.01     0.03    21635     0.00     0.00  deblock_v_luma_intra_c
+  0.04     83.04     0.03     1575     0.02     0.02  x264_frame_expand_border_filtered
+  0.04     83.07     0.03     1554     0.02     0.02  hpel_filter_neon
+  0.04     83.10     0.03       87     0.34     0.34  x264_nal_escape_c
+  0.04     83.13     0.03       42     0.71    51.96  x264_slicetype_analyse
+  0.04     83.16     0.03                             __aeabi_uidiv
+  0.04     83.19     0.03                             x264_coeff_last4_arm
+  0.04     83.22     0.03                             x264_deblock_h_chroma_neon
+  0.04     83.25     0.03                             x264_deblock_v_chroma_neon
+  0.04     83.28     0.03                             x264_deblock_v_luma_neon
+  0.04     83.31     0.03                             x264_mc_weight_w8_offsetadd_neon
+  0.04     83.34     0.03                             x264_predict_16x16_v_neon
+  0.04     83.37     0.03                             x264_predict_8x8_h_neon
+  0.02     83.39     0.02   374025     0.00     0.00  x264_prefetch_fenc
+  0.02     83.41     0.02   134977     0.00     0.00  x264_cabac_cbp_luma
+  0.02     83.43     0.02   123697     0.00     0.00  x264_macroblock_deblock_strength
+  0.02     83.45     0.02   100875     0.00     0.00  x264_mb_predict_mv_pskip
+  0.02     83.47     0.02    82932     0.00     0.04  x264_mb_analyse_p_rd
+  0.02     83.49     0.02    23891     0.00     0.00  x264_macroblock_probe_skip
+  0.02     83.51     0.02    21770     0.00     0.00  deblock_h_chroma_intra_c
+  0.02     83.53     0.02       89     0.22     0.79  x264_frame_init_lowres
+  0.02     83.55     0.02                             x264_pixel_var_8x8_neon
+  0.02     83.57     0.02                             x264_predict_16x16_dc_neon
+  0.02     83.59     0.02                             x264_predict_16x16_h_neon
+  0.02     83.61     0.02                             x264_predict_16x16_p_neon
+  0.02     83.63     0.02                             x264_predict_4x4_h_armv6
+  0.02     83.65     0.02                             x264_predict_8x8_hu_neon
+  0.02     83.67     0.02                             x264_predict_8x8_v_neon
+  0.02     83.69     0.02                             x264_predict_8x8c_v_neon
+  0.01     83.70     0.01   211474     0.00     0.00  x264_cabac_encode_terminal_c
+  0.01     83.71     0.01    94861     0.00     0.00  x264_cabac_qp_delta
+  0.01     83.72     0.01    66276     0.00     0.00  trellis_dc_shortcut
+  0.01     83.73     0.01    33825     0.00     0.00  x264_cabac_ref_b
+  0.01     83.74     0.01    21454     0.00     0.00  deblock_v_chroma_intra_c
+  0.01     83.75     0.01    19061     0.00     0.00  x264_predict_4x4_dc_left_c
+  0.01     83.76     0.01     1581     0.01     0.01  x264_frame_expand_border
+  0.01     83.77     0.01     1144     0.01     0.01  x264_weight_scale_plane
+  0.01     83.78     0.01      660     0.02     1.44  x264_macroblock_tree_propagate.constprop.26
+  0.01     83.79     0.01       54     0.19     0.19  x264_frame_new
+  0.01     83.80     0.01       41     0.24     0.24  x264_macroblock_bipred_init
+  0.01     83.81     0.01        1    10.00    10.00  x264_analyse_prepare_costs
+  0.01     83.82     0.01        1    10.00    10.00  x264_deblock_init
+  0.01     83.83     0.01                             __aeabi_uidivmod
+  0.01     83.84     0.01                             __divdi3
+  0.01     83.85     0.01                             __gnu_ldivmod_helper
+  0.01     83.86     0.01                             x264_add8x8_idct_dc_neon
+  0.01     83.87     0.01                             x264_coeff_last15_neon
+  0.01     83.88     0.01                             x264_dct4x4dc_neon
+  0.01     83.89     0.01                             x264_mc_weight_w20_offsetsub_neon
+  0.01     83.90     0.01                             x264_predict_16x16_dc_left_neon
+  0.01     83.91     0.01                             x264_predict_4x4_dc_armv6
+  0.01     83.92     0.01                             x264_prefetch_ref_arm
+  0.01     83.93     0.01                             x264_quant_4x4_dc_neon
+  0.00     83.93     0.00    91729     0.00     0.00  x264_mb_init_fenc_cache
+  0.00     83.93     0.00    54191     0.00     0.00  x264_refine_bidir
+  0.00     83.93     0.00    36423     0.00     0.00  x264_cabac_encode_ue_bypass
+  0.00     83.93     0.00    10940     0.00     0.00  x264_predict_8x8_dc_left_c
+  0.00     83.93     0.00     9059     0.00     0.00  x264_frame_cond_wait
+  0.00     83.93     0.00     5374     0.00     0.00  x264_predict_8x8_dc_top_c
+  0.00     83.93     0.00     3422     0.00     0.00  x264_slicetype_frame_cost.constprop.27
+  0.00     83.93     0.00     2748     0.00     0.16  x264_fdec_filter_row
+  0.00     83.93     0.00     2589     0.00     0.00  x264_quant_luma_dc_trellis
+  0.00     83.93     0.00     2574     0.00     0.00  x264_analyse_weight_frame
+  0.00     83.93     0.00     1572     0.00     0.00  x264_frame_cond_broadcast
+  0.00     83.93     0.00     1564     0.00     0.02  x264_frame_filter
+  0.00     83.93     0.00     1352     0.00     0.01  x264_slicetype_frame_cost
+  0.00     83.93     0.00      713     0.00     0.00  x264_frame_shift
+  0.00     83.93     0.00      600     0.00     0.00  x264_sync_frame_list_push
+  0.00     83.93     0.00      554     0.00     0.00  x264_frame_push_unused
+  0.00     83.93     0.00      482     0.00     2.13  x264_macroblock_tree_propagate.constprop.25
+  0.00     83.93     0.00      363     0.00     0.00  x264_weight_cache_neon
+  0.00     83.93     0.00      295     0.00     0.00  x264_macroblock_cache_mv_4_4
+  0.00     83.93     0.00      279     0.00     0.00  x264_free
+  0.00     83.93     0.00      268     0.00     0.00  x264_malloc
+  0.00     83.93     0.00      177     0.00     0.17  x264_nal_end
+  0.00     83.93     0.00      177     0.00     0.00  x264_sync_frame_list_pop
+  0.00     83.93     0.00      174     0.00     0.05  scenecut_internal
+  0.00     83.93     0.00      173     0.00     0.00  x264_threadpool_run
+  0.00     83.93     0.00      173     0.00     0.92  x264_weights_analyse
+  0.00     83.93     0.00      172     0.00     0.06  x264_frame_pop_unused
+  0.00     83.93     0.00      172     0.00     0.00  x264_threadpool_wait
+  0.00     83.93     0.00      139     0.00     0.00  x264_predict_8x8_dc_128_c
+  0.00     83.93     0.00      137     0.00     0.00  x264_frame_push
+  0.00     83.93     0.00      126     0.00     0.00  parse_cqm
+  0.00     83.93     0.00      121     0.00     0.00  x264_thread_sync_ratecontrol
+  0.00     83.93     0.00      101     0.00     0.00  x264_log
+  0.00     83.93     0.00       95     0.00     0.00  x264_predict_8x8c_dc_128_c
+  0.00     83.93     0.00       92     0.00     0.00  release_frame
+  0.00     83.93     0.00       90     0.00     0.00  x264_cli_csp_depth_factor
+  0.00     83.93     0.00       90     0.00     0.00  x264_lookahead_put_frame
+  0.00     83.93     0.00       87     0.00     0.00  x264_frame_copy_picture
+  0.00     83.93     0.00       87     0.00     0.00  x264_plane_copy_c
+  0.00     83.93     0.00       85     0.00     0.00  x264_macroblock_cache_mv_2_2
+  0.00     83.93     0.00       85     0.00     0.00  x264_slice_header_init
+  0.00     83.93     0.00       84     0.00     0.60  rate_estimate_qscale
+  0.00     83.93     0.00       84     0.00     0.00  read_frame
+  0.00     83.93     0.00       84     0.00     0.00  x264_ratecontrol_end
+  0.00     83.93     0.00       84     0.00     0.60  x264_ratecontrol_start
+  0.00     83.93     0.00       83     0.00     0.00  read_frame_thread_int
+  0.00     83.93     0.00       82     0.00     0.00  read_frame
+  0.00     83.93     0.00       82     0.00     0.00  x264_macroblock_slice_init
+  0.00     83.93     0.00       82     0.00     0.00  x264_noise_reduction_update
+  0.00     83.93     0.00       81     0.00     0.37  x264_nal_encode
+  0.00     83.93     0.00       81     0.00     0.00  x264_ratecontrol_qp
+  0.00     83.93     0.00       80     0.00     0.00  x264_mdate
+  0.00     83.93     0.00       79     0.00   538.29  x264_slices_write
+  0.00     83.93     0.00       76     0.00     0.00  x264_cabac_encode_flush
+  0.00     83.93     0.00       76     0.00     0.00  x264_macroblock_thread_init
+  0.00     83.93     0.00       75     0.00     0.00  x264_cabac_context_init
+  0.00     83.93     0.00       73     0.00     0.00  x264_slice_header_write
+  0.00     83.93     0.00       70     0.00     0.00  x264_cabac_encode_init
+  0.00     83.93     0.00       67     0.00     0.00  x264_predict_16x16_dc_128_c
+  0.00     83.93     0.00       54     0.00     0.00  x264_opencl_frame_delete
+  0.00     83.93     0.00       46     0.00     0.00  x264_lookahead_get_frames
+  0.00     83.93     0.00       45     0.00     0.00  clip_qscale
+  0.00     83.93     0.00       44     0.00     0.00  x264_macroblock_cache_mv_2_4
+  0.00     83.93     0.00       44     0.00     1.14  x264_rc_analyse_slice
+  0.00     83.93     0.00       43     0.00     0.00  get_qscale
+  0.00     83.93     0.00       43     0.00    47.21  x264_slicetype_decide
+  0.00     83.93     0.00       42     0.00    52.05  x264_lookahead_slicetype_decide
+  0.00     83.93     0.00       42     0.00     0.00  x264_macroblock_cache_mv_4_2
+  0.00     83.93     0.00       42     0.00     0.00  x264_opencl_slicetype_prep
+  0.00     83.93     0.00       39     0.00     0.00  x264_frame_pop_blank_unused
+  0.00     83.93     0.00       37     0.00     0.00  x264_frame_push_blank_unused
+  0.00     83.93     0.00       37     0.00     0.00  x264_frame_unshift
+  0.00     83.93     0.00       36     0.00     0.00  x264_opencl_slicetype_end
+  0.00     83.93     0.00       21     0.00     0.00  x264_log_default
+  0.00     83.93     0.00       11     0.00     0.00  x264_validate_levels
+  0.00     83.93     0.00        9     0.00     0.00  x264_sync_frame_list_delete
+  0.00     83.93     0.00        9     0.00     0.00  x264_sync_frame_list_init
+  0.00     83.93     0.00        6     0.00     0.00  x264_predict_4x4_dc_128_c
+  0.00     83.93     0.00        6     0.00     0.00  x264_reduce_fraction
+  0.00     83.93     0.00        4     0.00     0.00  x264_frame_delete
+  0.00     83.93     0.00        4     0.00     0.00  x264_frame_delete_list
+  0.00     83.93     0.00        4     0.00     0.00  x264_frame_pop
+  0.00     83.93     0.00        4     0.00     0.00  x264_macroblock_cache_allocate
+  0.00     83.93     0.00        4     0.00     0.00  x264_macroblock_cache_free
+  0.00     83.93     0.00        4     0.00     0.00  x264_macroblock_thread_allocate
+  0.00     83.93     0.00        4     0.00     0.00  x264_macroblock_thread_free
+  0.00     83.93     0.00        3     0.00     0.00  x264_cli_pic_plane_size
+  0.00     83.93     0.00        3     0.00     0.00  x264_encoder_thread_init
+  0.00     83.93     0.00        2     0.00     0.00  init
+  0.00     83.93     0.00        2     0.00     0.00  x264_cli_pic_alloc
+  0.00     83.93     0.00        2     0.00     0.00  x264_cli_pic_clean
+  0.00     83.93     0.00        2     0.00     0.00  x264_cpu_detect
+  0.00     83.93     0.00        2     0.00     0.00  x264_lookahead_is_empty
+  0.00     83.93     0.00        2     0.00     0.00  x264_pps_write
+  0.00     83.93     0.00        2     0.00     0.00  x264_sps_init
+  0.00     83.93     0.00        2     0.00     0.00  x264_sps_write
+  0.00     83.93     0.00        2     0.00     0.00  x264_threadpool_delete
+  0.00     83.93     0.00        2     0.00     0.00  x264_threadpool_init
+  0.00     83.93     0.00        1     0.00     0.00  close_file
+  0.00     83.93     0.00        1     0.00     0.00  close_file
+  0.00     83.93     0.00        1     0.00     0.00  init
+  0.00     83.93     0.00        1     0.00     0.00  init
+  0.00     83.93     0.00        1     0.00     0.00  init
+  0.00     83.93     0.00        1     0.00     0.00  mbcmp_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_analyse_free_costs
+  0.00     83.93     0.00        1     0.00     0.00  x264_bitstream_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_cabac_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_cli_get_csp
+  0.00     83.93     0.00        1     0.00     0.00  x264_cpu_num_processors
+  0.00     83.93     0.00        1     0.00     0.00  x264_cqm_delete
+  0.00     83.93     0.00        1     0.00     0.00  x264_cqm_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_dct_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_free_string_array
+  0.00     83.93     0.00        1     0.00     0.00  x264_get_option
+  0.00     83.93     0.00        1     0.00     0.00  x264_lookahead_delete
+  0.00     83.93     0.00        1     0.00     0.00  x264_lookahead_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_mc_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_mc_init_arm
+  0.00     83.93     0.00        1     0.00     0.00  x264_opencl_close_library
+  0.00     83.93     0.00        1     0.00     0.00  x264_opencl_lookahead_delete
+  0.00     83.93     0.00        1     0.00     0.00  x264_otoi
+  0.00     83.93     0.00        1     0.00     0.00  x264_param2string
+  0.00     83.93     0.00        1     0.00     0.00  x264_param_default
+  0.00     83.93     0.00        1     0.00     0.00  x264_pixel_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_pps_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_predict_16x16_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_predict_16x16_init_arm
+  0.00     83.93     0.00        1     0.00     0.00  x264_predict_4x4_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_predict_4x4_init_arm
+  0.00     83.93     0.00        1     0.00     0.00  x264_predict_8x16c_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_predict_8x8_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_predict_8x8_init_arm
+  0.00     83.93     0.00        1     0.00     0.00  x264_predict_8x8c_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_predict_8x8c_init_arm
+  0.00     83.93     0.00        1     0.00     0.00  x264_quant_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_ratecontrol_delete
+  0.00     83.93     0.00        1     0.00     0.00  x264_ratecontrol_init_reconfigurable
+  0.00     83.93     0.00        1     0.00     0.00  x264_ratecontrol_new
+  0.00     83.93     0.00        1     0.00     0.00  x264_ratecontrol_summary
+  0.00     83.93     0.00        1     0.00     0.00  x264_rdo_init
+  0.00     83.93     0.00        1     0.00     0.00  x264_sei_version_write
+  0.00     83.93     0.00        1     0.00     0.00  x264_sei_write.constprop.6
+  0.00     83.93     0.00        1     0.00     0.00  x264_split_options
+  0.00     83.93     0.00        1     0.00     0.00  x264_split_string
+  0.00     83.93     0.00        1     0.00     0.00  x264_zigzag_init
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 0.01% of 83.93 seconds
+
+index % time    self  children    called     name
+                0.00   42.53      79/79          x264_threadpool_thread [3]
+[1]     50.7    0.00   42.53      79         x264_slices_write [1]
+                0.32   42.21      65/65          x264_slice_write [2]
+-----------------------------------------------
+                0.32   42.21      65/65          x264_slices_write [1]
+[2]     50.7    0.32   42.21      65         x264_slice_write [2]
+                1.47   34.78  203182/203182      x264_macroblock_analyse [4]
+                0.24    1.92  136449/136449      x264_macroblock_write_cabac [26]
+                0.22    1.47  200937/1018286     x264_macroblock_encode [7]
+                0.91    0.07  207045/207045      x264_macroblock_cache_load_progressive [43]
+                0.47    0.00  205255/205255      x264_macroblock_cache_save [62]
+                0.00    0.45    2747/2748        x264_fdec_filter_row [64]
+                0.08    0.00  200720/200720      x264_cabac_mb_skip [137]
+                0.06    0.00  209146/209146      x264_ratecontrol_mb [148]
+                0.02    0.00  123697/123697      x264_macroblock_deblock_strength [201]
+                0.02    0.00  210150/13473596     x264_cabac_encode_decision_c [39]
+                0.00    0.01      85/177         x264_nal_end [189]
+                0.01    0.00  208860/211474      x264_cabac_encode_terminal_c [214]
+                0.00    0.00      73/210125      x264_ratecontrol_mb_qp [123]
+                0.00    0.00      76/76          x264_macroblock_thread_init [278]
+                0.00    0.00      76/76          x264_cabac_encode_flush [277]
+                0.00    0.00      75/75          x264_cabac_context_init [279]
+                0.00    0.00      73/73          x264_slice_header_write [280]
+                0.00    0.00      70/70          x264_cabac_encode_init [281]
+-----------------------------------------------
+                                                 <spontaneous>
+[3]     50.7    0.00   42.53                 x264_threadpool_thread [3]
+                0.00   42.53      79/79          x264_slices_write [1]
+                0.00    0.00     165/600         x264_sync_frame_list_push [247]
+                0.00    0.00     158/713         x264_frame_shift [246]
+                0.00    0.00      83/83          read_frame_thread_int [271]
+                0.00    0.00       3/3           x264_encoder_thread_init [308]
+-----------------------------------------------
+                1.47   34.78  203182/203182      x264_slice_write [2]
+[4]     43.2    1.47   34.78  203182         x264_macroblock_analyse [4]
+                2.19    3.33  953467/2590560     x264_me_search_ref [5]
+                0.11    5.08  120124/120124      x264_mb_analyse_b_rd [11]
+                0.15    4.39   83318/95917       x264_slicetype_slice_cost [10]
+                0.13    3.86  276445/276445      x264_intra_rd [15]
+                0.02    3.45   82932/82932       x264_mb_analyse_p_rd [16]
+                0.30    3.03   54638/54638       x264_mb_analyse_inter_b8x8_mixed_ref [17]
+                0.26    2.24  100903/100903      x264_mb_analyse_inter_b16x16 [20]
+                1.11    0.68  142642/142642      x264_mb_analyse_intra [29]
+                1.02    0.27  450894/471480      refine_subpel.constprop.0 [35]
+                0.16    0.74   49641/49641       x264_mb_analyse_inter_p16x8 [46]
+                0.05    0.32   12727/12727       x264_mb_analyse_inter_b8x16 [70]
+                0.05    0.32   12615/12615       x264_mb_analyse_inter_b16x8 [71]
+                0.25    0.00 1040187/3128180     x264_mb_predict_mv [51]
+                0.21    0.00  263230/591167      x264_mb_predict_mv_ref16x16 [61]
+                0.18    0.00  206839/758864      x264_analyse_update_cache [55]
+                0.02    0.13    9877/779864      x264_rd_cost_mb [6]
+                0.04    0.11  101340/860986      x264_mb_mc [38]
+                0.13    0.00  100155/100155      x264_mb_predict_mv_direct16x16 [114]
+                0.10    0.00  210052/210125      x264_ratecontrol_mb_qp [123]
+                0.07    0.02    5286/7316        x264_me_refine_bidir_satd [117]
+                0.07    0.00  346313/776021      x264_mb_predict_mv_16x16 [108]
+                0.07    0.00  207572/207572      x264_mb_analyse_init_qp [142]
+                0.04    0.00  102033/102033      ssd_mb [174]
+                0.04    0.00  424629/443785      x264_me_refine_qpel_refdupe [172]
+                0.00    0.03   54191/54191       x264_refine_bidir [181]
+                0.02    0.01   23891/23891       x264_macroblock_probe_skip [182]
+                0.00    0.01    2574/2574        x264_analyse_weight_frame [218]
+                0.00    0.00   91729/91729       x264_mb_init_fenc_cache [240]
+                0.00    0.00    9059/9059        x264_frame_cond_wait [243]
+-----------------------------------------------
+                0.12    0.18   51811/2590560     x264_mb_analyse_inter_b16x8 [71]
+                0.12    0.18   52475/2590560     x264_mb_analyse_inter_b8x16 [70]
+                0.26    0.39  111542/2590560     x264_mb_analyse_inter_p16x8 [46]
+                0.75    1.14  325778/2590560     x264_mb_analyse_inter_b16x16 [20]
+                1.13    1.72  493947/2590560     x264_mb_analyse_inter_b8x8_mixed_ref [17]
+                1.38    2.10  601540/2590560     x264_mb_cache_mv_p8x8 [12]
+                2.19    3.33  953467/2590560     x264_macroblock_analyse [4]
+[5]     17.9    5.95    9.04 2590560         x264_me_search_ref [5]
+                5.58    2.31 2589500/2589500     refine_subpel [8]
+                1.14    0.00 10075367/35155978     get_ref_neon [14]
+-----------------------------------------------
+                0.02    0.13    9877/779864      x264_macroblock_analyse [4]
+                0.41    2.78  218231/779864      x264_intra_rd [15]
+                0.42    2.84  223016/779864      x264_mb_analyse_p_rd [16]
+                0.62    4.18  328740/779864      x264_mb_analyse_b_rd [11]
+[6]     13.6    1.47    9.92  779864         x264_rd_cost_mb [6]
+                0.90    5.99  817349/1018286     x264_macroblock_encode [7]
+                1.37    0.00 2302606/2302606     x264_cabac_block_residual_rd_c [34]
+                0.38    0.28 1079079/1079079     x264_cabac_mvd [54]
+                0.48    0.00  255656/255656      x264_cabac_block_residual_8x8_rd_c [59]
+                0.23    0.00  666614/666614      x264_cabac_cbp_luma [92]
+                0.11    0.00  376992/376992      x264_cabac_qp_delta [119]
+                0.09    0.00  660745/660745      x264_cabac_ref_p [130]
+                0.09    0.00  215425/215425      x264_cabac_ref_b [133]
+-----------------------------------------------
+                0.22    1.47  200937/1018286     x264_slice_write [2]
+                0.90    5.99  817349/1018286     x264_rd_cost_mb [6]
+[7]     10.2    1.12    7.47 1018286         x264_macroblock_encode [7]
+                1.38    0.86  408625/408625      x264_quant_8x8_trellis [21]
+                0.88    1.12  913967/913967      x264_mb_encode_chroma [28]
+                0.80    0.40  540461/979763      x264_quant_4x4_trellis [25]
+                0.28    0.80  759646/860986      x264_mb_mc [38]
+                0.43    0.00 1505594/1525366     x264_decimate_score16 [65]
+                0.18    0.00  225872/225872      x264_decimate_score64 [100]
+                0.08    0.10   33491/33491       x264_mb_encode_i16x16 [102]
+                0.10    0.00  387921/779988      zigzag_scan_8x8_frame [94]
+                0.04    0.00   84002/589632      x264_predict_8x8_filter_c [74]
+                0.00    0.00   13119/606582      x264_predict_4x4_hd_c [131]
+                0.00    0.00    8557/522545      x264_predict_4x4_vr_c [118]
+                0.00    0.00    7861/527769      x264_predict_4x4_vl_c [132]
+                0.00    0.00    9814/604961      x264_predict_4x4_hu_c [159]
+                0.00    0.00    1535/1218923     mc_luma_neon [85]
+                0.00    0.00     386/19061       x264_predict_4x4_dc_left_c [217]
+                0.00    0.00     658/10940       x264_predict_8x8_dc_left_c [242]
+                0.00    0.00     279/5374        x264_predict_8x8_dc_top_c [244]
+                0.00    0.00      18/95          x264_predict_8x8c_dc_128_c [261]
+                0.00    0.00       3/139         x264_predict_8x8_dc_128_c [256]
+-----------------------------------------------
+                5.58    2.31 2589500/2589500     x264_me_search_ref [5]
+[8]      9.4    5.58    2.31 2589500         refine_subpel [8]
+                2.31    0.00 20382761/35155978     get_ref_neon [14]
+-----------------------------------------------
+                                                 <spontaneous>
+[9]      6.5    5.49    0.00                 x264_pixel_satd_8x16_neon [9]
+-----------------------------------------------
+                0.00    0.00      86/95917       x264_slicetype_frame_cost [238]
+                0.00    0.01     207/95917       x264_slicetype_frame_cost.constprop.27 <cycle 1> [212]
+                0.02    0.65   12306/95917       x264_intra_rd [15]
+                0.15    4.39   83318/95917       x264_macroblock_analyse [4]
+[10]     6.2    0.17    5.06   95917         x264_slicetype_slice_cost [10]
+                1.32    3.71  786948/786948      x264_mb_cache_mv_p8x8 [12]
+                0.03    0.00  181004/418491      x264_intra_satd_x3_8x8c_neon [141]
+                0.00    0.00      77/95          x264_predict_8x8c_dc_128_c [261]
+-----------------------------------------------
+                0.11    5.08  120124/120124      x264_macroblock_analyse [4]
+[11]     6.2    0.11    5.08  120124         x264_mb_analyse_b_rd [11]
+                0.62    4.18  328740/779864      x264_rd_cost_mb [6]
+                0.28    0.00  328491/758864      x264_analyse_update_cache [55]
+-----------------------------------------------
+                1.32    3.71  786948/786948      x264_slicetype_slice_cost [10]
+[12]     6.0    1.32    3.71  786948         x264_mb_cache_mv_p8x8 [12]
+                1.38    2.10  601540/2590560     x264_me_search_ref [5]
+                0.12    0.00  237387/589632      x264_predict_8x8_filter_c [74]
+                0.07    0.00  601316/35155978     get_ref_neon [14]
+                0.04    0.00  237487/418491      x264_intra_satd_x3_8x8c_neon [141]
+-----------------------------------------------
+                                                 <spontaneous>
+[13]     4.8    4.00    0.00                 x264_pixel_avg2_w16_neon [13]
+-----------------------------------------------
+                0.01    0.00   49789/35155978     x264_mb_analyse_inter_b16x8 [71]
+                0.01    0.00   50653/35155978     x264_mb_analyse_inter_b8x16 [70]
+                0.02    0.00  202517/35155978     x264_mb_analyse_inter_b16x16 [20]
+                0.03    0.00  250106/35155978     x264_me_refine_bidir_satd [117]
+                0.05    0.00  435846/35155978     x264_mb_analyse_inter_b8x8_mixed_ref [17]
+                0.07    0.00  601316/35155978     x264_mb_cache_mv_p8x8 [12]
+                0.07    0.00  616646/35155978     x264_mb_mc_01xywh [81]
+                0.28    0.00 2490977/35155978     refine_subpel.constprop.0 [35]
+                1.14    0.00 10075367/35155978     x264_me_search_ref [5]
+                2.31    0.00 20382761/35155978     refine_subpel [8]
+[14]     4.8    3.99    0.00 35155978         get_ref_neon [14]
+-----------------------------------------------
+                0.13    3.86  276445/276445      x264_macroblock_analyse [4]
+[15]     4.8    0.13    3.86  276445         x264_intra_rd [15]
+                0.41    2.78  218231/779864      x264_rd_cost_mb [6]
+                0.02    0.65   12306/95917       x264_slicetype_slice_cost [10]
+-----------------------------------------------
+                0.02    3.45   82932/82932       x264_macroblock_analyse [4]
+[16]     4.1    0.02    3.45   82932         x264_mb_analyse_p_rd [16]
+                0.42    2.84  223016/779864      x264_rd_cost_mb [6]
+                0.19    0.00  223534/758864      x264_analyse_update_cache [55]
+-----------------------------------------------
+                0.30    3.03   54638/54638       x264_macroblock_analyse [4]
+[17]     4.0    0.30    3.03   54638         x264_mb_analyse_inter_b8x8_mixed_ref [17]
+                1.13    1.72  493947/2590560     x264_me_search_ref [5]
+                0.12    0.00  496378/3128180     x264_mb_predict_mv [51]
+                0.05    0.00  435846/35155978     get_ref_neon [14]
+-----------------------------------------------
+                                                 <spontaneous>
+[18]     3.7    3.14    0.00                 x264_pixel_avg2_w8_neon [18]
+-----------------------------------------------
+                                                 <spontaneous>
+[19]     3.4    2.83    0.00                 x264_mc_chroma_neon [19]
+-----------------------------------------------
+                0.26    2.24  100903/100903      x264_macroblock_analyse [4]
+[20]     3.0    0.26    2.24  100903         x264_mb_analyse_inter_b16x16 [20]
+                0.75    1.14  325778/2590560     x264_me_search_ref [5]
+                0.26    0.00  327937/591167      x264_mb_predict_mv_ref16x16 [61]
+                0.07    0.00  328512/776021      x264_mb_predict_mv_16x16 [108]
+                0.02    0.00  202517/35155978     get_ref_neon [14]
+-----------------------------------------------
+                1.38    0.86  408625/408625      x264_macroblock_encode [7]
+[21]     2.7    1.38    0.86  408625         x264_quant_8x8_trellis [21]
+                0.35    0.00 1370510/3051807     trellis_coef1_0 [50]
+                0.32    0.00  965903/1595470     x264_macroblock_tree_finish [57]
+                0.11    0.00 1315534/2885128     trellis_coef0_0 [89]
+                0.07    0.00  256292/779988      zigzag_scan_8x8_frame [94]
+                0.00    0.00   25191/66276       trellis_dc_shortcut [215]
+-----------------------------------------------
+                0.00    2.19      42/42          x264_lookahead_thread [23]
+[22]     2.6    0.00    2.19      42         x264_lookahead_slicetype_decide [22]
+                0.00    2.03      43/43          x264_slicetype_decide [27]
+                0.00    0.15       3/42          x264_slicetype_analyse [24]
+                0.00    0.00      74/713         x264_frame_shift [246]
+                0.00    0.00      35/554         x264_frame_push_unused [248]
+-----------------------------------------------
+                                                 <spontaneous>
+[23]     2.6    0.00    2.19                 x264_lookahead_thread [23]
+                0.00    2.19      42/42          x264_lookahead_slicetype_decide [22]
+                0.00    0.00      93/713         x264_frame_shift [246]
+-----------------------------------------------
+                0.00    0.15       3/42          x264_lookahead_slicetype_decide [22]
+                0.03    2.00      39/42          x264_slicetype_decide [27]
+[24]     2.6    0.03    2.15      42         x264_slicetype_analyse [24]
+                0.00    1.03     482/482         x264_macroblock_tree_propagate.constprop.25 [40]
+                0.01    0.94     660/660         x264_macroblock_tree_propagate.constprop.26 [44]
+                0.00    0.15    3129/3464        x264_slicetype_frame_cost.constprop.27 <cycle 1> [212]
+                0.00    0.01     174/174         scenecut_internal [237]
+                0.00    0.01    1352/1352        x264_slicetype_frame_cost [238]
+                0.00    0.00      33/1595470     x264_macroblock_tree_finish [57]
+                0.00    0.00      42/42          x264_opencl_slicetype_prep [289]
+                0.00    0.00      36/36          x264_opencl_slicetype_end [293]
+                0.00    0.00       2/101         x264_log [260]
+-----------------------------------------------
+                0.06    0.03   41453/979763      x264_mb_encode_i16x16 [102]
+                0.59    0.30  397849/979763      x264_mb_encode_chroma [28]
+                0.80    0.40  540461/979763      x264_macroblock_encode [7]
+[25]     2.6    1.45    0.73  979763         x264_quant_4x4_trellis [25]
+                0.40    0.00 1548963/3051807     trellis_coef1_0 [50]
+                0.20    0.00  601726/1595470     x264_macroblock_tree_finish [57]
+                0.12    0.00 1448475/2885128     trellis_coef0_0 [89]
+                0.01    0.00   41085/66276       trellis_dc_shortcut [215]
+-----------------------------------------------
+                0.24    1.92  136449/136449      x264_slice_write [2]
+[26]     2.6    0.24    1.92  136449         x264_macroblock_write_cabac [26]
+                0.40    0.91  453454/453454      x264_cabac_block_residual_c [36]
+                0.13    0.15  196112/196112      x264_cabac_mvd [77]
+                0.19    0.00 2116628/13473596     x264_cabac_encode_decision_c [39]
+                0.02    0.04  134977/134977      x264_cabac_cbp_luma [158]
+                0.04    0.01  130525/130525      x264_cabac_ref_p [171]
+                0.01    0.02   94861/94861       x264_cabac_qp_delta [180]
+                0.01    0.00   33825/33825       x264_cabac_ref_b [213]
+                0.00    0.00    2614/211474      x264_cabac_encode_terminal_c [214]
+-----------------------------------------------
+                0.00    2.03      43/43          x264_lookahead_slicetype_decide [22]
+[27]     2.4    0.00    2.03      43         x264_slicetype_decide [27]
+                0.03    2.00      39/42          x264_slicetype_analyse [24]
+                0.00    0.00      38/3464        x264_slicetype_frame_cost.constprop.27 <cycle 1> [212]
+                0.00    0.00      32/3464        x264_weights_analyse <cycle 1> [110]
+-----------------------------------------------
+                0.88    1.12  913967/913967      x264_macroblock_encode [7]
+[28]     2.4    0.88    1.12  913967         x264_mb_encode_chroma [28]
+                0.59    0.30  397849/979763      x264_quant_4x4_trellis [25]
+                0.12    0.05  170309/170309      x264_quant_chroma_dc_trellis [104]
+                0.04    0.00   86914/86914       optimize_chroma_2x2_dc [175]
+                0.03    0.00  132731/149745      x264_decimate_score15 [184]
+-----------------------------------------------
+                1.11    0.68  142642/142642      x264_macroblock_analyse [4]
+[29]     2.1    1.11    0.68  142642         x264_mb_analyse_intra [29]
+                0.14    0.00  268243/589632      x264_predict_8x8_filter_c [74]
+                0.11    0.00  513988/522545      x264_predict_4x4_vr_c [118]
+                0.09    0.00  519908/527769      x264_predict_4x4_vl_c [132]
+                0.09    0.00  593463/606582      x264_predict_4x4_hd_c [131]
+                0.07    0.00  702063/702063      x264_intra_satd_x3_4x4_neon [140]
+                0.05    0.00  136178/136178      x264_intra_satd_x3_16x16_neon [160]
+                0.05    0.00  595147/604961      x264_predict_4x4_hu_c [159]
+                0.04    0.00  257974/257974      x264_intra_sa8d_x3_8x8_neon [173]
+                0.04    0.00  135775/779988      zigzag_scan_8x8_frame [94]
+                0.01    0.00   18675/19061       x264_predict_4x4_dc_left_c [217]
+                0.00    0.00   10282/10940       x264_predict_8x8_dc_left_c [242]
+                0.00    0.00    5095/5374        x264_predict_8x8_dc_top_c [244]
+                0.00    0.00     136/139         x264_predict_8x8_dc_128_c [256]
+                0.00    0.00      65/67          x264_predict_16x16_dc_128_c [282]
+                0.00    0.00       6/6           x264_predict_4x4_dc_128_c [298]
+-----------------------------------------------
+                                                 <spontaneous>
+[30]     1.9    1.63    0.00                 x264_pixel_sad_16x16_neon [30]
+-----------------------------------------------
+                                                 <spontaneous>
+[31]     1.8    1.50    0.00                 x264_pixel_sad_x4_16x16_neon [31]
+-----------------------------------------------
+                                                 <spontaneous>
+[32]     1.7    1.46    0.00                 x264_pixel_sad_x4_8x8_neon [32]
+-----------------------------------------------
+                                                 <spontaneous>
+[33]     1.7    1.41    0.00                 x264_pixel_satd_16x16_neon [33]
+-----------------------------------------------
+                1.37    0.00 2302606/2302606     x264_rd_cost_mb [6]
+[34]     1.6    1.37    0.00 2302606         x264_cabac_block_residual_rd_c [34]
+-----------------------------------------------
+                0.05    0.01   20586/471480      x264_mb_analyse_inter_p16x8 [46]
+                1.02    0.27  450894/471480      x264_macroblock_analyse [4]
+[35]     1.6    1.07    0.28  471480         refine_subpel.constprop.0 [35]
+                0.28    0.00 2490977/35155978     get_ref_neon [14]
+-----------------------------------------------
+                0.40    0.91  453454/453454      x264_macroblock_write_cabac [26]
+[36]     1.6    0.40    0.91  453454         x264_cabac_block_residual_c [36]
+                0.82    0.00 9376567/13473596     x264_cabac_encode_decision_c [39]
+                0.09    0.00 1991432/2183248     x264_cabac_encode_bypass_c [122]
+                0.00    0.00     632/36423       x264_cabac_encode_ue_bypass [241]
+-----------------------------------------------
+                0.54    0.00   25376/59438       x264_macroblock_tree_propagate.constprop.26 [44]
+                0.72    0.00   34062/59438       x264_macroblock_tree_propagate.constprop.25 [40]
+[37]     1.5    1.26    0.00   59438         mbtree_propagate_list [37]
+-----------------------------------------------
+                0.04    0.11  101340/860986      x264_macroblock_analyse [4]
+                0.28    0.80  759646/860986      x264_macroblock_encode [7]
+[38]     1.5    0.32    0.90  860986         x264_mb_mc [38]
+                0.34    0.20  972605/972605      x264_mb_mc_0xywh [56]
+                0.20    0.07  307173/307173      x264_mb_mc_01xywh [81]
+                0.05    0.04  212809/212809      x264_mb_mc_1xywh [129]
+-----------------------------------------------
+                0.00    0.00    4058/13473596     x264_cabac_ref_b [213]
+                0.01    0.00   72775/13473596     x264_cabac_ref_p [171]
+                0.02    0.00  210150/13473596     x264_slice_write [2]
+                0.02    0.00  269527/13473596     x264_cabac_qp_delta [180]
+                0.04    0.00  423313/13473596     x264_cabac_cbp_luma [158]
+                0.09    0.00 1000578/13473596     x264_cabac_mvd [77]
+                0.19    0.00 2116628/13473596     x264_macroblock_write_cabac [26]
+                0.82    0.00 9376567/13473596     x264_cabac_block_residual_c [36]
+[39]     1.4    1.18    0.00 13473596         x264_cabac_encode_decision_c [39]
+-----------------------------------------------
+                0.00    1.03     482/482         x264_slicetype_analyse [24]
+[40]     1.2    0.00    1.03     482         x264_macroblock_tree_propagate.constprop.25 [40]
+                0.72    0.00   34062/59438       mbtree_propagate_list [37]
+                0.31    0.00   17054/39607       mbtree_propagate_cost [53]
+-----------------------------------------------
+                                                 <spontaneous>
+[41]     1.2    1.01    0.00                 x264_pixel_sad_x3_8x8_neon [41]
+-----------------------------------------------
+                                                 <spontaneous>
+[42]     1.2    1.00    0.00                 x264_quant_4x4x4_neon [42]
+-----------------------------------------------
+                0.91    0.07  207045/207045      x264_slice_write [2]
+[43]     1.2    0.91    0.07  207045         x264_macroblock_cache_load_progressive [43]
+                0.03    0.00  852704/852704      x264_copy_column8 [183]
+                0.02    0.00  101196/776021      x264_mb_predict_mv_16x16 [108]
+                0.02    0.00  100875/100875      x264_mb_predict_mv_pskip [202]
+-----------------------------------------------
+                0.01    0.94     660/660         x264_slicetype_analyse [24]
+[44]     1.1    0.01    0.94     660         x264_macroblock_tree_propagate.constprop.26 [44]
+                0.54    0.00   25376/59438       mbtree_propagate_list [37]
+                0.40    0.00   22553/39607       mbtree_propagate_cost [53]
+-----------------------------------------------
+                                                 <spontaneous>
+[45]     1.1    0.92    0.00                 x264_pixel_hadamard_ac_16x16_neon [45]
+-----------------------------------------------
+                0.16    0.74   49641/49641       x264_macroblock_analyse [4]
+[46]     1.1    0.16    0.74   49641         x264_mb_analyse_inter_p16x8 [46]
+                0.26    0.39  111542/2590560     x264_me_search_ref [5]
+                0.05    0.01   20586/471480      refine_subpel.constprop.0 [35]
+                0.03    0.00  130364/3128180     x264_mb_predict_mv [51]
+                0.00    0.00   19156/443785      x264_me_refine_qpel_refdupe [172]
+-----------------------------------------------
+                                                 <spontaneous>
+[47]     1.0    0.87    0.00                 x264_pixel_sad_8x8_neon [47]
+-----------------------------------------------
+                                                 <spontaneous>
+[48]     1.0    0.84    0.00                 x264_pixel_satd_4x4_neon [48]
+-----------------------------------------------
+                                                 <spontaneous>
+[49]     1.0    0.80    0.00                 x264_pixel_sad_x3_16x16_neon [49]
+-----------------------------------------------
+                0.00    0.00    5665/3051807     x264_quant_luma_dc_trellis [239]
+                0.03    0.00  126669/3051807     x264_quant_chroma_dc_trellis [104]
+                0.35    0.00 1370510/3051807     x264_quant_8x8_trellis [21]
+                0.40    0.00 1548963/3051807     x264_quant_4x4_trellis [25]
+[50]     0.9    0.79    0.00 3051807         trellis_coef1_0 [50]
+-----------------------------------------------
+                0.01    0.00   52077/3128180     x264_mb_analyse_inter_b16x8 [71]
+                0.01    0.00   52766/3128180     x264_mb_analyse_inter_b8x16 [70]
+                0.03    0.00  130364/3128180     x264_mb_analyse_inter_p16x8 [46]
+                0.05    0.00  206968/3128180     x264_cabac_mvd [77]
+                0.12    0.00  496378/3128180     x264_mb_analyse_inter_b8x8_mixed_ref [17]
+                0.25    0.00 1040187/3128180     x264_macroblock_analyse [4]
+                0.28    0.00 1149440/3128180     x264_cabac_mvd [54]
+[51]     0.9    0.75    0.00 3128180         x264_mb_predict_mv [51]
+-----------------------------------------------
+                                                 <spontaneous>
+[52]     0.9    0.73    0.00                 x264_sub4x4_dct_neon [52]
+-----------------------------------------------
+                0.31    0.00   17054/39607       x264_macroblock_tree_propagate.constprop.25 [40]
+                0.40    0.00   22553/39607       x264_macroblock_tree_propagate.constprop.26 [44]
+[53]     0.8    0.71    0.00   39607         mbtree_propagate_cost [53]
+-----------------------------------------------
+                0.38    0.28 1079079/1079079     x264_rd_cost_mb [6]
+[54]     0.8    0.38    0.28 1079079         x264_cabac_mvd [54]
+                0.28    0.00 1149440/3128180     x264_mb_predict_mv [51]
+-----------------------------------------------
+                0.18    0.00  206839/758864      x264_macroblock_analyse [4]
+                0.19    0.00  223534/758864      x264_mb_analyse_p_rd [16]
+                0.28    0.00  328491/758864      x264_mb_analyse_b_rd [11]
+[55]     0.8    0.65    0.00  758864         x264_analyse_update_cache [55]
+-----------------------------------------------
+                0.34    0.20  972605/972605      x264_mb_mc [38]
+[56]     0.6    0.34    0.20  972605         x264_mb_mc_0xywh [56]
+                0.20    0.00  979975/1218923     mc_luma_neon [85]
+-----------------------------------------------
+                0.00    0.00      33/1595470     x264_slicetype_analyse [24]
+                0.00    0.00    2648/1595470     x264_quant_luma_dc_trellis [239]
+                0.01    0.00   25160/1595470     x264_quant_chroma_dc_trellis [104]
+                0.20    0.00  601726/1595470     x264_quant_4x4_trellis [25]
+                0.32    0.00  965903/1595470     x264_quant_8x8_trellis [21]
+[57]     0.6    0.53    0.00 1595470         x264_macroblock_tree_finish [57]
+-----------------------------------------------
+                                                 <spontaneous>
+[58]     0.6    0.52    0.00                 x264_frame_init_lowres_core_neon [58]
+-----------------------------------------------
+                0.48    0.00  255656/255656      x264_rd_cost_mb [6]
+[59]     0.6    0.48    0.00  255656         x264_cabac_block_residual_8x8_rd_c [59]
+-----------------------------------------------
+                                                 <spontaneous>
+[60]     0.6    0.48    0.00                 x264_pixel_satd_8x8_neon [60]
+-----------------------------------------------
+                0.21    0.00  263230/591167      x264_macroblock_analyse [4]
+                0.26    0.00  327937/591167      x264_mb_analyse_inter_b16x16 [20]
+[61]     0.6    0.47    0.00  591167         x264_mb_predict_mv_ref16x16 [61]
+-----------------------------------------------
+                0.47    0.00  205255/205255      x264_slice_write [2]
+[62]     0.6    0.47    0.00  205255         x264_macroblock_cache_save [62]
+-----------------------------------------------
+                                                 <spontaneous>
+[63]     0.6    0.47    0.00                 x264_pixel_avg_16x16_neon [63]
+-----------------------------------------------
+                0.00    0.00       1/2748        x264_encoder_open_142 [105]
+                0.00    0.45    2747/2748        x264_slice_write [2]
+[64]     0.5    0.00    0.45    2748         x264_fdec_filter_row [64]
+                0.22    0.16    1538/1538        x264_frame_deblock_row [69]
+                0.03    0.00    1575/1575        x264_frame_expand_border_filtered [186]
+                0.00    0.03    1564/1564        x264_frame_filter [187]
+                0.01    0.00    1581/1581        x264_frame_expand_border [219]
+                0.00    0.00    1572/1572        x264_frame_cond_broadcast [245]
+                0.00    0.00       2/6           x264_reduce_fraction [299]
+                0.00    0.00       1/101         x264_log [260]
+-----------------------------------------------
+                0.01    0.00   19772/1525366     x264_macroblock_probe_skip [182]
+                0.43    0.00 1505594/1525366     x264_macroblock_encode [7]
+[65]     0.5    0.44    0.00 1525366         x264_decimate_score16 [65]
+-----------------------------------------------
+                                                 <spontaneous>
+[66]     0.5    0.00    0.43                 x264_encoder_encode [66]
+                0.08    0.19      86/86          x264_adaptive_quant_frame [78]
+                0.02    0.05      89/89          x264_frame_init_lowres [143]
+                0.00    0.05      84/84          x264_ratecontrol_start [163]
+                0.00    0.02      92/177         x264_nal_end [189]
+                0.01    0.00      41/41          x264_macroblock_bipred_init [223]
+                0.00    0.01     169/172         x264_frame_pop_unused [221]
+                0.00    0.00     440/554         x264_frame_push_unused [248]
+                0.00    0.00     169/600         x264_sync_frame_list_push [247]
+                0.00    0.00     130/713         x264_frame_shift [246]
+                0.00    0.00     119/121         x264_thread_sync_ratecontrol [259]
+                0.00    0.00      90/90          x264_lookahead_put_frame [264]
+                0.00    0.00      87/87          x264_frame_copy_picture [265]
+                0.00    0.00      85/85          x264_slice_header_init [268]
+                0.00    0.00      83/173         x264_threadpool_run [254]
+                0.00    0.00      83/172         x264_threadpool_wait [255]
+                0.00    0.00      82/82          x264_macroblock_slice_init [273]
+                0.00    0.00      81/81          x264_ratecontrol_qp [275]
+                0.00    0.00      48/137         x264_frame_push [257]
+                0.00    0.00      46/46          x264_lookahead_get_frames [284]
+                0.00    0.00      41/363         x264_weight_cache_neon [249]
+                0.00    0.00      39/39          x264_frame_pop_blank_unused [290]
+                0.00    0.00      37/37          x264_frame_unshift [292]
+                0.00    0.00       4/4           x264_frame_pop [302]
+                0.00    0.00       2/2           x264_lookahead_is_empty [313]
+                0.00    0.00       2/2           x264_sps_write [316]
+                0.00    0.00       2/2           x264_pps_write [314]
+                0.00    0.00       1/1           x264_sei_version_write [361]
+-----------------------------------------------
+                                                 <spontaneous>
+[67]     0.5    0.42    0.00                 x264_mc_copy_w16_aligned_neon [67]
+-----------------------------------------------
+                                                 <spontaneous>
+[68]     0.5    0.38    0.00                 x264_quant_8x8_neon [68]
+-----------------------------------------------
+                0.22    0.16    1538/1538        x264_fdec_filter_row [64]
+[69]     0.4    0.22    0.16    1538         x264_frame_deblock_row [69]
+                0.09    0.00   22111/22111       deblock_h_luma_intra_c [134]
+                0.03    0.00   21635/21635       deblock_v_luma_intra_c [185]
+                0.02    0.00   21770/21770       deblock_h_chroma_intra_c [203]
+                0.01    0.00   21454/21454       deblock_v_chroma_intra_c [216]
+                0.01    0.00  126419/374025      x264_prefetch_fenc [200]
+-----------------------------------------------
+                0.05    0.32   12727/12727       x264_macroblock_analyse [4]
+[70]     0.4    0.05    0.32   12727         x264_mb_analyse_inter_b8x16 [70]
+                0.12    0.18   52475/2590560     x264_me_search_ref [5]
+                0.01    0.00   52766/3128180     x264_mb_predict_mv [51]
+                0.01    0.00   50653/35155978     get_ref_neon [14]
+-----------------------------------------------
+                0.05    0.32   12615/12615       x264_macroblock_analyse [4]
+[71]     0.4    0.05    0.32   12615         x264_mb_analyse_inter_b16x8 [71]
+                0.12    0.18   51811/2590560     x264_me_search_ref [5]
+                0.01    0.00   52077/3128180     x264_mb_predict_mv [51]
+                0.01    0.00   49789/35155978     get_ref_neon [14]
+-----------------------------------------------
+                                                 <spontaneous>
+[72]     0.4    0.35    0.00                 x264_sub8x8_dct8_neon [72]
+-----------------------------------------------
+                                                 <spontaneous>
+[73]     0.4    0.31    0.00                 x264_dequant_4x4_neon [73]
+-----------------------------------------------
+                0.04    0.00   84002/589632      x264_macroblock_encode [7]
+                0.12    0.00  237387/589632      x264_mb_cache_mv_p8x8 [12]
+                0.14    0.00  268243/589632      x264_mb_analyse_intra [29]
+[74]     0.4    0.30    0.00  589632         x264_predict_8x8_filter_c [74]
+-----------------------------------------------
+                                                 <spontaneous>
+[75]     0.4    0.30    0.00                 x264_mc_weight_w16_offsetsub_neon [75]
+-----------------------------------------------
+                                                 <spontaneous>
+[76]     0.3    0.29    0.00                 x264_mc_weight_w8_neon [76]
+-----------------------------------------------
+                0.13    0.15  196112/196112      x264_macroblock_write_cabac [26]
+[77]     0.3    0.13    0.15  196112         x264_cabac_mvd [77]
+                0.09    0.00 1000578/13473596     x264_cabac_encode_decision_c [39]
+                0.05    0.00  206968/3128180     x264_mb_predict_mv [51]
+                0.01    0.00  191816/2183248     x264_cabac_encode_bypass_c [122]
+                0.00    0.00   35791/36423       x264_cabac_encode_ue_bypass [241]
+-----------------------------------------------
+                0.08    0.19      86/86          x264_encoder_encode [66]
+[78]     0.3    0.08    0.19      86         x264_adaptive_quant_frame [78]
+                0.18    0.01  240541/240541      x264_ac_energy_mb [99]
+-----------------------------------------------
+                                                 <spontaneous>
+[79]     0.3    0.27    0.00                 memcpy_aligned_16_16_neon [79]
+-----------------------------------------------
+                                                 <spontaneous>
+[80]     0.3    0.27    0.00                 x264_hpel_filter_v_neon [80]
+-----------------------------------------------
+                0.20    0.07  307173/307173      x264_mb_mc [38]
+[81]     0.3    0.20    0.07  307173         x264_mb_mc_01xywh [81]
+                0.07    0.00  616646/35155978     get_ref_neon [14]
+-----------------------------------------------
+                                                 <spontaneous>
+[82]     0.3    0.26    0.00                 x264_mc_weight_w8_offsetsub_neon [82]
+-----------------------------------------------
+                                                 <spontaneous>
+[83]     0.3    0.26    0.00                 x264_pixel_sa8d_16x16_neon [83]
+-----------------------------------------------
+                                                 <spontaneous>
+[84]     0.3    0.26    0.00                 x264_pixel_ssd_8x8_neon [84]
+-----------------------------------------------
+                0.00    0.00    1535/1218923     x264_macroblock_encode [7]
+                0.00    0.00   23615/1218923     x264_macroblock_probe_skip [182]
+                0.04    0.00  213798/1218923     x264_mb_mc_1xywh [129]
+                0.20    0.00  979975/1218923     x264_mb_mc_0xywh [56]
+[85]     0.3    0.25    0.00 1218923         mc_luma_neon [85]
+-----------------------------------------------
+                                                 <spontaneous>
+[86]     0.3    0.25    0.00                 x264_dequant_8x8_neon [86]
+-----------------------------------------------
+                                                 <spontaneous>
+[87]     0.3    0.25    0.00                 x264_pixel_ssd_16x16_neon [87]
+-----------------------------------------------
+                                                 <spontaneous>
+[88]     0.3    0.25    0.00                 x264_plane_copy_interleave_neon [88]
+-----------------------------------------------
+                0.00    0.00    5052/2885128     x264_quant_luma_dc_trellis [239]
+                0.01    0.00  116067/2885128     x264_quant_chroma_dc_trellis [104]
+                0.11    0.00 1315534/2885128     x264_quant_8x8_trellis [21]
+                0.12    0.00 1448475/2885128     x264_quant_4x4_trellis [25]
+[89]     0.3    0.24    0.00 2885128         trellis_coef0_0 [89]
+-----------------------------------------------
+                                                 <spontaneous>
+[90]     0.3    0.24    0.00                 x264_pixel_sad_x4_8x16_neon [90]
+-----------------------------------------------
+                                                 <spontaneous>
+[91]     0.3    0.24    0.00                 x264_pixel_var_16x16_neon [91]
+-----------------------------------------------
+                0.23    0.00  666614/666614      x264_rd_cost_mb [6]
+[92]     0.3    0.23    0.00  666614         x264_cabac_cbp_luma [92]
+-----------------------------------------------
+                                                 <spontaneous>
+[93]     0.3    0.23    0.00                 x264_pixel_avg2_w20_neon [93]
+-----------------------------------------------
+                0.04    0.00  135775/779988      x264_mb_analyse_intra [29]
+                0.07    0.00  256292/779988      x264_quant_8x8_trellis [21]
+                0.10    0.00  387921/779988      x264_macroblock_encode [7]
+[94]     0.3    0.21    0.00  779988         zigzag_scan_8x8_frame [94]
+-----------------------------------------------
+                                                 <spontaneous>
+[95]     0.3    0.21    0.00                 x264_hpel_filter_c_neon [95]
+-----------------------------------------------
+                                                 <spontaneous>
+[96]     0.3    0.21    0.00                 x264_pixel_sad_x4_16x8_neon [96]
+-----------------------------------------------
+                                                 <spontaneous>
+[97]     0.3    0.21    0.00                 x264_pixel_satd_8x4_neon [97]
+-----------------------------------------------
+                                                 <spontaneous>
+[98]     0.2    0.20    0.00                 x264_add8x8_idct8_neon [98]
+-----------------------------------------------
+                0.18    0.01  240541/240541      x264_adaptive_quant_frame [78]
+[99]     0.2    0.18    0.01  240541         x264_ac_energy_mb [99]
+                0.01    0.00  247606/374025      x264_prefetch_fenc [200]
+-----------------------------------------------
+                0.18    0.00  225872/225872      x264_macroblock_encode [7]
+[100]    0.2    0.18    0.00  225872         x264_decimate_score64 [100]
+-----------------------------------------------
+                                                 <spontaneous>
+[101]    0.2    0.18    0.00                 memcpy_aligned_8_16_neon [101]
+-----------------------------------------------
+                0.08    0.10   33491/33491       x264_macroblock_encode [7]
+[102]    0.2    0.08    0.10   33491         x264_mb_encode_i16x16 [102]
+                0.06    0.03   41453/979763      x264_quant_4x4_trellis [25]
+                0.00    0.00   16668/149745      x264_decimate_score15 [184]
+                0.00    0.00    2589/2589        x264_quant_luma_dc_trellis [239]
+                0.00    0.00       2/67          x264_predict_16x16_dc_128_c [282]
+-----------------------------------------------
+[103]    0.2    0.00    0.17    3464+131     <cycle 1 as a whole> [103]
+                0.00    0.16     173             x264_weights_analyse <cycle 1> [110]
+                0.00    0.01    3422             x264_slicetype_frame_cost.constprop.27 <cycle 1> [212]
+-----------------------------------------------
+                0.12    0.05  170309/170309      x264_mb_encode_chroma [28]
+[104]    0.2    0.12    0.05  170309         x264_quant_chroma_dc_trellis [104]
+                0.03    0.00  126669/3051807     trellis_coef1_0 [50]
+                0.01    0.00  116067/2885128     trellis_coef0_0 [89]
+                0.01    0.00   25160/1595470     x264_macroblock_tree_finish [57]
+-----------------------------------------------
+                                                 <spontaneous>
+[105]    0.2    0.00    0.17                 x264_encoder_open_142 [105]
+                0.15    0.00      71/71          x264_analyse_init_costs [111]
+                0.01    0.00       1/1           x264_deblock_init [225]
+                0.01    0.00       1/1           x264_analyse_prepare_costs [224]
+                0.00    0.00       3/172         x264_frame_pop_unused [221]
+                0.00    0.00       1/2748        x264_fdec_filter_row [64]
+                0.00    0.00      16/268         x264_malloc [252]
+                0.00    0.00      11/11          x264_validate_levels [295]
+                0.00    0.00       3/101         x264_log [260]
+                0.00    0.00       3/4           x264_macroblock_cache_allocate [303]
+                0.00    0.00       3/4           x264_macroblock_thread_allocate [305]
+                0.00    0.00       2/2           x264_sps_init [315]
+                0.00    0.00       2/6           x264_reduce_fraction [299]
+                0.00    0.00       1/1           x264_cpu_num_processors [329]
+                0.00    0.00       1/1           x264_pps_init [345]
+                0.00    0.00       1/1           x264_cqm_init [331]
+                0.00    0.00       1/1           x264_rdo_init [360]
+                0.00    0.00       1/1           x264_predict_16x16_init_arm [347]
+                0.00    0.00       1/1           x264_predict_16x16_init [346]
+                0.00    0.00       1/1           x264_predict_8x8c_init_arm [354]
+                0.00    0.00       1/1           x264_predict_8x8c_init [353]
+                0.00    0.00       1/1           x264_predict_8x16c_init [350]
+                0.00    0.00       1/1           x264_predict_8x8_init_arm [352]
+                0.00    0.00       1/1           x264_predict_8x8_init [351]
+                0.00    0.00       1/1           x264_predict_4x4_init_arm [349]
+                0.00    0.00       1/1           x264_predict_4x4_init [348]
+                0.00    0.00       1/1           x264_pixel_init [344]
+                0.00    0.00       1/1           x264_dct_init [332]
+                0.00    0.00       1/1           x264_zigzag_init [365]
+                0.00    0.00       1/1           x264_mc_init [337]
+                0.00    0.00       1/1           x264_quant_init [355]
+                0.00    0.00       1/1           x264_bitstream_init [326]
+                0.00    0.00       1/1           x264_cabac_init [327]
+                0.00    0.00       1/1           mbcmp_init [324]
+                0.00    0.00       1/279         x264_free [251]
+                0.00    0.00       1/2           x264_threadpool_init [318]
+                0.00    0.00       1/1           x264_lookahead_init [336]
+                0.00    0.00       1/1           x264_ratecontrol_new [358]
+-----------------------------------------------
+                                                 <spontaneous>
+[106]    0.2    0.17    0.00                 x264_add4x4_idct_neon [106]
+-----------------------------------------------
+                                                 <spontaneous>
+[107]    0.2    0.17    0.00                 x264_mc_copy_w8_neon [107]
+-----------------------------------------------
+                0.02    0.00  101196/776021      x264_macroblock_cache_load_progressive [43]
+                0.07    0.00  328512/776021      x264_mb_analyse_inter_b16x16 [20]
+                0.07    0.00  346313/776021      x264_macroblock_analyse [4]
+[108]    0.2    0.16    0.00  776021         x264_mb_predict_mv_16x16 [108]
+-----------------------------------------------
+                0.16    0.00     459/459         x264_weights_analyse <cycle 1> [110]
+[109]    0.2    0.16    0.00     459         x264_weight_cost_luma [109]
+-----------------------------------------------
+                                  60             x264_slicetype_frame_cost.constprop.27 <cycle 1> [212]
+                0.00    0.00      32/3464        x264_slicetype_decide [27]
+                0.00    0.00      81/3464        x264_slicetype_frame_cost [238]
+[110]    0.2    0.00    0.16     173         x264_weights_analyse <cycle 1> [110]
+                0.16    0.00     459/459         x264_weight_cost_luma [109]
+                0.00    0.00     322/363         x264_weight_cache_neon [249]
+                0.00    0.00     126/126         parse_cqm [258]
+                                  71             x264_slicetype_frame_cost.constprop.27 <cycle 1> [212]
+-----------------------------------------------
+                0.15    0.00      71/71          x264_encoder_open_142 [105]
+[111]    0.2    0.15    0.00      71         x264_analyse_init_costs [111]
+                0.00    0.00      70/268         x264_malloc [252]
+-----------------------------------------------
+                                                 <spontaneous>
+[112]    0.2    0.15    0.00                 x264_hpel_filter_h_neon [112]
+-----------------------------------------------
+                                                 <spontaneous>
+[113]    0.2    0.15    0.00                 x264_quant_4x4_neon [113]
+-----------------------------------------------
+                0.13    0.00  100155/100155      x264_macroblock_analyse [4]
+[114]    0.2    0.13    0.00  100155         x264_mb_predict_mv_direct16x16 [114]
+                0.00    0.00     295/295         x264_macroblock_cache_mv_4_4 [250]
+                0.00    0.00      85/85          x264_macroblock_cache_mv_2_2 [267]
+                0.00    0.00      44/44          x264_macroblock_cache_mv_2_4 [286]
+                0.00    0.00      42/42          x264_macroblock_cache_mv_4_2 [288]
+-----------------------------------------------
+                                                 <spontaneous>
+[115]    0.1    0.12    0.00                 x264_pixel_satd_16x8_neon [115]
+-----------------------------------------------
+                                                 <spontaneous>
+[116]    0.1    0.12    0.00                 x264_predict_8x8c_p_neon [116]
+-----------------------------------------------
+                0.02    0.01    2030/7316        x264_refine_bidir [181]
+                0.07    0.02    5286/7316        x264_macroblock_analyse [4]
+[117]    0.1    0.09    0.03    7316         x264_me_refine_bidir_satd [117]
+                0.03    0.00  250106/35155978     get_ref_neon [14]
+-----------------------------------------------
+                0.00    0.00    8557/522545      x264_macroblock_encode [7]
+                0.11    0.00  513988/522545      x264_mb_analyse_intra [29]
+[118]    0.1    0.11    0.00  522545         x264_predict_4x4_vr_c [118]
+-----------------------------------------------
+                0.11    0.00  376992/376992      x264_rd_cost_mb [6]
+[119]    0.1    0.11    0.00  376992         x264_cabac_qp_delta [119]
+-----------------------------------------------
+                                                 <spontaneous>
+[120]    0.1    0.11    0.00                 x264_memcpy_aligned_neon [120]
+-----------------------------------------------
+                                                 <spontaneous>
+[121]    0.1    0.11    0.00                 x264_quant_2x2_dc_neon [121]
+-----------------------------------------------
+                0.01    0.00  191816/2183248     x264_cabac_mvd [77]
+                0.09    0.00 1991432/2183248     x264_cabac_block_residual_c [36]
+[122]    0.1    0.10    0.00 2183248         x264_cabac_encode_bypass_c [122]
+-----------------------------------------------
+                0.00    0.00      73/210125      x264_slice_write [2]
+                0.10    0.00  210052/210125      x264_macroblock_analyse [4]
+[123]    0.1    0.10    0.00  210125         x264_ratecontrol_mb_qp [123]
+-----------------------------------------------
+                                                 <spontaneous>
+[124]    0.1    0.10    0.00                 x264_deblock_h_luma_neon [124]
+-----------------------------------------------
+                                                 <spontaneous>
+[125]    0.1    0.10    0.00                 x264_mc_copy_w16_neon [125]
+-----------------------------------------------
+                                                 <spontaneous>
+[126]    0.1    0.10    0.00                 x264_pixel_sad_16x8_neon [126]
+-----------------------------------------------
+                                                 <spontaneous>
+[127]    0.1    0.10    0.00                 x264_pixel_sad_8x16_neon [127]
+-----------------------------------------------
+                                                 <spontaneous>
+[128]    0.1    0.10    0.00                 x264_pixel_var2_8x8_neon [128]
+-----------------------------------------------
+                0.05    0.04  212809/212809      x264_mb_mc [38]
+[129]    0.1    0.05    0.04  212809         x264_mb_mc_1xywh [129]
+                0.04    0.00  213798/1218923     mc_luma_neon [85]
+-----------------------------------------------
+                0.09    0.00  660745/660745      x264_rd_cost_mb [6]
+[130]    0.1    0.09    0.00  660745         x264_cabac_ref_p [130]
+-----------------------------------------------
+                0.00    0.00   13119/606582      x264_macroblock_encode [7]
+                0.09    0.00  593463/606582      x264_mb_analyse_intra [29]
+[131]    0.1    0.09    0.00  606582         x264_predict_4x4_hd_c [131]
+-----------------------------------------------
+                0.00    0.00    7861/527769      x264_macroblock_encode [7]
+                0.09    0.00  519908/527769      x264_mb_analyse_intra [29]
+[132]    0.1    0.09    0.00  527769         x264_predict_4x4_vl_c [132]
+-----------------------------------------------
+                0.09    0.00  215425/215425      x264_rd_cost_mb [6]
+[133]    0.1    0.09    0.00  215425         x264_cabac_ref_b [133]
+-----------------------------------------------
+                0.09    0.00   22111/22111       x264_frame_deblock_row [69]
+[134]    0.1    0.09    0.00   22111         deblock_h_luma_intra_c [134]
+-----------------------------------------------
+                                                 <spontaneous>
+[135]    0.1    0.09    0.00                 x264_sub16x16_dct_neon [135]
+-----------------------------------------------
+                                                 <spontaneous>
+[136]    0.1    0.09    0.00                 x264_zigzag_scan_4x4_frame_neon [136]
+-----------------------------------------------
+                0.08    0.00  200720/200720      x264_slice_write [2]
+[137]    0.1    0.08    0.00  200720         x264_cabac_mb_skip [137]
+-----------------------------------------------
+                                                 <spontaneous>
+[138]    0.1    0.08    0.00                 x264_pixel_sad_x3_8x16_neon [138]
+-----------------------------------------------
+                                                 <spontaneous>
+[139]    0.1    0.08    0.00                 x264_pixel_satd_4x8_neon [139]
+-----------------------------------------------
+                0.07    0.00  702063/702063      x264_mb_analyse_intra [29]
+[140]    0.1    0.07    0.00  702063         x264_intra_satd_x3_4x4_neon [140]
+-----------------------------------------------
+                0.03    0.00  181004/418491      x264_slicetype_slice_cost [10]
+                0.04    0.00  237487/418491      x264_mb_cache_mv_p8x8 [12]
+[141]    0.1    0.07    0.00  418491         x264_intra_satd_x3_8x8c_neon [141]
+-----------------------------------------------
+                0.07    0.00  207572/207572      x264_macroblock_analyse [4]
+[142]    0.1    0.07    0.00  207572         x264_mb_analyse_init_qp [142]
+-----------------------------------------------
+                0.02    0.05      89/89          x264_encoder_encode [66]
+[143]    0.1    0.02    0.05      89         x264_frame_init_lowres [143]
+                0.05    0.00      95/95          x264_frame_expand_border_lowres [161]
+-----------------------------------------------
+                                                 <spontaneous>
+[144]    0.1    0.07    0.00                 x264_coeff_last16_neon [144]
+-----------------------------------------------
+                                                 <spontaneous>
+[145]    0.1    0.07    0.00                 x264_predict_8x8c_dc_neon [145]
+-----------------------------------------------
+                                                 <spontaneous>
+[146]    0.1    0.07    0.00                 x264_store_interleave_chroma_neon [146]
+-----------------------------------------------
+                                                 <spontaneous>
+[147]    0.1    0.07    0.00                 x264_sub8x8_dct_dc_neon [147]
+-----------------------------------------------
+                0.06    0.00  209146/209146      x264_slice_write [2]
+[148]    0.1    0.06    0.00  209146         x264_ratecontrol_mb [148]
+-----------------------------------------------
+                                                 <spontaneous>
+[149]    0.1    0.06    0.00                 x264_coeff_last64_neon [149]
+-----------------------------------------------
+                                                 <spontaneous>
+[150]    0.1    0.06    0.00                 x264_load_deinterleave_chroma_fenc_neon [150]
+-----------------------------------------------
+                                                 <spontaneous>
+[151]    0.1    0.06    0.00                 x264_pixel_avg_8x8_neon [151]
+-----------------------------------------------
+                                                 <spontaneous>
+[152]    0.1    0.06    0.00                 x264_predict_4x4_ddr_armv6 [152]
+-----------------------------------------------
+                                                 <spontaneous>
+[153]    0.1    0.06    0.00                 x264_predict_8x8_dc_neon [153]
+-----------------------------------------------
+                                                 <spontaneous>
+[154]    0.1    0.06    0.00                 x264_predict_8x8_ddr_neon [154]
+-----------------------------------------------
+                                                 <spontaneous>
+[155]    0.1    0.06    0.00                 x264_predict_8x8_vl_neon [155]
+-----------------------------------------------
+                                                 <spontaneous>
+[156]    0.1    0.06    0.00                 x264_predict_8x8_vr_neon [156]
+-----------------------------------------------
+                                                 <spontaneous>
+[157]    0.1    0.06    0.00                 __aeabi_ldivmod [157]
+-----------------------------------------------
+                0.02    0.04  134977/134977      x264_macroblock_write_cabac [26]
+[158]    0.1    0.02    0.04  134977         x264_cabac_cbp_luma [158]
+                0.04    0.00  423313/13473596     x264_cabac_encode_decision_c [39]
+-----------------------------------------------
+                0.00    0.00    9814/604961      x264_macroblock_encode [7]
+                0.05    0.00  595147/604961      x264_mb_analyse_intra [29]
+[159]    0.1    0.05    0.00  604961         x264_predict_4x4_hu_c [159]
+-----------------------------------------------
+                0.05    0.00  136178/136178      x264_mb_analyse_intra [29]
+[160]    0.1    0.05    0.00  136178         x264_intra_satd_x3_16x16_neon [160]
+-----------------------------------------------
+                0.05    0.00      95/95          x264_frame_init_lowres [143]
+[161]    0.1    0.05    0.00      95         x264_frame_expand_border_lowres [161]
+-----------------------------------------------
+                0.00    0.05      84/84          x264_ratecontrol_start [163]
+[162]    0.1    0.00    0.05      84         rate_estimate_qscale [162]
+                0.00    0.05      44/44          x264_rc_analyse_slice [164]
+                0.00    0.00      45/45          clip_qscale [285]
+                0.00    0.00      43/43          get_qscale [287]
+-----------------------------------------------
+                0.00    0.05      84/84          x264_encoder_encode [66]
+[163]    0.1    0.00    0.05      84         x264_ratecontrol_start [163]
+                0.00    0.05      84/84          rate_estimate_qscale [162]
+-----------------------------------------------
+                0.00    0.05      44/44          rate_estimate_qscale [162]
+[164]    0.1    0.00    0.05      44         x264_rc_analyse_slice [164]
+                0.05    0.00      44/44          x264_slicetype_frame_cost_recalculate [165]
+-----------------------------------------------
+                0.05    0.00      44/44          x264_rc_analyse_slice [164]
+[165]    0.1    0.05    0.00      44         x264_slicetype_frame_cost_recalculate [165]
+-----------------------------------------------
+                                                 <spontaneous>
+[166]    0.1    0.05    0.00                 x264_pixel_sa8d_8x8_neon [166]
+-----------------------------------------------
+                                                 <spontaneous>
+[167]    0.1    0.05    0.00                 x264_pixel_sad_x3_16x8_neon [167]
+-----------------------------------------------
+                                                 <spontaneous>
+[168]    0.1    0.05    0.00                 x264_predict_8x8_ddl_neon [168]
+-----------------------------------------------
+                                                 <spontaneous>
+[169]    0.1    0.05    0.00                 x264_predict_8x8_hd_neon [169]
+-----------------------------------------------
+                                                 <spontaneous>
+[170]    0.1    0.05    0.00                 x264_sub16x16_dct8_neon [170]
+-----------------------------------------------
+                0.04    0.01  130525/130525      x264_macroblock_write_cabac [26]
+[171]    0.1    0.04    0.01  130525         x264_cabac_ref_p [171]
+                0.01    0.00   72775/13473596     x264_cabac_encode_decision_c [39]
+-----------------------------------------------
+                0.00    0.00   19156/443785      x264_mb_analyse_inter_p16x8 [46]
+                0.04    0.00  424629/443785      x264_macroblock_analyse [4]
+[172]    0.0    0.04    0.00  443785         x264_me_refine_qpel_refdupe [172]
+-----------------------------------------------
+                0.04    0.00  257974/257974      x264_mb_analyse_intra [29]
+[173]    0.0    0.04    0.00  257974         x264_intra_sa8d_x3_8x8_neon [173]
+-----------------------------------------------
+                0.04    0.00  102033/102033      x264_macroblock_analyse [4]
+[174]    0.0    0.04    0.00  102033         ssd_mb [174]
+-----------------------------------------------
+                0.04    0.00   86914/86914       x264_mb_encode_chroma [28]
+[175]    0.0    0.04    0.00   86914         optimize_chroma_2x2_dc [175]
+-----------------------------------------------
+                                                 <spontaneous>
+[176]    0.0    0.04    0.00                 x264_deblock_strength_neon [176]
+-----------------------------------------------
+                                                 <spontaneous>
+[177]    0.0    0.04    0.00                 x264_predict_4x4_ddl_neon [177]
+-----------------------------------------------
+                                                 <spontaneous>
+[178]    0.0    0.04    0.00                 x264_predict_8x8c_h_neon [178]
+-----------------------------------------------
+                                                 <spontaneous>
+[179]    0.0    0.04    0.00                 x264_prefetch_fenc_arm [179]
+-----------------------------------------------
+                0.01    0.02   94861/94861       x264_macroblock_write_cabac [26]
+[180]    0.0    0.01    0.02   94861         x264_cabac_qp_delta [180]
+                0.02    0.00  269527/13473596     x264_cabac_encode_decision_c [39]
+-----------------------------------------------
+                0.00    0.03   54191/54191       x264_macroblock_analyse [4]
+[181]    0.0    0.00    0.03   54191         x264_refine_bidir [181]
+                0.02    0.01    2030/7316        x264_me_refine_bidir_satd [117]
+-----------------------------------------------
+                0.02    0.01   23891/23891       x264_macroblock_analyse [4]
+[182]    0.0    0.02    0.01   23891         x264_macroblock_probe_skip [182]
+                0.01    0.00   19772/1525366     x264_decimate_score16 [65]
+                0.00    0.00   23615/1218923     mc_luma_neon [85]
+                0.00    0.00     346/149745      x264_decimate_score15 [184]
+-----------------------------------------------
+                0.03    0.00  852704/852704      x264_macroblock_cache_load_progressive [43]
+[183]    0.0    0.03    0.00  852704         x264_copy_column8 [183]
+-----------------------------------------------
+                0.00    0.00     346/149745      x264_macroblock_probe_skip [182]
+                0.00    0.00   16668/149745      x264_mb_encode_i16x16 [102]
+                0.03    0.00  132731/149745      x264_mb_encode_chroma [28]
+[184]    0.0    0.03    0.00  149745         x264_decimate_score15 [184]
+-----------------------------------------------
+                0.03    0.00   21635/21635       x264_frame_deblock_row [69]
+[185]    0.0    0.03    0.00   21635         deblock_v_luma_intra_c [185]
+-----------------------------------------------
+                0.03    0.00    1575/1575        x264_fdec_filter_row [64]
+[186]    0.0    0.03    0.00    1575         x264_frame_expand_border_filtered [186]
+-----------------------------------------------
+                0.00    0.03    1564/1564        x264_fdec_filter_row [64]
+[187]    0.0    0.00    0.03    1564         x264_frame_filter [187]
+                0.03    0.00    1554/1554        hpel_filter_neon [188]
+-----------------------------------------------
+                0.03    0.00    1554/1554        x264_frame_filter [187]
+[188]    0.0    0.03    0.00    1554         hpel_filter_neon [188]
+-----------------------------------------------
+                                  82             x264_nal_end [189]
+                0.00    0.01      85/177         x264_slice_write [2]
+                0.00    0.02      92/177         x264_encoder_encode [66]
+[189]    0.0    0.00    0.03     177+82      x264_nal_end [189]
+                0.00    0.03      81/81          x264_nal_encode [191]
+                0.00    0.00      84/84          x264_ratecontrol_end [270]
+                0.00    0.00      82/82          x264_noise_reduction_update [274]
+                0.00    0.00      78/554         x264_frame_push_unused [248]
+                0.00    0.00      77/101         x264_log [260]
+                0.00    0.00      37/37          x264_frame_push_blank_unused [291]
+                0.00    0.00       1/268         x264_malloc [252]
+                0.00    0.00       1/279         x264_free [251]
+                                  82             x264_nal_end [189]
+-----------------------------------------------
+                0.03    0.00      87/87          x264_nal_encode [191]
+[190]    0.0    0.03    0.00      87         x264_nal_escape_c [190]
+-----------------------------------------------
+                0.00    0.03      81/81          x264_nal_end [189]
+[191]    0.0    0.00    0.03      81         x264_nal_encode [191]
+                0.03    0.00      87/87          x264_nal_escape_c [190]
+-----------------------------------------------
+                                                 <spontaneous>
+[192]    0.0    0.03    0.00                 x264_coeff_last4_arm [192]
+-----------------------------------------------
+                                                 <spontaneous>
+[193]    0.0    0.03    0.00                 x264_deblock_h_chroma_neon [193]
+-----------------------------------------------
+                                                 <spontaneous>
+[194]    0.0    0.03    0.00                 x264_deblock_v_chroma_neon [194]
+-----------------------------------------------
+                                                 <spontaneous>
+[195]    0.0    0.03    0.00                 x264_deblock_v_luma_neon [195]
+-----------------------------------------------
+                                                 <spontaneous>
+[196]    0.0    0.03    0.00                 x264_mc_weight_w8_offsetadd_neon [196]
+-----------------------------------------------
+                                                 <spontaneous>
+[197]    0.0    0.03    0.00                 x264_predict_16x16_v_neon [197]
+-----------------------------------------------
+                                                 <spontaneous>
+[198]    0.0    0.03    0.00                 x264_predict_8x8_h_neon [198]
+-----------------------------------------------
+                                                 <spontaneous>
+[199]    0.0    0.03    0.00                 __aeabi_uidiv [199]
+-----------------------------------------------
+                0.01    0.00  126419/374025      x264_frame_deblock_row [69]
+                0.01    0.00  247606/374025      x264_ac_energy_mb [99]
+[200]    0.0    0.02    0.00  374025         x264_prefetch_fenc [200]
+-----------------------------------------------
+                0.02    0.00  123697/123697      x264_slice_write [2]
+[201]    0.0    0.02    0.00  123697         x264_macroblock_deblock_strength [201]
+-----------------------------------------------
+                0.02    0.00  100875/100875      x264_macroblock_cache_load_progressive [43]
+[202]    0.0    0.02    0.00  100875         x264_mb_predict_mv_pskip [202]
+-----------------------------------------------
+                0.02    0.00   21770/21770       x264_frame_deblock_row [69]
+[203]    0.0    0.02    0.00   21770         deblock_h_chroma_intra_c [203]
+-----------------------------------------------
+                                                 <spontaneous>
+[204]    0.0    0.02    0.00                 x264_pixel_var_8x8_neon [204]
+-----------------------------------------------
+                                                 <spontaneous>
+[205]    0.0    0.02    0.00                 x264_predict_16x16_dc_neon [205]
+-----------------------------------------------
+                                                 <spontaneous>
+[206]    0.0    0.02    0.00                 x264_predict_16x16_h_neon [206]
+-----------------------------------------------
+                                                 <spontaneous>
+[207]    0.0    0.02    0.00                 x264_predict_16x16_p_neon [207]
+-----------------------------------------------
+                                                 <spontaneous>
+[208]    0.0    0.02    0.00                 x264_predict_4x4_h_armv6 [208]
+-----------------------------------------------
+                                                 <spontaneous>
+[209]    0.0    0.02    0.00                 x264_predict_8x8_hu_neon [209]
+-----------------------------------------------
+                                                 <spontaneous>
+[210]    0.0    0.02    0.00                 x264_predict_8x8_v_neon [210]
+-----------------------------------------------
+                                                 <spontaneous>
+[211]    0.0    0.02    0.00                 x264_predict_8x8c_v_neon [211]
+-----------------------------------------------
+                                  71             x264_weights_analyse <cycle 1> [110]
+                0.00    0.00      38/3464        x264_slicetype_decide [27]
+                0.00    0.01     184/3464        scenecut_internal [237]
+                0.00    0.15    3129/3464        x264_slicetype_analyse [24]
+[212]    0.0    0.00    0.01    3422         x264_slicetype_frame_cost.constprop.27 <cycle 1> [212]
+                0.00    0.01     207/95917       x264_slicetype_slice_cost [10]
+                                  60             x264_weights_analyse <cycle 1> [110]
+-----------------------------------------------
+                0.01    0.00   33825/33825       x264_macroblock_write_cabac [26]
+[213]    0.0    0.01    0.00   33825         x264_cabac_ref_b [213]
+                0.00    0.00    4058/13473596     x264_cabac_encode_decision_c [39]
+-----------------------------------------------
+                0.00    0.00    2614/211474      x264_macroblock_write_cabac [26]
+                0.01    0.00  208860/211474      x264_slice_write [2]
+[214]    0.0    0.01    0.00  211474         x264_cabac_encode_terminal_c [214]
+-----------------------------------------------
+                0.00    0.00   25191/66276       x264_quant_8x8_trellis [21]
+                0.01    0.00   41085/66276       x264_quant_4x4_trellis [25]
+[215]    0.0    0.01    0.00   66276         trellis_dc_shortcut [215]
+-----------------------------------------------
+                0.01    0.00   21454/21454       x264_frame_deblock_row [69]
+[216]    0.0    0.01    0.00   21454         deblock_v_chroma_intra_c [216]
+-----------------------------------------------
+                0.00    0.00     386/19061       x264_macroblock_encode [7]
+                0.01    0.00   18675/19061       x264_mb_analyse_intra [29]
+[217]    0.0    0.01    0.00   19061         x264_predict_4x4_dc_left_c [217]
+-----------------------------------------------
+                0.00    0.01    2574/2574        x264_macroblock_analyse [4]
+[218]    0.0    0.00    0.01    2574         x264_analyse_weight_frame [218]
+                0.01    0.00    1144/1144        x264_weight_scale_plane [220]
+-----------------------------------------------
+                0.01    0.00    1581/1581        x264_fdec_filter_row [64]
+[219]    0.0    0.01    0.00    1581         x264_frame_expand_border [219]
+-----------------------------------------------
+                0.01    0.00    1144/1144        x264_analyse_weight_frame [218]
+[220]    0.0    0.01    0.00    1144         x264_weight_scale_plane [220]
+-----------------------------------------------
+                0.00    0.00       3/172         x264_encoder_open_142 [105]
+                0.00    0.01     169/172         x264_encoder_encode [66]
+[221]    0.0    0.00    0.01     172         x264_frame_pop_unused [221]
+                0.01    0.00      54/54          x264_frame_new [222]
+-----------------------------------------------
+                0.01    0.00      54/54          x264_frame_pop_unused [221]
+[222]    0.0    0.01    0.00      54         x264_frame_new [222]
+                0.00    0.00     108/268         x264_malloc [252]
+-----------------------------------------------
+                0.01    0.00      41/41          x264_encoder_encode [66]
+[223]    0.0    0.01    0.00      41         x264_macroblock_bipred_init [223]
+-----------------------------------------------
+                0.01    0.00       1/1           x264_encoder_open_142 [105]
+[224]    0.0    0.01    0.00       1         x264_analyse_prepare_costs [224]
+                0.00    0.00       1/268         x264_malloc [252]
+-----------------------------------------------
+                0.01    0.00       1/1           x264_encoder_open_142 [105]
+[225]    0.0    0.01    0.00       1         x264_deblock_init [225]
+-----------------------------------------------
+                                                 <spontaneous>
+[226]    0.0    0.01    0.00                 x264_add8x8_idct_dc_neon [226]
+-----------------------------------------------
+                                                 <spontaneous>
+[227]    0.0    0.01    0.00                 x264_coeff_last15_neon [227]
+-----------------------------------------------
+                                                 <spontaneous>
+[228]    0.0    0.01    0.00                 x264_dct4x4dc_neon [228]
+-----------------------------------------------
+                                                 <spontaneous>
+[229]    0.0    0.01    0.00                 x264_mc_weight_w20_offsetsub_neon [229]
+-----------------------------------------------
+                                                 <spontaneous>
+[230]    0.0    0.01    0.00                 x264_predict_16x16_dc_left_neon [230]
+-----------------------------------------------
+                                                 <spontaneous>
+[231]    0.0    0.01    0.00                 x264_predict_4x4_dc_armv6 [231]
+-----------------------------------------------
+                                                 <spontaneous>
+[232]    0.0    0.01    0.00                 x264_prefetch_ref_arm [232]
+-----------------------------------------------
+                                                 <spontaneous>
+[233]    0.0    0.01    0.00                 x264_quant_4x4_dc_neon [233]
+-----------------------------------------------
+                                                 <spontaneous>
+[234]    0.0    0.01    0.00                 __aeabi_uidivmod [234]
+-----------------------------------------------
+                                                 <spontaneous>
+[235]    0.0    0.01    0.00                 __divdi3 [235]
+-----------------------------------------------
+                                                 <spontaneous>
+[236]    0.0    0.01    0.00                 __gnu_ldivmod_helper [236]
+-----------------------------------------------
+                0.00    0.01     174/174         x264_slicetype_analyse [24]
+[237]    0.0    0.00    0.01     174         scenecut_internal [237]
+                0.00    0.01     184/3464        x264_slicetype_frame_cost.constprop.27 <cycle 1> [212]
+-----------------------------------------------
+                0.00    0.01    1352/1352        x264_slicetype_analyse [24]
+[238]    0.0    0.00    0.01    1352         x264_slicetype_frame_cost [238]
+                0.00    0.00      86/95917       x264_slicetype_slice_cost [10]
+                0.00    0.00      81/3464        x264_weights_analyse <cycle 1> [110]
+-----------------------------------------------
+                0.00    0.00    2589/2589        x264_mb_encode_i16x16 [102]
+[239]    0.0    0.00    0.00    2589         x264_quant_luma_dc_trellis [239]
+                0.00    0.00    5665/3051807     trellis_coef1_0 [50]
+                0.00    0.00    2648/1595470     x264_macroblock_tree_finish [57]
+                0.00    0.00    5052/2885128     trellis_coef0_0 [89]
+-----------------------------------------------
+                0.00    0.00   91729/91729       x264_macroblock_analyse [4]
+[240]    0.0    0.00    0.00   91729         x264_mb_init_fenc_cache [240]
+-----------------------------------------------
+                0.00    0.00     632/36423       x264_cabac_block_residual_c [36]
+                0.00    0.00   35791/36423       x264_cabac_mvd [77]
+[241]    0.0    0.00    0.00   36423         x264_cabac_encode_ue_bypass [241]
+-----------------------------------------------
+                0.00    0.00     658/10940       x264_macroblock_encode [7]
+                0.00    0.00   10282/10940       x264_mb_analyse_intra [29]
+[242]    0.0    0.00    0.00   10940         x264_predict_8x8_dc_left_c [242]
+-----------------------------------------------
+                0.00    0.00    9059/9059        x264_macroblock_analyse [4]
+[243]    0.0    0.00    0.00    9059         x264_frame_cond_wait [243]
+-----------------------------------------------
+                0.00    0.00     279/5374        x264_macroblock_encode [7]
+                0.00    0.00    5095/5374        x264_mb_analyse_intra [29]
+[244]    0.0    0.00    0.00    5374         x264_predict_8x8_dc_top_c [244]
+-----------------------------------------------
+                0.00    0.00    1572/1572        x264_fdec_filter_row [64]
+[245]    0.0    0.00    0.00    1572         x264_frame_cond_broadcast [245]
+-----------------------------------------------
+                0.00    0.00      74/713         x264_lookahead_slicetype_decide [22]
+                0.00    0.00      86/713         x264_lookahead_get_frames [284]
+                0.00    0.00      93/713         x264_lookahead_thread [23]
+                0.00    0.00     130/713         x264_encoder_encode [66]
+                0.00    0.00     158/713         x264_threadpool_thread [3]
+                0.00    0.00     172/713         x264_threadpool_wait [255]
+[246]    0.0    0.00    0.00     713         x264_frame_shift [246]
+-----------------------------------------------
+                0.00    0.00       4/600         x264_threadpool_init [318]
+                0.00    0.00      92/600         read_frame [272]
+                0.00    0.00     165/600         x264_threadpool_thread [3]
+                0.00    0.00     169/600         x264_encoder_encode [66]
+                0.00    0.00     170/600         x264_threadpool_wait [255]
+[247]    0.0    0.00    0.00     600         x264_sync_frame_list_push [247]
+-----------------------------------------------
+                0.00    0.00       1/554         x264_lookahead_delete [335]
+                0.00    0.00      35/554         x264_lookahead_slicetype_decide [22]
+                0.00    0.00      78/554         x264_nal_end [189]
+                0.00    0.00     440/554         x264_encoder_encode [66]
+[248]    0.0    0.00    0.00     554         x264_frame_push_unused [248]
+-----------------------------------------------
+                0.00    0.00      41/363         x264_encoder_encode [66]
+                0.00    0.00     322/363         x264_weights_analyse <cycle 1> [110]
+[249]    0.0    0.00    0.00     363         x264_weight_cache_neon [249]
+-----------------------------------------------
+                0.00    0.00     295/295         x264_mb_predict_mv_direct16x16 [114]
+[250]    0.0    0.00    0.00     295         x264_macroblock_cache_mv_4_4 [250]
+-----------------------------------------------
+                0.00    0.00       1/279         close_file [320]
+                0.00    0.00       1/279         x264_nal_end [189]
+                0.00    0.00       1/279         x264_encoder_open_142 [105]
+                0.00    0.00       2/279         x264_sei_version_write [361]
+                0.00    0.00       4/279         x264_frame_delete [300]
+                0.00    0.00       6/279         x264_cli_pic_clean [311]
+                0.00    0.00       6/279         x264_lookahead_delete [335]
+                0.00    0.00      12/279         x264_threadpool_delete [317]
+                0.00    0.00      12/279         x264_ratecontrol_delete [356]
+                0.00    0.00      14/279         x264_cqm_delete [330]
+                0.00    0.00      19/279         x264_macroblock_thread_free [306]
+                0.00    0.00      28/279         x264_encoder_close [592]
+                0.00    0.00      70/279         x264_analyse_free_costs [325]
+                0.00    0.00     103/279         x264_frame_delete_list [301]
+[251]    0.0    0.00    0.00     279         x264_free [251]
+-----------------------------------------------
+                0.00    0.00       1/268         x264_sei_version_write [361]
+                0.00    0.00       1/268         x264_nal_end [189]
+                0.00    0.00       1/268         x264_lookahead_init [336]
+                0.00    0.00       1/268         x264_analyse_prepare_costs [224]
+                0.00    0.00       2/268         x264_frame_pop_blank_unused [290]
+                0.00    0.00       3/268         x264_ratecontrol_new [358]
+                0.00    0.00       4/268         x264_macroblock_cache_allocate [303]
+                0.00    0.00       6/268         x264_cli_pic_alloc [310]
+                0.00    0.00       8/268         x264_threadpool_init [318]
+                0.00    0.00       9/268         x264_sync_frame_list_init [297]
+                0.00    0.00      15/268         x264_cqm_init [331]
+                0.00    0.00      16/268         x264_encoder_open_142 [105]
+                0.00    0.00      23/268         x264_macroblock_thread_allocate [305]
+                0.00    0.00      70/268         x264_analyse_init_costs [111]
+                0.00    0.00     108/268         x264_frame_new [222]
+[252]    0.0    0.00    0.00     268         x264_malloc [252]
+-----------------------------------------------
+                0.00    0.00     177/177         x264_threadpool_run [254]
+[253]    0.0    0.00    0.00     177         x264_sync_frame_list_pop [253]
+-----------------------------------------------
+                0.00    0.00      83/173         x264_encoder_encode [66]
+                0.00    0.00      90/173         read_frame [272]
+[254]    0.0    0.00    0.00     173         x264_threadpool_run [254]
+                0.00    0.00     177/177         x264_sync_frame_list_pop [253]
+-----------------------------------------------
+                0.00    0.00      83/172         x264_encoder_encode [66]
+                0.00    0.00      89/172         read_frame [272]
+[255]    0.0    0.00    0.00     172         x264_threadpool_wait [255]
+                0.00    0.00     172/713         x264_frame_shift [246]
+                0.00    0.00     170/600         x264_sync_frame_list_push [247]
+-----------------------------------------------
+                0.00    0.00       3/139         x264_macroblock_encode [7]
+                0.00    0.00     136/139         x264_mb_analyse_intra [29]
+[256]    0.0    0.00    0.00     139         x264_predict_8x8_dc_128_c [256]
+-----------------------------------------------
+                0.00    0.00      48/137         x264_encoder_encode [66]
+                0.00    0.00      89/137         x264_lookahead_get_frames [284]
+[257]    0.0    0.00    0.00     137         x264_frame_push [257]
+-----------------------------------------------
+                0.00    0.00     126/126         x264_weights_analyse <cycle 1> [110]
+[258]    0.0    0.00    0.00     126         parse_cqm [258]
+-----------------------------------------------
+                0.00    0.00       2/121         x264_encoder_close [592]
+                0.00    0.00     119/121         x264_encoder_encode [66]
+[259]    0.0    0.00    0.00     121         x264_thread_sync_ratecontrol [259]
+-----------------------------------------------
+                0.00    0.00       1/101         x264_fdec_filter_row [64]
+                0.00    0.00       2/101         x264_slicetype_analyse [24]
+                0.00    0.00       3/101         x264_encoder_open_142 [105]
+                0.00    0.00      18/101         x264_encoder_close [592]
+                0.00    0.00      77/101         x264_nal_end [189]
+[260]    0.0    0.00    0.00     101         x264_log [260]
+                0.00    0.00      21/21          x264_log_default [294]
+-----------------------------------------------
+                0.00    0.00      18/95          x264_macroblock_encode [7]
+                0.00    0.00      77/95          x264_slicetype_slice_cost [10]
+[261]    0.0    0.00    0.00      95         x264_predict_8x8c_dc_128_c [261]
+-----------------------------------------------
+                0.00    0.00      92/92          release_frame [521]
+[262]    0.0    0.00    0.00      92         release_frame [262]
+-----------------------------------------------
+                0.00    0.00       2/90          init [323]
+                0.00    0.00       3/90          open_file [479]
+                0.00    0.00      85/90          read_frame [269]
+[263]    0.0    0.00    0.00      90         x264_cli_csp_depth_factor [263]
+-----------------------------------------------
+                0.00    0.00      90/90          x264_encoder_encode [66]
+[264]    0.0    0.00    0.00      90         x264_lookahead_put_frame [264]
+-----------------------------------------------
+                0.00    0.00      87/87          x264_encoder_encode [66]
+[265]    0.0    0.00    0.00      87         x264_frame_copy_picture [265]
+                0.00    0.00      87/87          x264_plane_copy_c [266]
+-----------------------------------------------
+                0.00    0.00      87/87          x264_frame_copy_picture [265]
+[266]    0.0    0.00    0.00      87         x264_plane_copy_c [266]
+-----------------------------------------------
+                0.00    0.00      85/85          x264_mb_predict_mv_direct16x16 [114]
+[267]    0.0    0.00    0.00      85         x264_macroblock_cache_mv_2_2 [267]
+-----------------------------------------------
+                0.00    0.00      85/85          x264_encoder_encode [66]
+[268]    0.0    0.00    0.00      85         x264_slice_header_init [268]
+-----------------------------------------------
+                0.00    0.00       1/84          read_frame [272]
+                0.00    0.00      83/84          read_frame_thread_int [271]
+[269]    0.0    0.00    0.00      84         read_frame [269]
+                0.00    0.00      85/90          x264_cli_csp_depth_factor [263]
+-----------------------------------------------
+                0.00    0.00      84/84          x264_nal_end [189]
+[270]    0.0    0.00    0.00      84         x264_ratecontrol_end [270]
+-----------------------------------------------
+                0.00    0.00      83/83          x264_threadpool_thread [3]
+[271]    0.0    0.00    0.00      83         read_frame_thread_int [271]
+                0.00    0.00      83/84          read_frame [269]
+-----------------------------------------------
+                0.00    0.00      82/82          get_frame [426]
+[272]    0.0    0.00    0.00      82         read_frame [272]
+                0.00    0.00      92/600         x264_sync_frame_list_push [247]
+                0.00    0.00      90/173         x264_threadpool_run [254]
+                0.00    0.00      89/172         x264_threadpool_wait [255]
+                0.00    0.00       1/84          read_frame [269]
+-----------------------------------------------
+                0.00    0.00      82/82          x264_encoder_encode [66]
+[273]    0.0    0.00    0.00      82         x264_macroblock_slice_init [273]
+-----------------------------------------------
+                0.00    0.00      82/82          x264_nal_end [189]
+[274]    0.0    0.00    0.00      82         x264_noise_reduction_update [274]
+-----------------------------------------------
+                0.00    0.00      81/81          x264_encoder_encode [66]
+[275]    0.0    0.00    0.00      81         x264_ratecontrol_qp [275]
+-----------------------------------------------
+                0.00    0.00      80/80          print_status [509]
+[276]    0.0    0.00    0.00      80         x264_mdate [276]
+-----------------------------------------------
+                0.00    0.00      76/76          x264_slice_write [2]
+[277]    0.0    0.00    0.00      76         x264_cabac_encode_flush [277]
+-----------------------------------------------
+                0.00    0.00      76/76          x264_slice_write [2]
+[278]    0.0    0.00    0.00      76         x264_macroblock_thread_init [278]
+-----------------------------------------------
+                0.00    0.00      75/75          x264_slice_write [2]
+[279]    0.0    0.00    0.00      75         x264_cabac_context_init [279]
+-----------------------------------------------
+                0.00    0.00      73/73          x264_slice_write [2]
+[280]    0.0    0.00    0.00      73         x264_slice_header_write [280]
+-----------------------------------------------
+                0.00    0.00      70/70          x264_slice_write [2]
+[281]    0.0    0.00    0.00      70         x264_cabac_encode_init [281]
+-----------------------------------------------
+                0.00    0.00       2/67          x264_mb_encode_i16x16 [102]
+                0.00    0.00      65/67          x264_mb_analyse_intra [29]
+[282]    0.0    0.00    0.00      67         x264_predict_16x16_dc_128_c [282]
+-----------------------------------------------
+                0.00    0.00       4/54          x264_frame_delete [300]
+                0.00    0.00      50/54          x264_frame_delete_list [301]
+[283]    0.0    0.00    0.00      54         x264_opencl_frame_delete [283]
+-----------------------------------------------
+                0.00    0.00      46/46          x264_encoder_encode [66]
+[284]    0.0    0.00    0.00      46         x264_lookahead_get_frames [284]
+                0.00    0.00      89/137         x264_frame_push [257]
+                0.00    0.00      86/713         x264_frame_shift [246]
+-----------------------------------------------
+                0.00    0.00      45/45          rate_estimate_qscale [162]
+[285]    0.0    0.00    0.00      45         clip_qscale [285]
+-----------------------------------------------
+                0.00    0.00      44/44          x264_mb_predict_mv_direct16x16 [114]
+[286]    0.0    0.00    0.00      44         x264_macroblock_cache_mv_2_4 [286]
+-----------------------------------------------
+                0.00    0.00      43/43          rate_estimate_qscale [162]
+[287]    0.0    0.00    0.00      43         get_qscale [287]
+-----------------------------------------------
+                0.00    0.00      42/42          x264_mb_predict_mv_direct16x16 [114]
+[288]    0.0    0.00    0.00      42         x264_macroblock_cache_mv_4_2 [288]
+-----------------------------------------------
+                0.00    0.00      42/42          x264_slicetype_analyse [24]
+[289]    0.0    0.00    0.00      42         x264_opencl_slicetype_prep [289]
+-----------------------------------------------
+                0.00    0.00      39/39          x264_encoder_encode [66]
+[290]    0.0    0.00    0.00      39         x264_frame_pop_blank_unused [290]
+                0.00    0.00       2/268         x264_malloc [252]
+-----------------------------------------------
+                0.00    0.00      37/37          x264_nal_end [189]
+[291]    0.0    0.00    0.00      37         x264_frame_push_blank_unused [291]
+-----------------------------------------------
+                0.00    0.00      37/37          x264_encoder_encode [66]
+[292]    0.0    0.00    0.00      37         x264_frame_unshift [292]
+-----------------------------------------------
+                0.00    0.00      36/36          x264_slicetype_analyse [24]
+[293]    0.0    0.00    0.00      36         x264_opencl_slicetype_end [293]
+-----------------------------------------------
+                0.00    0.00      21/21          x264_log [260]
+[294]    0.0    0.00    0.00      21         x264_log_default [294]
+-----------------------------------------------
+                0.00    0.00      11/11          x264_encoder_open_142 [105]
+[295]    0.0    0.00    0.00      11         x264_validate_levels [295]
+-----------------------------------------------
+                0.00    0.00       3/9           x264_lookahead_delete [335]
+                0.00    0.00       6/9           x264_threadpool_delete [317]
+[296]    0.0    0.00    0.00       9         x264_sync_frame_list_delete [296]
+-----------------------------------------------
+                0.00    0.00       3/9           x264_lookahead_init [336]
+                0.00    0.00       6/9           x264_threadpool_init [318]
+[297]    0.0    0.00    0.00       9         x264_sync_frame_list_init [297]
+                0.00    0.00       9/268         x264_malloc [252]
+-----------------------------------------------
+                0.00    0.00       6/6           x264_mb_analyse_intra [29]
+[298]    0.0    0.00    0.00       6         x264_predict_4x4_dc_128_c [298]
+-----------------------------------------------
+                0.00    0.00       2/6           open_file [479]
+                0.00    0.00       2/6           x264_fdec_filter_row [64]
+                0.00    0.00       2/6           x264_encoder_open_142 [105]
+[299]    0.0    0.00    0.00       6         x264_reduce_fraction [299]
+-----------------------------------------------
+                0.00    0.00       4/4           x264_encoder_close [592]
+[300]    0.0    0.00    0.00       4         x264_frame_delete [300]
+                0.00    0.00       4/279         x264_free [251]
+                0.00    0.00       4/54          x264_opencl_frame_delete [283]
+-----------------------------------------------
+                0.00    0.00       4/4           x264_encoder_close [592]
+[301]    0.0    0.00    0.00       4         x264_frame_delete_list [301]
+                0.00    0.00     103/279         x264_free [251]
+                0.00    0.00      50/54          x264_opencl_frame_delete [283]
+-----------------------------------------------
+                0.00    0.00       4/4           x264_encoder_encode [66]
+[302]    0.0    0.00    0.00       4         x264_frame_pop [302]
+-----------------------------------------------
+                0.00    0.00       1/4           x264_lookahead_init [336]
+                0.00    0.00       3/4           x264_encoder_open_142 [105]
+[303]    0.0    0.00    0.00       4         x264_macroblock_cache_allocate [303]
+                0.00    0.00       4/268         x264_malloc [252]
+-----------------------------------------------
+                0.00    0.00       1/4           x264_lookahead_delete [335]
+                0.00    0.00       3/4           x264_encoder_close [592]
+[304]    0.0    0.00    0.00       4         x264_macroblock_cache_free [304]
+-----------------------------------------------
+                0.00    0.00       1/4           x264_lookahead_init [336]
+                0.00    0.00       3/4           x264_encoder_open_142 [105]
+[305]    0.0    0.00    0.00       4         x264_macroblock_thread_allocate [305]
+                0.00    0.00      23/268         x264_malloc [252]
+-----------------------------------------------
+                0.00    0.00       1/4           x264_lookahead_delete [335]
+                0.00    0.00       3/4           x264_encoder_close [592]
+[306]    0.0    0.00    0.00       4         x264_macroblock_thread_free [306]
+                0.00    0.00      19/279         x264_free [251]
+-----------------------------------------------
+                0.00    0.00       3/3           open_file [479]
+[307]    0.0    0.00    0.00       3         x264_cli_pic_plane_size [307]
+-----------------------------------------------
+                0.00    0.00       3/3           x264_threadpool_thread [3]
+[308]    0.0    0.00    0.00       3         x264_encoder_thread_init [308]
+-----------------------------------------------
+                0.00    0.00       2/2           x264_init_vid_filter [609]
+[309]    0.0    0.00    0.00       2         init [309]
+-----------------------------------------------
+                0.00    0.00       1/2           init [321]
+                0.00    0.00       1/2           open_file [484]
+[310]    0.0    0.00    0.00       2         x264_cli_pic_alloc [310]
+                0.00    0.00       6/268         x264_malloc [252]
+-----------------------------------------------
+                0.00    0.00       1/2           free_filter [419]
+                0.00    0.00       1/2           close_file [320]
+[311]    0.0    0.00    0.00       2         x264_cli_pic_clean [311]
+                0.00    0.00       6/279         x264_free [251]
+-----------------------------------------------
+                0.00    0.00       2/2           x264_param_default [343]
+[312]    0.0    0.00    0.00       2         x264_cpu_detect [312]
+-----------------------------------------------
+                0.00    0.00       2/2           x264_encoder_encode [66]
+[313]    0.0    0.00    0.00       2         x264_lookahead_is_empty [313]
+-----------------------------------------------
+                0.00    0.00       2/2           x264_encoder_encode [66]
+[314]    0.0    0.00    0.00       2         x264_pps_write [314]
+-----------------------------------------------
+                0.00    0.00       2/2           x264_encoder_open_142 [105]
+[315]    0.0    0.00    0.00       2         x264_sps_init [315]
+-----------------------------------------------
+                0.00    0.00       2/2           x264_encoder_encode [66]
+[316]    0.0    0.00    0.00       2         x264_sps_write [316]
+-----------------------------------------------
+                0.00    0.00       1/2           close_file [320]
+                0.00    0.00       1/2           x264_encoder_close [592]
+[317]    0.0    0.00    0.00       2         x264_threadpool_delete [317]
+                0.00    0.00      12/279         x264_free [251]
+                0.00    0.00       6/9           x264_sync_frame_list_delete [296]
+-----------------------------------------------
+                0.00    0.00       1/2           open_file [484]
+                0.00    0.00       1/2           x264_encoder_open_142 [105]
+[318]    0.0    0.00    0.00       2         x264_threadpool_init [318]
+                0.00    0.00       8/268         x264_malloc [252]
+                0.00    0.00       6/9           x264_sync_frame_list_init [297]
+                0.00    0.00       4/600         x264_sync_frame_list_push [247]
+-----------------------------------------------
+                0.00    0.00       1/1           close_file [320]
+[319]    0.0    0.00    0.00       1         close_file [319]
+-----------------------------------------------
+                0.00    0.00       1/1           free_filter [419]
+[320]    0.0    0.00    0.00       1         close_file [320]
+                0.00    0.00       1/1           close_file [319]
+                0.00    0.00       1/279         x264_free [251]
+                0.00    0.00       1/2           x264_threadpool_delete [317]
+                0.00    0.00       1/2           x264_cli_pic_clean [311]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_init_vid_filter [609]
+[321]    0.0    0.00    0.00       1         init [321]
+                0.00    0.00       1/2           x264_cli_pic_alloc [310]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_init_vid_filter [609]
+[322]    0.0    0.00    0.00       1         init [322]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_init_vid_filter [609]
+[323]    0.0    0.00    0.00       1         init [323]
+                0.00    0.00       2/90          x264_cli_csp_depth_factor [263]
+                0.00    0.00       1/1           x264_split_options [363]
+                0.00    0.00       1/1           x264_get_option [334]
+                0.00    0.00       1/1           x264_otoi [341]
+                0.00    0.00       1/1           x264_free_string_array [333]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[324]    0.0    0.00    0.00       1         mbcmp_init [324]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_close [592]
+[325]    0.0    0.00    0.00       1         x264_analyse_free_costs [325]
+                0.00    0.00      70/279         x264_free [251]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[326]    0.0    0.00    0.00       1         x264_bitstream_init [326]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[327]    0.0    0.00    0.00       1         x264_cabac_init [327]
+-----------------------------------------------
+                0.00    0.00       1/1           open_file [479]
+[328]    0.0    0.00    0.00       1         x264_cli_get_csp [328]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[329]    0.0    0.00    0.00       1         x264_cpu_num_processors [329]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_close [592]
+[330]    0.0    0.00    0.00       1         x264_cqm_delete [330]
+                0.00    0.00      14/279         x264_free [251]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[331]    0.0    0.00    0.00       1         x264_cqm_init [331]
+                0.00    0.00      15/268         x264_malloc [252]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[332]    0.0    0.00    0.00       1         x264_dct_init [332]
+-----------------------------------------------
+                0.00    0.00       1/1           init [323]
+[333]    0.0    0.00    0.00       1         x264_free_string_array [333]
+-----------------------------------------------
+                0.00    0.00       1/1           init [323]
+[334]    0.0    0.00    0.00       1         x264_get_option [334]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_close [592]
+[335]    0.0    0.00    0.00       1         x264_lookahead_delete [335]
+                0.00    0.00       6/279         x264_free [251]
+                0.00    0.00       3/9           x264_sync_frame_list_delete [296]
+                0.00    0.00       1/554         x264_frame_push_unused [248]
+                0.00    0.00       1/4           x264_macroblock_cache_free [304]
+                0.00    0.00       1/4           x264_macroblock_thread_free [306]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[336]    0.0    0.00    0.00       1         x264_lookahead_init [336]
+                0.00    0.00       3/9           x264_sync_frame_list_init [297]
+                0.00    0.00       1/268         x264_malloc [252]
+                0.00    0.00       1/4           x264_macroblock_cache_allocate [303]
+                0.00    0.00       1/4           x264_macroblock_thread_allocate [305]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[337]    0.0    0.00    0.00       1         x264_mc_init [337]
+                0.00    0.00       1/1           x264_mc_init_arm [338]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_mc_init [337]
+[338]    0.0    0.00    0.00       1         x264_mc_init_arm [338]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_close [592]
+[339]    0.0    0.00    0.00       1         x264_opencl_close_library [339]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_close [592]
+[340]    0.0    0.00    0.00       1         x264_opencl_lookahead_delete [340]
+-----------------------------------------------
+                0.00    0.00       1/1           init [323]
+[341]    0.0    0.00    0.00       1         x264_otoi [341]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_sei_version_write [361]
+[342]    0.0    0.00    0.00       1         x264_param2string [342]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_param_default_preset [687]
+[343]    0.0    0.00    0.00       1         x264_param_default [343]
+                0.00    0.00       2/2           x264_cpu_detect [312]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[344]    0.0    0.00    0.00       1         x264_pixel_init [344]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[345]    0.0    0.00    0.00       1         x264_pps_init [345]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[346]    0.0    0.00    0.00       1         x264_predict_16x16_init [346]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[347]    0.0    0.00    0.00       1         x264_predict_16x16_init_arm [347]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[348]    0.0    0.00    0.00       1         x264_predict_4x4_init [348]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[349]    0.0    0.00    0.00       1         x264_predict_4x4_init_arm [349]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[350]    0.0    0.00    0.00       1         x264_predict_8x16c_init [350]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[351]    0.0    0.00    0.00       1         x264_predict_8x8_init [351]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[352]    0.0    0.00    0.00       1         x264_predict_8x8_init_arm [352]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[353]    0.0    0.00    0.00       1         x264_predict_8x8c_init [353]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[354]    0.0    0.00    0.00       1         x264_predict_8x8c_init_arm [354]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[355]    0.0    0.00    0.00       1         x264_quant_init [355]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_close [592]
+[356]    0.0    0.00    0.00       1         x264_ratecontrol_delete [356]
+                0.00    0.00      12/279         x264_free [251]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_ratecontrol_new [358]
+[357]    0.0    0.00    0.00       1         x264_ratecontrol_init_reconfigurable [357]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[358]    0.0    0.00    0.00       1         x264_ratecontrol_new [358]
+                0.00    0.00       3/268         x264_malloc [252]
+                0.00    0.00       1/1           x264_ratecontrol_init_reconfigurable [357]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_close [592]
+[359]    0.0    0.00    0.00       1         x264_ratecontrol_summary [359]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[360]    0.0    0.00    0.00       1         x264_rdo_init [360]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_encode [66]
+[361]    0.0    0.00    0.00       1         x264_sei_version_write [361]
+                0.00    0.00       2/279         x264_free [251]
+                0.00    0.00       1/1           x264_param2string [342]
+                0.00    0.00       1/268         x264_malloc [252]
+                0.00    0.00       1/1           x264_sei_write.constprop.6 [362]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_sei_version_write [361]
+[362]    0.0    0.00    0.00       1         x264_sei_write.constprop.6 [362]
+-----------------------------------------------
+                0.00    0.00       1/1           init [323]
+[363]    0.0    0.00    0.00       1         x264_split_options [363]
+                0.00    0.00       1/1           x264_split_string [364]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_split_options [363]
+[364]    0.0    0.00    0.00       1         x264_split_string [364]
+-----------------------------------------------
+                0.00    0.00       1/1           x264_encoder_open_142 [105]
+[365]    0.0    0.00    0.00       1         x264_zigzag_init [365]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+ [157] __aeabi_ldivmod       [292] x264_frame_unshift     [87] x264_pixel_ssd_16x16_neon
+ [199] __aeabi_uidiv         [251] x264_free              [84] x264_pixel_ssd_8x8_neon
+ [234] __aeabi_uidivmod      [333] x264_free_string_array [128] x264_pixel_var2_8x8_neon
+ [235] __divdi3              [334] x264_get_option        [91] x264_pixel_var_16x16_neon
+ [236] __gnu_ldivmod_helper   [95] x264_hpel_filter_c_neon [204] x264_pixel_var_8x8_neon
+ [285] clip_qscale           [112] x264_hpel_filter_h_neon [266] x264_plane_copy_c
+ [319] close_file             [80] x264_hpel_filter_v_neon [88] x264_plane_copy_interleave_neon
+ [320] close_file             [15] x264_intra_rd         [345] x264_pps_init
+ [203] deblock_h_chroma_intra_c [173] x264_intra_sa8d_x3_8x8_neon [314] x264_pps_write
+ [134] deblock_h_luma_intra_c [160] x264_intra_satd_x3_16x16_neon [282] x264_predict_16x16_dc_128_c
+ [216] deblock_v_chroma_intra_c [140] x264_intra_satd_x3_4x4_neon [230] x264_predict_16x16_dc_left_neon
+ [185] deblock_v_luma_intra_c [141] x264_intra_satd_x3_8x8c_neon [205] x264_predict_16x16_dc_neon
+ [287] get_qscale            [150] x264_load_deinterleave_chroma_fenc_neon [206] x264_predict_16x16_h_neon
+  [14] get_ref_neon          [260] x264_log              [346] x264_predict_16x16_init
+ [188] hpel_filter_neon      [294] x264_log_default      [347] x264_predict_16x16_init_arm
+ [321] init                  [335] x264_lookahead_delete [207] x264_predict_16x16_p_neon
+ [309] init                  [284] x264_lookahead_get_frames [197] x264_predict_16x16_v_neon
+ [322] init                  [336] x264_lookahead_init   [298] x264_predict_4x4_dc_128_c
+ [323] init                  [313] x264_lookahead_is_empty [231] x264_predict_4x4_dc_armv6
+ [324] mbcmp_init            [264] x264_lookahead_put_frame [217] x264_predict_4x4_dc_left_c
+  [53] mbtree_propagate_cost  [22] x264_lookahead_slicetype_decide [177] x264_predict_4x4_ddl_neon
+  [37] mbtree_propagate_list   [4] x264_macroblock_analyse [152] x264_predict_4x4_ddr_armv6
+  [85] mc_luma_neon          [223] x264_macroblock_bipred_init [208] x264_predict_4x4_h_armv6
+  [79] memcpy_aligned_16_16_neon [303] x264_macroblock_cache_allocate [131] x264_predict_4x4_hd_c
+ [101] memcpy_aligned_8_16_neon [304] x264_macroblock_cache_free [159] x264_predict_4x4_hu_c
+ [175] optimize_chroma_2x2_dc [43] x264_macroblock_cache_load_progressive [348] x264_predict_4x4_init
+ [258] parse_cqm             [267] x264_macroblock_cache_mv_2_2 [349] x264_predict_4x4_init_arm
+ [162] rate_estimate_qscale  [286] x264_macroblock_cache_mv_2_4 [132] x264_predict_4x4_vl_c
+ [269] read_frame            [288] x264_macroblock_cache_mv_4_2 [118] x264_predict_4x4_vr_c
+ [272] read_frame            [250] x264_macroblock_cache_mv_4_4 [350] x264_predict_8x16c_init
+ [271] read_frame_thread_int  [62] x264_macroblock_cache_save [256] x264_predict_8x8_dc_128_c
+   [8] refine_subpel         [201] x264_macroblock_deblock_strength [242] x264_predict_8x8_dc_left_c
+  [35] refine_subpel.constprop.0 [7] x264_macroblock_encode [153] x264_predict_8x8_dc_neon
+ [262] release_frame         [182] x264_macroblock_probe_skip [244] x264_predict_8x8_dc_top_c
+ [237] scenecut_internal     [273] x264_macroblock_slice_init [168] x264_predict_8x8_ddl_neon
+ [174] ssd_mb                [305] x264_macroblock_thread_allocate [154] x264_predict_8x8_ddr_neon
+  [89] trellis_coef0_0       [306] x264_macroblock_thread_free [74] x264_predict_8x8_filter_c
+  [50] trellis_coef1_0       [278] x264_macroblock_thread_init [198] x264_predict_8x8_h_neon
+ [215] trellis_dc_shortcut    [57] x264_macroblock_tree_finish [169] x264_predict_8x8_hd_neon
+  [99] x264_ac_energy_mb      [40] x264_macroblock_tree_propagate.constprop.25 [209] x264_predict_8x8_hu_neon
+  [78] x264_adaptive_quant_frame [44] x264_macroblock_tree_propagate.constprop.26 [351] x264_predict_8x8_init
+ [106] x264_add4x4_idct_neon  [26] x264_macroblock_write_cabac [352] x264_predict_8x8_init_arm
+  [98] x264_add8x8_idct8_neon [252] x264_malloc          [210] x264_predict_8x8_v_neon
+ [226] x264_add8x8_idct_dc_neon [11] x264_mb_analyse_b_rd [155] x264_predict_8x8_vl_neon
+ [325] x264_analyse_free_costs [142] x264_mb_analyse_init_qp [156] x264_predict_8x8_vr_neon
+ [111] x264_analyse_init_costs [20] x264_mb_analyse_inter_b16x16 [261] x264_predict_8x8c_dc_128_c
+ [224] x264_analyse_prepare_costs [71] x264_mb_analyse_inter_b16x8 [145] x264_predict_8x8c_dc_neon
+  [55] x264_analyse_update_cache [70] x264_mb_analyse_inter_b8x16 [178] x264_predict_8x8c_h_neon
+ [218] x264_analyse_weight_frame [17] x264_mb_analyse_inter_b8x8_mixed_ref [353] x264_predict_8x8c_init
+ [326] x264_bitstream_init    [46] x264_mb_analyse_inter_p16x8 [354] x264_predict_8x8c_init_arm
+  [59] x264_cabac_block_residual_8x8_rd_c [29] x264_mb_analyse_intra [116] x264_predict_8x8c_p_neon
+  [36] x264_cabac_block_residual_c [16] x264_mb_analyse_p_rd [211] x264_predict_8x8c_v_neon
+  [34] x264_cabac_block_residual_rd_c [12] x264_mb_cache_mv_p8x8 [200] x264_prefetch_fenc
+  [92] x264_cabac_cbp_luma    [28] x264_mb_encode_chroma [179] x264_prefetch_fenc_arm
+ [158] x264_cabac_cbp_luma   [102] x264_mb_encode_i16x16 [232] x264_prefetch_ref_arm
+ [279] x264_cabac_context_init [240] x264_mb_init_fenc_cache [121] x264_quant_2x2_dc_neon
+ [122] x264_cabac_encode_bypass_c [38] x264_mb_mc        [233] x264_quant_4x4_dc_neon
+  [39] x264_cabac_encode_decision_c [81] x264_mb_mc_01xywh [113] x264_quant_4x4_neon
+ [277] x264_cabac_encode_flush [56] x264_mb_mc_0xywh      [25] x264_quant_4x4_trellis
+ [281] x264_cabac_encode_init [129] x264_mb_mc_1xywh      [42] x264_quant_4x4x4_neon
+ [214] x264_cabac_encode_terminal_c [51] x264_mb_predict_mv [68] x264_quant_8x8_neon
+ [241] x264_cabac_encode_ue_bypass [108] x264_mb_predict_mv_16x16 [21] x264_quant_8x8_trellis
+ [327] x264_cabac_init       [114] x264_mb_predict_mv_direct16x16 [104] x264_quant_chroma_dc_trellis
+ [137] x264_cabac_mb_skip    [202] x264_mb_predict_mv_pskip [355] x264_quant_init
+  [54] x264_cabac_mvd         [61] x264_mb_predict_mv_ref16x16 [239] x264_quant_luma_dc_trellis
+  [77] x264_cabac_mvd         [19] x264_mc_chroma_neon   [356] x264_ratecontrol_delete
+ [119] x264_cabac_qp_delta    [67] x264_mc_copy_w16_aligned_neon [270] x264_ratecontrol_end
+ [180] x264_cabac_qp_delta   [125] x264_mc_copy_w16_neon [357] x264_ratecontrol_init_reconfigurable
+ [133] x264_cabac_ref_b      [107] x264_mc_copy_w8_neon  [148] x264_ratecontrol_mb
+ [213] x264_cabac_ref_b      [337] x264_mc_init          [123] x264_ratecontrol_mb_qp
+ [130] x264_cabac_ref_p      [338] x264_mc_init_arm      [358] x264_ratecontrol_new
+ [171] x264_cabac_ref_p       [75] x264_mc_weight_w16_offsetsub_neon [275] x264_ratecontrol_qp
+ [263] x264_cli_csp_depth_factor [229] x264_mc_weight_w20_offsetsub_neon [163] x264_ratecontrol_start
+ [328] x264_cli_get_csp       [76] x264_mc_weight_w8_neon [359] x264_ratecontrol_summary
+ [310] x264_cli_pic_alloc    [196] x264_mc_weight_w8_offsetadd_neon [164] x264_rc_analyse_slice
+ [311] x264_cli_pic_clean     [82] x264_mc_weight_w8_offsetsub_neon [6] x264_rd_cost_mb
+ [307] x264_cli_pic_plane_size [276] x264_mdate          [360] x264_rdo_init
+ [227] x264_coeff_last15_neon [117] x264_me_refine_bidir_satd [299] x264_reduce_fraction
+ [144] x264_coeff_last16_neon [172] x264_me_refine_qpel_refdupe [181] x264_refine_bidir
+ [192] x264_coeff_last4_arm    [5] x264_me_search_ref    [361] x264_sei_version_write
+ [149] x264_coeff_last64_neon [120] x264_memcpy_aligned_neon [362] x264_sei_write.constprop.6
+ [183] x264_copy_column8     [191] x264_nal_encode       [268] x264_slice_header_init
+ [312] x264_cpu_detect       [189] x264_nal_end          [280] x264_slice_header_write
+ [329] x264_cpu_num_processors [190] x264_nal_escape_c     [2] x264_slice_write
+ [330] x264_cqm_delete       [274] x264_noise_reduction_update [1] x264_slices_write
+ [331] x264_cqm_init         [339] x264_opencl_close_library [24] x264_slicetype_analyse
+ [228] x264_dct4x4dc_neon    [283] x264_opencl_frame_delete [27] x264_slicetype_decide
+ [332] x264_dct_init         [340] x264_opencl_lookahead_delete [238] x264_slicetype_frame_cost
+ [193] x264_deblock_h_chroma_neon [293] x264_opencl_slicetype_end [212] x264_slicetype_frame_cost.constprop.27
+ [124] x264_deblock_h_luma_neon [289] x264_opencl_slicetype_prep [165] x264_slicetype_frame_cost_recalculate
+ [225] x264_deblock_init     [341] x264_otoi              [10] x264_slicetype_slice_cost
+ [176] x264_deblock_strength_neon [342] x264_param2string [363] x264_split_options
+ [194] x264_deblock_v_chroma_neon [343] x264_param_default [364] x264_split_string
+ [195] x264_deblock_v_luma_neon [13] x264_pixel_avg2_w16_neon [315] x264_sps_init
+ [184] x264_decimate_score15  [93] x264_pixel_avg2_w20_neon [316] x264_sps_write
+  [65] x264_decimate_score16  [18] x264_pixel_avg2_w8_neon [146] x264_store_interleave_chroma_neon
+ [100] x264_decimate_score64  [63] x264_pixel_avg_16x16_neon [170] x264_sub16x16_dct8_neon
+  [73] x264_dequant_4x4_neon [151] x264_pixel_avg_8x8_neon [135] x264_sub16x16_dct_neon
+  [86] x264_dequant_8x8_neon  [45] x264_pixel_hadamard_ac_16x16_neon [52] x264_sub4x4_dct_neon
+ [308] x264_encoder_thread_init [344] x264_pixel_init     [72] x264_sub8x8_dct8_neon
+  [64] x264_fdec_filter_row   [83] x264_pixel_sa8d_16x16_neon [147] x264_sub8x8_dct_dc_neon
+ [245] x264_frame_cond_broadcast [166] x264_pixel_sa8d_8x8_neon [296] x264_sync_frame_list_delete
+ [243] x264_frame_cond_wait   [30] x264_pixel_sad_16x16_neon [297] x264_sync_frame_list_init
+ [265] x264_frame_copy_picture [126] x264_pixel_sad_16x8_neon [253] x264_sync_frame_list_pop
+  [69] x264_frame_deblock_row [127] x264_pixel_sad_8x16_neon [247] x264_sync_frame_list_push
+ [300] x264_frame_delete      [47] x264_pixel_sad_8x8_neon [259] x264_thread_sync_ratecontrol
+ [301] x264_frame_delete_list [49] x264_pixel_sad_x3_16x16_neon [317] x264_threadpool_delete
+ [219] x264_frame_expand_border [167] x264_pixel_sad_x3_16x8_neon [318] x264_threadpool_init
+ [186] x264_frame_expand_border_filtered [138] x264_pixel_sad_x3_8x16_neon [254] x264_threadpool_run
+ [161] x264_frame_expand_border_lowres [41] x264_pixel_sad_x3_8x8_neon [255] x264_threadpool_wait
+ [187] x264_frame_filter      [31] x264_pixel_sad_x4_16x16_neon [295] x264_validate_levels
+ [143] x264_frame_init_lowres [96] x264_pixel_sad_x4_16x8_neon [249] x264_weight_cache_neon
+  [58] x264_frame_init_lowres_core_neon [90] x264_pixel_sad_x4_8x16_neon [109] x264_weight_cost_luma
+ [222] x264_frame_new         [32] x264_pixel_sad_x4_8x8_neon [220] x264_weight_scale_plane
+ [302] x264_frame_pop         [33] x264_pixel_satd_16x16_neon [110] x264_weights_analyse
+ [290] x264_frame_pop_blank_unused [115] x264_pixel_satd_16x8_neon [365] x264_zigzag_init
+ [221] x264_frame_pop_unused  [48] x264_pixel_satd_4x4_neon [136] x264_zigzag_scan_4x4_frame_neon
+ [257] x264_frame_push       [139] x264_pixel_satd_4x8_neon [94] zigzag_scan_8x8_frame
+ [291] x264_frame_push_blank_unused [9] x264_pixel_satd_8x16_neon [103] <cycle 1>
+ [248] x264_frame_push_unused [97] x264_pixel_satd_8x4_neon
+ [246] x264_frame_shift       [60] x264_pixel_satd_8x8_neon
