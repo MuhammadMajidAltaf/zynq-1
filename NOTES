@@ -45,3 +45,29 @@ V in{1-5}_input
 I curr{1-5}_input
 P power{1-5}_input
 T temp{1-5}_input
+
+-------------------------------------------------------------
+
+Analysing for metrics of choice:
+- arithmetic operations are easiest to hardware-ify
+- loops/control flow is very difficult
+- memory operations - do in the integration logic, or try to setup DMA for the PL (might need to check about PS caches)?
+
+arith:
+ADD/AND/LSL/REV/etc. -> easy to map to HDL
+MUL/DIV -> edge case complications?
+[How to handle flags?]
+MOV -> must be handled during the setup phases for the HDL block on PS
+[ordering? can parallelize some sets of instructions, etc, but others have dependencies - need to have 'instruction clock' for the PL!]
+
+-------------------------------------------------------------
+
+add r1, r2
+add r3, r4   <- parallel
+
+add r1, r2
+add r3, r1  <- need ordering
+
+add r1, r2
+mov r3, r4  <- independent
+mov r4, r1  <- needs r1 from (1)
