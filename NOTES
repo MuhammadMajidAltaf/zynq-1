@@ -71,3 +71,43 @@ add r3, r1  <- need ordering
 add r1, r2
 mov r3, r4  <- independent
 mov r4, r1  <- needs r1 from (1)
+
+-------------------------------------------------------------
+
+want to logic-ize simple loops
+loops might be in 1 of 2 forms:
+- unrolled -> should be caught by being a basic-block!?
+- rolled -> need to generate a CFG?
+
+likely to have been vectorized by the compiler?
+
+vector example:
+void add_ints(int * __restrict pa, int * __restrict pb, unsigned int n, int x)
+{
+      unsigned int i;
+      
+          for(i = 0; i < (n & ~3); i++)
+                    pa[i] = pb[i] + x;
+}
+
+generates things like vadd/vld/vst if vectored - > a good hint for the function being worth consideration beyond BB-offloading
+
+-------------------------------------------------------------
+
+for(int i=0; i<15; i++) {
+  for(int j=0; j<15; j++) {
+      b[j][i] = a[j][i] ^ 0xffff;
+    }
+}
+
+unroll this completely into logic? might not fit!
+
+-------------------------------------------------------------
+
+void do_thing(int i) {
+  /* arith basic block */
+}
+
+for(int i=0; i<15; i++) {
+    do_thing(i);
+}
