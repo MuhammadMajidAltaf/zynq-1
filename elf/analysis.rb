@@ -8,11 +8,27 @@ BRANCH_IT = ['it', 'itt', 'ite', 'itt', 'itet' ,'itte', 'itee', 'itttt', 'itett'
 
 ARITH_INSNS = ['adc', 'add', 'adds', 'addw', 'and', 'bic', 'eor', 'mov', 'mvn', 'orn', 'orr', 'rsb', 'sbc', 'sub', 'subs', 'subw', 'asr', 'asl', 'lsl', 'lsr', 'ror', 'rrx', 'mla', 'mls' , 'mul', 'smlal', 'smull', 'umlal', 'umull', 'ssat', 'usat', 'sxtb', 'sxth', 'uxtb', 'uxth', 'sdiv', 'udiv', 'bfc', 'bfi', 'clz', 'movt', 'rbit', 'rev', 'rev16', 'revsh', 'sbfx', 'ubfx']
 
-if ARGV.length < 1 then
+def strip_line(line)
+  return {addr: line[:addr], raw: line[:raw], instr: line[:instr], args: line[:args]}
+end
+
+def pars_r(line, seen_lines)
+  lines = []
+  line[:deps].each do |dep|
+    ret = pars_r(dep, seen_lines)
+    lines.concat(ret[:lines])
+    seen_lines.concat(ret[:seen_lines]).uniq!
+  end
+  return {lines: lines.push(strip_line(line)), seen_lines: seen_lines.push(line[:addr]).uniq}
+end
+
+if ARGV.length < 2 then
   puts "Not enough arguments"
-  puts "[objdump-file]"
+  puts "[objdump-file] [num-take]"
   exit
 end
+
+NUM_TAKE = ARGV[1].to_i
 
 #Parse in obj-dump file and extract sections
 
@@ -54,7 +70,9 @@ File.open(filename, 'r') do |obj|
           #puts $1
           #puts $2
           #puts $3
-          l = { addr: $1, raw: $2, instr: $3 , args: $5}
+          #TODO: extend arg parsing to curly-brace expressions
+          args = $5.nil? ? [] : $5.split(", ")
+          l = { addr: $1, raw: $2, instr: $3 , args: args}
           sections[cur_section][cur_function][:code].push l
         end
       end
@@ -123,8 +141,67 @@ bbs.each do |bb|
   bb[:arith_seq_p] = (bb[:size] > 1) ? max_arith_seq.to_f / (bb[:size]-1) * 100 : 0
 end
 
-bbs_asp = bbs.sort_by { |bb| bb[:arith_seq_p] }.reverse.select { |bb| bb[:size] > 5 && bb[:arith_seq_p] > 50 }.sort_by{ |bb| bb[:size] }.reverse.take(20)
+bbs_asp = bbs.sort_by { |bb| bb[:arith_seq_p] }.reverse.select { |bb| bb[:size] > 5 && bb[:arith_seq_p] > 50 }.sort_by{ |bb| bb[:size] }.reverse.take(NUM_TAKE)
 
 pp bbs_asp
 
 puts "Arithmetic analysis concluded"
+
+#######################################
+# Initial Analysis - arithmetic chunks
+#######################################
+
+puts "Verilog Generation started"
+
+bbs_asp.each do |bb|
+
+  puts "order analysing func: #{bb[:func]}@#{bb[:addr]}"
+
+  used_regs = {}
+  bb[:code].map! do |line|
+    line[:deps] = []
+    line[:deps_lines] = []
+
+    #check for deps
+    line[:args].each do |arg|
+      if arg[0] == '#' then
+        #immediate argument, err...
+      else
+        #register
+        if used_regs.include? arg then
+          #dependency
+          unless (line[:deps_lines].include? used_regs[arg][:addr]) || (line[:addr] == used_regs[arg][:addr]) then
+            line[:deps].push used_regs[arg]
+            line[:deps_lines].push used_regs[arg][:addr]
+          end
+        end
+        used_regs[arg] = line
+      end
+    end
+
+    line
+  end
+
+  puts "parallelizing func: #{bb[:func]}@#{bb[:addr]}"
+
+  seen_lines = []
+  bb[:par_code] = []
+  bb[:code].reverse_each do |line|
+    unless seen_lines.include? line[:addr] then
+      ret = pars_r(line, seen_lines)
+      seen_lines.concat(ret[:seen_lines]).uniq!
+      bb[:par_code].push ret[:lines]
+    end
+  end
+
+  puts "parallelized into #{bb[:par_code].count} pars"
+
+  puts "generating func: #{bb[:func]}@#{bb[:addr]}"
+  #TODO: statement transliteration
+  puts "################"
+  pp bb
+  puts "################"
+
+end
+
+puts "Verilog Generation concluded"
