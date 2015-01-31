@@ -44,13 +44,14 @@ def pars_r(line, seen_lines)
   return {lines: lines.push(strip_line(line)), seen_lines: seen_lines.push(line[:addr]).uniq}
 end
 
-if ARGV.length < 2 then
+if ARGV.length < 3 then
   puts "Not enough arguments"
-  puts "[objdump-file] [num-take]"
+  puts "[objdump-file] [num-take] [stages]"
   exit
 end
 
 NUM_TAKE = ARGV[1].to_i
+STAGES = ARGV[2].split(":")
 
 #Parse in obj-dump file and extract sections
 
@@ -109,141 +110,158 @@ puts "Read-in completed in #{sections.count} sections"
 # Initial Analysis - basic blocks
 #################################
 
-puts "Starting Basic Block analysis"
+if STAGES.include? "bb" then
 
-bbs = []
-cur_block = []
+  puts "Starting Basic Block analysis"
 
-sections[".text"].each do |func, data|
-  puts "analysing func: #{func}@#{data[:addr]}"
+  bbs = []
+  cur_block = []
 
-  data[:code].each do |line|
-    cur_block.push line
+  sections[".text"].each do |func, data|
+    puts "analysing func: #{func}@#{data[:addr]}"
 
-    base = line[:instr].split(".")[0]
-    if BRANCH_INSNS.include?(base) || BRANCH_IT.include?(base) || BRANCH_SUFFIXES.include?(base[-2,2]) then
-      #Was a non-basic thing
-      b = {func: func, addr: data[:addr], size: cur_block.count, code: cur_block.clone}
-      bbs.push b
-      cur_block = []
-    end
-  end
-end
+    data[:code].each do |line|
+      cur_block.push line
 
-bbs.sort_by! { |bb| bb[:size] }.reverse!
-
-puts "#{bbs.count} Basic Blocks completed"
-
-#######################################
-# Initial Analysis - arithmetic chunks
-#######################################
-
-puts "Starting arithmetic analysis"
-
-bbs.each do |bb|
-  puts "analysing func: #{bb[:func]}@#{bb[:addr]}"
-
-  arith_num = 0
-  arith_seq = 0
-  max_arith_seq = 0
-
-  bb[:code].each do |line|
-    if ARITH_INSNS.include? line[:instr] then
-      arith_num = arith_num + 1
-      arith_seq = arith_seq + 1
-    else
-      max_arith_seq = arith_seq if arith_seq > max_arith_seq
-      arith_seq = 0
-    end
-  end
-
-  bb[:arith_num] = arith_num
-  bb[:arith_seq] = max_arith_seq
-  bb[:arith_num_p] = (bb[:size] > 1) ? arith_num.to_f / (bb[:size]-1) * 100 : 0
-  bb[:arith_seq_p] = (bb[:size] > 1) ? max_arith_seq.to_f / (bb[:size]-1) * 100 : 0
-end
-
-bbs_asp = bbs.sort_by { |bb| bb[:arith_seq_p] }.reverse.select { |bb| bb[:size] > 5 && bb[:arith_seq_p] > 50 }.sort_by{ |bb| bb[:size] }.reverse.take(NUM_TAKE)
-
-pp bbs_asp
-
-puts "Arithmetic analysis concluded"
-
-#######################################
-# Initial Analysis - arithmetic chunks
-#######################################
-
-puts "Verilog Generation started"
-
-bbs_asp.each do |bb|
-
-  puts "order analysing func: #{bb[:func]}@#{bb[:addr]}"
-
-  used_regs = {}
-  bb[:code].each do |line|
-    line[:deps] = []
-    line[:deps_lines] = []
-
-    #check for deps
-    line[:args].each do |arg|
-      if arg[0] == '#' then
-        #immediate argument, err...
-      else
-        #register
-        if used_regs.include? arg then
-          #dependency
-          unless (line[:deps_lines].include? used_regs[arg][:addr]) || (line[:addr] == used_regs[arg][:addr]) then
-            line[:deps].push used_regs[arg]
-            line[:deps_lines].push used_regs[arg][:addr]
-          end
-        end
-        used_regs[arg] = line
+      base = line[:instr].split(".")[0]
+      if BRANCH_INSNS.include?(base) || BRANCH_IT.include?(base) || BRANCH_SUFFIXES.include?(base[-2,2]) then
+        #Was a non-basic thing
+        b = {func: func, addr: data[:addr], size: cur_block.count, code: cur_block.clone}
+        bbs.push b
+        cur_block = []
       end
     end
   end
 
-  puts "parallelizing func: #{bb[:func]}@#{bb[:addr]}"
+  bbs.sort_by! { |bb| bb[:size] }.reverse!
 
-  seen_lines = []
-  bb[:par_code] = []
-  bb[:code].reverse_each do |line|
-    unless seen_lines.include? line[:addr] then
-      ret = pars_r(line, seen_lines)
-      seen_lines.concat(ret[:seen_lines]).uniq!
-      bb[:par_code].push ret[:lines]
-    end
-  end
-
-  puts "parallelized into #{bb[:par_code].count} pars"
-
-  puts "generating func: #{bb[:func]}@#{bb[:addr]}"
-  #TODO: statement transliteration
-  puts "################"
-  pp bb
-  puts "################"
+  puts "#{bbs.count} Basic Blocks completed"
 
 end
 
-puts "Verilog Generation concluded"
+#######################################
+# Initial Analysis - arithmetic chunks
+#######################################
+
+
+if STAGES.include? "arith" then
+
+  puts "Starting arithmetic analysis"
+
+  bbs.each do |bb|
+    puts "analysing func: #{bb[:func]}@#{bb[:addr]}"
+
+    arith_num = 0
+    arith_seq = 0
+    max_arith_seq = 0
+
+    bb[:code].each do |line|
+      if ARITH_INSNS.include? line[:instr] then
+        arith_num = arith_num + 1
+        arith_seq = arith_seq + 1
+      else
+        max_arith_seq = arith_seq if arith_seq > max_arith_seq
+        arith_seq = 0
+      end
+    end
+
+    bb[:arith_num] = arith_num
+    bb[:arith_seq] = max_arith_seq
+    bb[:arith_num_p] = (bb[:size] > 1) ? arith_num.to_f / (bb[:size]-1) * 100 : 0
+    bb[:arith_seq_p] = (bb[:size] > 1) ? max_arith_seq.to_f / (bb[:size]-1) * 100 : 0
+  end
+
+  bbs_asp = bbs.sort_by { |bb| bb[:arith_seq_p] }.reverse.select { |bb| bb[:size] > 5 && bb[:arith_seq_p] > 50 }.sort_by{ |bb| bb[:size] }.reverse.take(NUM_TAKE)
+
+  pp bbs_asp
+
+  puts "Arithmetic analysis concluded"
+
+end
+
+#######################################
+# Initial Analysis - arithmetic chunks
+#######################################
+
+if STAGES.include? "gen" then
+
+  puts "Verilog Generation started"
+
+  bbs_asp.each do |bb|
+
+    puts "order analysing func: #{bb[:func]}@#{bb[:addr]}"
+
+    used_regs = {}
+    bb[:code].each do |line|
+      line[:deps] = []
+      line[:deps_lines] = []
+
+      #check for deps
+      line[:args].each do |arg|
+        if arg[0] == '#' then
+          #immediate argument, err...
+        else
+          #register
+          if used_regs.include? arg then
+            #dependency
+            unless (line[:deps_lines].include? used_regs[arg][:addr]) || (line[:addr] == used_regs[arg][:addr]) then
+              line[:deps].push used_regs[arg]
+              line[:deps_lines].push used_regs[arg][:addr]
+            end
+          end
+          used_regs[arg] = line
+        end
+      end
+    end
+
+    puts "parallelizing func: #{bb[:func]}@#{bb[:addr]}"
+
+    seen_lines = []
+    bb[:par_code] = []
+    bb[:code].reverse_each do |line|
+      unless seen_lines.include? line[:addr] then
+        ret = pars_r(line, seen_lines)
+        seen_lines.concat(ret[:seen_lines]).uniq!
+        bb[:par_code].push ret[:lines]
+      end
+    end
+
+    puts "parallelized into #{bb[:par_code].count} pars"
+
+    puts "generating func: #{bb[:func]}@#{bb[:addr]}"
+    #TODO: statement transliteration
+    puts "################"
+    pp bb
+    puts "################"
+
+  end
+
+  puts "Verilog Generation concluded"
+
+end
 
 #################################
 # SIMD analysis
 #################################
 
-puts "Starting SIMD analysis"
+if STAGES.include? "simd" then
 
-bbs.each do |bb|
-  puts "analysing func: #{bb[:func]}@#{bb[:addr]}"
+  puts "Starting SIMD analysis"
 
-  bb[:has_simd] = false
+  bbs.each do |bb|
+    puts "analysing func: #{bb[:func]}@#{bb[:addr]}"
 
-  bb[:code].each do |line|
-    if SIMD_ARITH_INSNS.include? line[:instr] then
-      bb[:has_simd] = true
+    bb[:has_simd] = false
+
+    bb[:code].each do |line|
+      if SIMD_ARITH_INSNS.include? line[:instr] then
+        bb[:has_simd] = true
+      end
     end
   end
-end
 
-bbs_simd = bbs.select { |bb| bb[:has_simd] }
-pp bbs_simd
-puts "SIMD analysis conclude - found #{bbs_simd.count}"
+  bbs_simd = bbs.select { |bb| bb[:has_simd] }
+  pp bbs_simd
+  puts "SIMD analysis conclude - found #{bbs_simd.count}"
+
+end
