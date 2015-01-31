@@ -44,14 +44,16 @@ def pars_r(line, seen_lines)
   return {lines: lines.push(strip_line(line)), seen_lines: seen_lines.push(line[:addr]).uniq}
 end
 
-if ARGV.length < 3 then
+if ARGV.length < 4 then
   puts "Not enough arguments"
-  puts "[objdump-file] [num-take] [stages]"
+  puts "[objdump-file] [num-take] [stages] [gprof-file]"
   exit
 end
 
+DIS_FILE = ARGV[0]
 NUM_TAKE = ARGV[1].to_i
 STAGES = ARGV[2].split(":")
+PROF_FILE = ARGV[3]
 
 #Parse in obj-dump file and extract sections
 
@@ -65,8 +67,7 @@ cur_function = nil
 
 puts "Reading in objdump"
 
-filename = ARGV[0]
-File.open(filename, 'r') do |obj|
+File.open(DIS_FILE, 'r') do |obj|
   obj.each_line do |line|
 
     if line =~ /Disassembly of section (.*):$/ then
@@ -105,6 +106,29 @@ File.open(filename, 'r') do |obj|
 end
 
 puts "Read-in completed in #{sections.count} sections"
+
+puts "Reading in gprof file"
+
+flat_prof = []
+in_flat = false
+File.open(PROF_FILE, 'r') do |gp|
+  gp.each_line do |line|
+    if line =~ /Flat profile:/ then
+      in_flat = true
+    end
+
+    if line =~ /Call graph/ then
+      in_flat = false
+    end
+
+    if in_flat && line =~ /^\s+([0-9.]+)\s+([0-9.]+)\s+([0-9.]+)\s+(([0-9]+)\s+([0-9.]+)\s+([0-9.]+))?\s(.*)$/ then
+      p = {func: $8.strip, time_p: $1, time_cum: $2, time_self: $3, calls: $5, call_self: $6, call_total: $7}
+      flat_prof.push p
+    end
+  end
+end
+
+puts "Read-in completed for gprof file for #{flat_prof.count} functions"
 
 #################################
 # Initial Analysis - basic blocks
