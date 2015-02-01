@@ -109,7 +109,7 @@ puts "Read-in completed in #{sections.count} sections"
 
 puts "Reading in gprof file"
 
-flat_prof = []
+flat_prof = {}
 in_flat = false
 File.open(PROF_FILE, 'r') do |gp|
   gp.each_line do |line|
@@ -122,8 +122,7 @@ File.open(PROF_FILE, 'r') do |gp|
     end
 
     if in_flat && line =~ /^\s+([0-9.]+)\s+([0-9.]+)\s+([0-9.]+)\s+(([0-9]+)\s+([0-9.]+)\s+([0-9.]+))?\s(.*)$/ then
-      p = {func: $8.strip, time_p: $1, time_cum: $2, time_self: $3, calls: $5, call_self: $6, call_total: $7}
-      flat_prof.push p
+      flat_prof[$8.strip] = {time_p: $1.to_f, time_cum: $2.to_f, time_self: $3.to_f, calls: $5.to_i, call_self: $6.to_i, call_total: $7.to_i}
     end
   end
 end
@@ -150,7 +149,9 @@ if STAGES.include? "bb" then
       base = line[:instr].split(".")[0]
       if BRANCH_INSNS.include?(base) || BRANCH_IT.include?(base) || BRANCH_SUFFIXES.include?(base[-2,2]) then
         #Was a non-basic thing
-        b = {func: func, addr: data[:addr], size: cur_block.count, code: cur_block.clone}
+        func_base = func.split(".")[0]
+        prof = (flat_prof.include? func_base) ? flat_prof[func_base] : {time_p: 0, time_cum: 0, time_sef: 0, calls:0 , call_self: 0, call_total: 0}
+        b = {func: func, addr: data[:addr], size: cur_block.count, code: cur_block.clone, prof: prof}
         bbs.push b
         cur_block = []
       end
@@ -173,7 +174,7 @@ if STAGES.include? "arith" then
   puts "Starting arithmetic analysis"
 
   bbs.each do |bb|
-    puts "analysing func: #{bb[:func]}@#{bb[:addr]}"
+    puts "analysing bb: #{bb[:func]}@#{bb[:addr]}"
 
     arith_num = 0
     arith_seq = 0
@@ -195,25 +196,52 @@ if STAGES.include? "arith" then
     bb[:arith_seq_p] = (bb[:size] > 1) ? max_arith_seq.to_f / (bb[:size]-1) * 100 : 0
   end
 
-  bbs_asp = bbs.sort_by { |bb| bb[:arith_seq_p] }.reverse.select { |bb| bb[:size] > 5 && bb[:arith_seq_p] > 50 }.sort_by{ |bb| bb[:size] }.reverse.take(NUM_TAKE)
-
-  pp bbs_asp
-
   puts "Arithmetic analysis concluded"
 
 end
 
+#################################
+# SIMD analysis
+#################################
+
+if STAGES.include? "simd" then
+
+  puts "Starting SIMD analysis"
+
+  bbs.each do |bb|
+    puts "analysing bb: #{bb[:func]}@#{bb[:addr]}"
+
+    bb[:has_simd] = false
+
+    bb[:code].each do |line|
+      if SIMD_ARITH_INSNS.include? line[:instr] then
+        bb[:has_simd] = true
+      end
+    end
+  end
+
+  bbs_simd = bbs.select { |bb| bb[:has_simd] }
+  puts "SIMD analysis conclude - found #{bbs_simd.count} BBs"
+
+end
+
 #######################################
-# Initial Analysis - arithmetic chunks
+# BBs Gen assignment
+#######################################
+
+bbs_gen = bbs.sort_by{|bb| bb[:prof][:time_p] }.reverse.select{|bb| bb[:arith_seq] > 4}.take(NUM_TAKE).reverse
+
+#######################################
+# Verilog Generation
 #######################################
 
 if STAGES.include? "gen" then
 
   puts "Verilog Generation started"
 
-  bbs_asp.each do |bb|
+  bbs_gen.each do |bb|
 
-    puts "order analysing func: #{bb[:func]}@#{bb[:addr]}"
+    puts "order analysing bb: #{bb[:func]}@#{bb[:addr]}"
 
     used_regs = {}
     bb[:code].each do |line|
@@ -238,54 +266,36 @@ if STAGES.include? "gen" then
       end
     end
 
-    puts "parallelizing func: #{bb[:func]}@#{bb[:addr]}"
+    puts "parallelizing bb: #{bb[:func]}@#{bb[:addr]}: #{bb[:code].count} lines"
 
     seen_lines = []
     bb[:par_code] = []
-    bb[:code].reverse_each do |line|
-      unless seen_lines.include? line[:addr] then
-        ret = pars_r(line, seen_lines)
-        seen_lines.concat(ret[:seen_lines]).uniq!
-        bb[:par_code].push ret[:lines]
+
+    if bb[:code].count < 30 then
+      bb[:code].reverse_each do |line|
+        unless seen_lines.include? line[:addr] then
+          ret = pars_r(line, seen_lines)
+          seen_lines.concat(ret[:seen_lines]).uniq!
+          bb[:par_code].push ret[:lines]
+        end
       end
+
+      puts "parallelized into #{bb[:par_code].count} pars"
+    else
+      puts "skipping paralleliziation due to size"
     end
 
-    puts "parallelized into #{bb[:par_code].count} pars"
-
-    puts "generating func: #{bb[:func]}@#{bb[:addr]}"
+    puts "generating bb: #{bb[:func]}@#{bb[:addr]}"
     #TODO: statement transliteration
     puts "################"
-    pp bb
+    puts "#{bb[:func]}@#{bb[:addr]}->"
+    puts "#{bb[:arith_num]} #{bb[:arith_seq]} #{bb[:arith_num_p]} #{bb[:arith_seq_p]}"
+    pp bb[:prof]
+    puts "pars: #{bb[:par_code].count}"
     puts "################"
 
   end
 
   puts "Verilog Generation concluded"
-
-end
-
-#################################
-# SIMD analysis
-#################################
-
-if STAGES.include? "simd" then
-
-  puts "Starting SIMD analysis"
-
-  bbs.each do |bb|
-    puts "analysing func: #{bb[:func]}@#{bb[:addr]}"
-
-    bb[:has_simd] = false
-
-    bb[:code].each do |line|
-      if SIMD_ARITH_INSNS.include? line[:instr] then
-        bb[:has_simd] = true
-      end
-    end
-  end
-
-  bbs_simd = bbs.select { |bb| bb[:has_simd] }
-  pp bbs_simd
-  puts "SIMD analysis conclude - found #{bbs_simd.count}"
 
 end
