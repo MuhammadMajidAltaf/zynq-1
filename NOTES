@@ -111,3 +111,10 @@ void do_thing(int i) {
 for(int i=0; i<15; i++) {
     do_thing(i);
 }
+
+-------------------------------------------------------------
+
+* uboot + kernel need to match versions
+* device tree needs to match PL (if anything from PL is included in tree), otherwise the kernel will hang during boot.
+* PL can be loaded by uboot (manually), or by being included in the generated boot.bin alongside the FSBL.
+* Load from userspace by catt'ing into /dev/xdevcfg
