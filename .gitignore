@@ -5,3 +5,5 @@ reports/ph1/data/fig
 *.dvi
 *.pdf
 *.swo
+*.bit
+*.bin
