@@ -1,0 +1,60 @@
+21:46:19 INFO  : Processing command line option -hwspec /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.sdk/design_1_wrapper.hdf.
+21:46:25 INFO  : Launching XSDB server: xsdb -s /tools/XilinxV/SDK/2014.4/scripts/xsdb/xsdb/xsdb-server.tcl 2450
+21:47:34 INFO  : Saving repository preferences.
+21:47:34 INFO  : Reading in cores from local repositories: 
+		 /tools/zynq/device-tree-xlnx
+21:47:34 INFO  : Cleaning BSP projects in the workspace.
+21:47:36 INFO  : Saving repository preferences.
+21:48:02 INFO  : 'device_tree' is a board support package for an OS for which applications cannot be developed within SDK.
+21:48:02 INFO  : You can configure and build project 'device_tree_bsp_0' within SDK at will, but have to export it into the appropriate third party environment to develop applications.
+21:48:06 INFO  : BSP Project P/device_tree_bsp_0 has been successfully migrated.
+22:54:07 INFO  : SDK has detected change in the last modified timestamps for source hardware specification file Source:1423090446000,  Project:1423086239000
+22:54:07 INFO  : Project design_1_wrapper_hw_platform_0's source hardware specification located at /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.sdk/design_1_wrapper.hdf is now different from the local copy.
+		 The local copy will be replaced with the source specification and your workspace will be updated.
+22:54:13 INFO  : Copied contents of /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.sdk/design_1_wrapper.hdf into /design_1_wrapper_hw_platform_0/system.hdf.
+22:54:23 INFO  : Synchronizing projects in the workspace with the hardware platform specification changes.
+22:54:32 INFO  : 
+22:54:33 INFO  : 
+22:54:35 INFO  : Updating hardware inferred compiler options for fsbl.
+22:54:35 INFO  : Clearing existing target manager status.
+22:54:40 INFO  : Closing and re-opening the MSS file of ther project device_tree_bsp_0
+22:54:41 INFO  : Closing and re-opening the MSS file of ther project device_tree_bsp_0
+22:54:41 INFO  : Workspace synchronized with the new hardware specification file. Cleaning dependent projects...
+22:56:13 INFO  : 'device_tree' is a board support package for an OS for which applications cannot be developed within SDK.
+22:56:13 INFO  : You can configure and build project 'device_tree_bsp_1' within SDK at will, but have to export it into the appropriate third party environment to develop applications.
+22:56:19 INFO  : BSP Project P/device_tree_bsp_1 has been successfully migrated.
+22:59:19 INFO  : Saving hardware specification preferences.
+22:59:19 INFO  : Starting the monitor for source hardware specification changes.
+22:59:19 INFO  : Saving repository preferences.
+22:59:19 INFO  : Saving BSP preferences.
+22:59:19 INFO  : Saving flash programming preferences.
+23:06:45 INFO  : SDK has detected change in the last modified timestamps for source hardware specification file Source:1423091201000,  Project:1423090446000
+23:06:45 INFO  : Project design_1_wrapper_hw_platform_0's source hardware specification located at /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.sdk/design_1_wrapper.hdf is now different from the local copy.
+		 The local copy will be replaced with the source specification and your workspace will be updated.
+23:06:52 INFO  : Copied contents of /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.sdk/design_1_wrapper.hdf into /design_1_wrapper_hw_platform_0/system.hdf.
+23:07:02 INFO  : Synchronizing projects in the workspace with the hardware platform specification changes.
+23:07:11 INFO  : 
+23:07:12 INFO  : 
+23:07:14 INFO  : Updating hardware inferred compiler options for fsbl.
+23:07:14 INFO  : Clearing existing target manager status.
+23:07:14 INFO  : Closing and re-opening the MSS file of ther project device_tree_bsp_0
+23:07:14 INFO  : Workspace synchronized with the new hardware specification file. Cleaning dependent projects...
+23:17:20 INFO  : Saving repository preferences.
+23:17:50 INFO  : Saving repository preferences.
+23:17:50 INFO  : Reading in cores from global repositories: 
+		 /tools/zynq/device-tree-xlnx
+23:17:50 INFO  : Cleaning BSP projects in the workspace.
+23:17:57 INFO  : 'device_tree' is a board support package for an OS for which applications cannot be developed within SDK.
+23:17:57 INFO  : You can configure and build project 'device_tree_bsp_1' within SDK at will, but have to export it into the appropriate third party environment to develop applications.
+23:18:06 INFO  : BSP Project P/device_tree_bsp_1 has been successfully migrated.
+23:18:56 INFO  : 'device_tree' is a board support package for an OS for which applications cannot be developed within SDK.
+23:18:56 INFO  : You can configure and build project 'device_tree_bsp_1' within SDK at will, but have to export it into the appropriate third party environment to develop applications.
+23:19:02 INFO  : BSP Project P/device_tree_bsp_1 has been successfully migrated.
+23:21:46 INFO  : Saving hardware specification preferences.
+23:21:46 INFO  : Starting the monitor for source hardware specification changes.
+23:21:46 INFO  : Saving repository preferences.
+23:21:46 INFO  : Saving BSP preferences.
+23:21:46 INFO  : Saving flash programming preferences.
+23:21:52 INFO  : 'device_tree' is a board support package for an OS for which applications cannot be developed within SDK.
+23:21:52 INFO  : You can configure and build project 'device_tree_bsp_1' within SDK at will, but have to export it into the appropriate third party environment to develop applications.
+23:21:58 INFO  : BSP Project P/device_tree_bsp_1 has been successfully migrated.
