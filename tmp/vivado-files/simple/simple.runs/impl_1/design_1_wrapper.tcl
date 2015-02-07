@@ -70,12 +70,6 @@ set rc [catch {
   set_property processing_order EARLY [get_files /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.srcs/sources_1/bd/design_1/ip/design_1_axis_data_fifo_0_0/design_1_axis_data_fifo_0_0/design_1_axis_data_fifo_0_0.xdc]
   read_xdc -ref design_1_axi_dma_0_1 -cells U0 /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.srcs/sources_1/bd/design_1/ip/design_1_axi_dma_0_1/design_1_axi_dma_0_1_clocks.xdc
   set_property processing_order LATE [get_files /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.srcs/sources_1/bd/design_1/ip/design_1_axi_dma_0_1/design_1_axi_dma_0_1_clocks.xdc]
-  read_xdc -ref design_1_auto_us_0 -cells inst /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.srcs/sources_1/bd/design_1/ip/design_1_auto_us_0/design_1_auto_us_0_clocks.xdc
-  set_property processing_order LATE [get_files /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.srcs/sources_1/bd/design_1/ip/design_1_auto_us_0/design_1_auto_us_0_clocks.xdc]
-  read_xdc -ref design_1_auto_us_1 -cells inst /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.srcs/sources_1/bd/design_1/ip/design_1_auto_us_1/design_1_auto_us_1_clocks.xdc
-  set_property processing_order LATE [get_files /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.srcs/sources_1/bd/design_1/ip/design_1_auto_us_1/design_1_auto_us_1_clocks.xdc]
-  read_xdc -ref design_1_auto_us_2 -cells inst /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.srcs/sources_1/bd/design_1/ip/design_1_auto_us_2/design_1_auto_us_2_clocks.xdc
-  set_property processing_order LATE [get_files /ssdstore/ali/projects/zynq/tmp/vivado-files/simple/simple.srcs/sources_1/bd/design_1/ip/design_1_auto_us_2/design_1_auto_us_2_clocks.xdc]
   link_design -top design_1_wrapper -part xc7z020clg484-1
   close_msg_db -file init_design.pb
 } RESULT]
