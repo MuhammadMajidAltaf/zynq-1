@@ -118,3 +118,8 @@ for(int i=0; i<15; i++) {
 * device tree needs to match PL (if anything from PL is included in tree), otherwise the kernel will hang during boot.
 * PL can be loaded by uboot (manually), or by being included in the generated boot.bin alongside the FSBL.
 * Load from userspace by catt'ing into /dev/xdevcfg
+
+-------------------------------------------------------------
+
+DMA design now working (as of 35efd7c7761b4f8dd228ffa1a5bbf8743e4029c5) using vivado project here in tmp/, using 32-bit HP0 AXI bus, to connect to the DMA IP in SG mode, and a 32x1024 FIFO connected via AXI-S from the DMA IP.
+Use of the XDMA driver in https://github.com/alown/zynq-xdma will enable user-space DMA transfer control.
