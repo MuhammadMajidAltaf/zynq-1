@@ -91,23 +91,17 @@ File.open(DIS_FILE, 'r') do |obj|
     end
 
     unless cur_section.nil? then
-      if line =~ /(\d+) <(.*)>:/ then
+      if line =~ /^(\d+) <(.*)>:/ then
         #Section/Function header
-        #puts "func:"
-        #puts $1
-        #puts $2
+        addr = $1.to_i(16)
         cur_function = $2
-        sections[cur_section][cur_function] = {addr: $1, code: []} unless sections[cur_section].key? cur_function
+        sections[cur_section][cur_function] = {addr: addr, code: []} unless sections[cur_section].key? cur_function
       end
 
       unless cur_function.nil? then
         if line =~ /([0-9a-f]+):\t([0-9a-f ]+)\s\t([a-z.,\[\]{}:0-9]+)(\t(.*))?$/ then
 
           #Line
-          #puts "line:"
-          #puts $1
-          #puts $2
-          #puts $3
           #TODO: extend arg parsing to curly-brace expressions
           args = $5.nil? ? [] : $5.split(", ")
           l = { addr: $1, raw: $2, instr: $3 , args: args}
@@ -158,7 +152,7 @@ if STAGES.include? "bb" then
   cur_block = []
 
   sections[".text"].each do |func, data|
-    puts "analysing func: #{func}@#{data[:addr]}"
+    puts "analysing func: #{func}@#{data[:addr].to_s(16)}"
 
     data[:code].each do |line|
       cur_block.push line
@@ -192,7 +186,7 @@ if STAGES.include? "arith" then
   puts "Starting arithmetic analysis"
 
   bbs.each do |bb|
-    puts "analysing bb: #{bb[:func]}@#{bb[:addr]}"
+    puts "analysing bb: #{bb[:func]}@#{bb[:addr].to_s(16)}"
 
     arith_num = 0
     arith_seq = 0
@@ -228,7 +222,7 @@ if STAGES.include? "simd" then
   puts "Starting SIMD analysis"
 
   bbs.each do |bb|
-    puts "analysing bb: #{bb[:func]}@#{bb[:addr]}"
+    puts "analysing bb: #{bb[:func]}@#{bb[:addr].to_s(16)}"
 
     bb[:has_simd] = false
     arith_num = 0
@@ -277,7 +271,7 @@ if STAGES.include? "gen" then
 
   bbs_gen.each do |bb|
 
-    puts "order analysing bb: #{bb[:func]}@#{bb[:addr]}"
+    puts "order analysing bb: #{bb[:func]}@#{bb[:addr].to_s(16)}"
 
     used_regs = {}
     bb[:code].each do |line|
