@@ -58,7 +58,6 @@ def dump_bb(bbs, func)
 end
 
 def instr_base(instr)
-  p instr
   base = instr.split(".")[0]
   if base[-1] == "s" then
     #possibly want to remove this s (if outside an IT block - but I can't tell that from here...)
@@ -67,7 +66,6 @@ def instr_base(instr)
       base = test_base
     end
   end
-  p base
   return base
 end
 
