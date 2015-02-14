@@ -6,8 +6,13 @@ BRANCH_INSNS = ['bl', 'blx', 'bx', 'cbnz', 'cbz', 'b', 'tbb', 'tbh']
 BRANCH_SUFFIXES = ['eq', 'ne', 'cs', 'cc', 'mi', 'pl', 'vs', 'vc', 'hi', 'ls', 'ge', 'lt', 'gt', 'le']
 BRANCH_IT = ['it', 'itt', 'ite', 'itt', 'itet' ,'itte', 'itee', 'itttt', 'itett', 'ittet', 'iteet', 'ittte' ,'itete' ,'ittee', 'iteee']
 
-DP_INSNS = ['adc', 'add', 'adr', 'and', 'bic', 'cmn', 'cmp', 'eor', 'mov', 'mvn', 'orn', 'orr', 'rsb', 'rsc', 'sbc', 'sub',] #none: 'teq', 'tst'
-SHIFT_INSNS = ['asr', 'lsl', 'lsr', 'ror', 'rrx']
+DP_INSNS_MAP = {'adc' => '+', 'add' => '+', 'and' => 'and', 'bic' => nil, 'eor' => 'xor', 'mov' => nil, 'mvn' => nil, 'orn' => 'or', 'orr' => 'or', 'rsb' => '-', 'sub' => '-'} #adr, cmn, cmp, rsc, sbc, teq, tst
+DP_INSNS = DP_INSNS_MAP.keys
+
+#TODO: deal with extend somewhere...
+SHIFT_INSNS_MAP = {'asr' => 'sra', 'lsl' => 'sll', 'lsr' => 'slr', 'ror' => 'ror', 'rrx' => 'ror'}
+SHIFT_INSNS = SHIFT_INSNS_MAP.keys
+
 MUL_INSNS = ['mla', 'mls', 'mul', 'smlabb', 'smlabt', 'smlatb', 'mslatt', 'smlad', 'smlal', 'smlalbb', 'smlalbt', 'smlaltb', 'smlaltt', 'smlald', 'smlawb', 'smlawt', 'smlsd', 'smlsld', 'smmla', 'smlls', 'smmul', 'smuad', 'smulbb', 'smulbt', 'smultb', 'smultt', 'smull', 'smulwb', 'smulwt', 'smusd', 'umaal', 'umlal', 'umull']
 SAT_INSNS = ['ssat', 'ssat16', 'usat', 'usat16', 'qadd', 'qsub', 'qdadd', 'qdsub']
 PACK_INSNS = ['pkh', 'sxtab', 'sxtab16', 'sxtah', 'sxtb', 'sxtb16', 'sxth', 'uxtab', 'uxtab16', 'uxtah', 'uxtb', 'uxtb16', 'uxth']
@@ -68,6 +73,71 @@ def instr_base(instr)
   end
   return base
 end
+
+def trans(l)
+  #has :instr, :args, :raw
+  base = instr_base(l[:instr])
+
+  return trans_dp(l) if DP_INSNS.include? base
+
+  return "-- #{l[:instr]}@#{l[:addr].to_s(16)}"
+  #raise CantTranslateError
+end
+
+def check_args_rr(args)
+  args.length >= 2 && args[0][0] == 'r' && args[1][0] == 'r'
+end
+
+def trans_dp(l)
+  raise RegError unless check_args_rr(l[:args])
+
+  dst = l[:args][0]
+  reg1 = l[:args][1]
+
+  if l[:args].length == 2 then
+    #mov or mvn
+    case l[:instr]
+    when "mov"
+      return "#{dst} <= #{reg1};"
+    when "mvn"
+      return "#{dst} <= not #{reg1};"
+    end
+  else
+    if l[:args][2][0] == 'r' then
+      if l[:args].length == 3 then
+        #dst, reg, reg type
+        reg2 = l[:args][2]
+      else
+        #dst, reg, reg, shift-thing
+        reg2 = l[:args][2]
+        shift = l[:args][3].split(" ")
+
+        temp_name = "t_#{l[:addr].to_s(16)}_s"
+        line_shift = "#{temp_name} <= #{reg2} #{SHIFT_INSNS_MAP[shift[0]]} #{shift[1]};"
+        reg2 = temp_name
+
+      end
+    elsif l[:args][2][0] == '#'
+      #dst, reg, imm type
+      reg2 = l[:args][2][1,]
+    end
+
+    #fixups
+    n = "not" if l[:instr] == "orn"
+
+    if l[:instr] == "rsb" then
+      t = reg1
+      reg1 = reg2
+      reg2 = t
+    end
+
+    return [line_shift, "#{dst} <= #{n} #{reg1} #{DP_INSNS_MAP[l[:instr]]} #{reg2};"]
+  end
+end
+
+#################################
+# START OF SCRIPT
+#################################
 
 if ARGV.length < 5 then
   puts "Not enough arguments"
@@ -341,12 +411,15 @@ if STAGES.include? "gen" then
 
       puts "parallelized into #{bb[:par_code].count} pars"
     else
-      puts "skipping paralleliziation due to size"
+      puts "skipping processing due to size"
     end
 
     puts "generating bb: #{bb[:func]}@#{bb[:addr]}"
     #TODO: statement transliteration
-
+    bb[:trans_code] = []
+    bb[:par_code].each do |par|
+      bb[:trans_code].push par.map{ |l| trans(l) }.flatten.reject{ |l| l.nil? }
+    end
 
     #dump the thing
     puts "#"*70
@@ -367,6 +440,8 @@ if STAGES.include? "gen" then
       end
       puts ""
     end
+    puts "trans: "
+    pp bb[:trans_code]
     puts "#"*70
 
   end
