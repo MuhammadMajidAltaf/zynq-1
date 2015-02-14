@@ -268,8 +268,6 @@ end
 #######################################
 # BBs Gen assignment
 #######################################
-pp bbs
-
 bbs_gen = bbs.sort_by{|bb| bb[:prof][:time_p] }.reverse.select do |bb|
   ((bb[:arith_seq] > MIN_NUM_ARITH) || (bb[:has_simd] && (bb[:simd_arith_seq] > MIN_NUM_ARITH))) && (bb[:size] > MIN_SIZE) && (bb[:prof][:time_p] > MIN_RUNTIME_PERCENTAGE)
 end.take(NUM_TAKE).reverse
