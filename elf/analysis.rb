@@ -122,7 +122,7 @@ def trans_dp(l)
         shift = l[:args][3].split(" ")
 
         temp_name = "t_#{l[:addr].to_s(16)}_s"
-        line_shift = "#{temp_name} <= #{reg2} #{SHIFT_INSNS_MAP[shift[0]]} #{shift[1]};"
+        line_shift = "#{temp_name} <= std_logic_vector(unsigned(#{reg2}) #{SHIFT_INSNS_MAP[shift[0]]} TO_INTEGER(unsigned(#{shift[1]})));"
         reg2 = temp_name
 
       end
@@ -140,7 +140,7 @@ def trans_dp(l)
       reg2 = t
     end
 
-    return [line_shift, "#{dst} <= #{n} #{reg1} #{DP_INSNS_MAP[l[:instr]]} #{reg2};"]
+    return [line_shift, "#{dst} <= std_logic_vector(#{n} unsigned(#{reg1}) #{DP_INSNS_MAP[l[:instr]]} unsigned(#{reg2}));"]
   end
 end
 
