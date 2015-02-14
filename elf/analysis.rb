@@ -35,7 +35,6 @@ ALL_LDST_INSNS = LDST_INSNS + LDSTMUL_INSNS + SIMD_LDST_INSNS
 MIN_RUNTIME_PERCENTAGE = 5
 MIN_NUM_ARITH = 4
 MIN_SIZE = 10
-MAX_PARALLEL = 100
 
 
 def strip_line(line)
@@ -72,9 +71,9 @@ def instr_base(instr)
   return base
 end
 
-if ARGV.length < 4 then
+if ARGV.length < 5 then
   puts "Not enough arguments"
-  puts "[objdump-file] [num-take] [stages] [gprof-file]"
+  puts "[objdump-file] [num-take] [stages] [gprof-file] [max-par]"
   exit
 end
 
@@ -82,6 +81,7 @@ DIS_FILE = ARGV[0]
 NUM_TAKE = ARGV[1].to_i
 STAGES = ARGV[2].split(":")
 PROF_FILE = ARGV[3]
+MAX_PARALLEL = ARGV[4].to_i
 
 #Parse in obj-dump file and extract sections
 
