@@ -30,6 +30,13 @@ SIMD_MISC_INSNS = ['vaba', 'vabal', 'vabd', 'vabdl', 'vabs', 'vcvt', 'vcls', 'vc
 ARITH_INSNS = DP_INSNS + SHIFT_INSNS + MUL_INSNS + SAT_INSNS + PAR_INSNS + DIV_INSNS + MISC_INSNS
 SIMD_ARITH_INSNS = SIMD_PAR_INSNS + SIMD_BIT_INSNS + SIMD_SHIFT_INSNS + SIMD_MUL_INSNS + SIMD_ADV_INSNS + SIMD_MISC_INSNS
 
+# Important magic constants (but not important enough to pass in every time...)
+MIN_RUNTIME_PERCENTAGE = 5
+MIN_NUM_ARITH = 4
+MIN_SIZE = 10
+MAX_PARALLEL = 100
+
+
 def strip_line(line)
   return {addr: line[:addr], raw: line[:raw], instr: line[:instr], args: line[:args]}
 end
@@ -256,10 +263,6 @@ end
 # BBs Gen assignment
 #######################################
 
-MIN_RUNTIME_PERCENTAGE = 5
-MIN_NUM_ARITH = 4
-MIN_SIZE = 10
-
 bbs_gen = bbs.sort_by{|bb| bb[:prof][:time_p] }.reverse.select do |bb|
   ((bb[:arith_seq] > MIN_NUM_ARITH) || (bb[:simd_arith_seq] > MIN_NUM_ARITH)) && (bb[:size] > MIN_SIZE) && (bb[:prof][:time_p] > MIN_RUNTIME_PERCENTAGE)
 end.take(NUM_TAKE).reverse
@@ -304,7 +307,7 @@ if STAGES.include? "gen" then
     seen_lines = []
     bb[:par_code] = []
 
-    if bb[:code].count < 30 then
+    if bb[:code].count < MAX_PARALLEL then
       bb[:code].reverse_each do |line|
         unless seen_lines.include? line[:addr] then
           ret = pars_r(line, seen_lines)
