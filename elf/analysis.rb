@@ -19,7 +19,7 @@ MISC_INSNS = ['bfc', 'bfi', 'clz', 'movt', 'rbit', 'rev', 'rev16', 'revsh', 'sbf
 LDST_INSNS = ['ldr', 'str', 'ldrt', 'strt', 'ldrex', 'strex', 'strh', 'strht', 'strexh', 'ldrh', 'ldrht', 'ldrexh', 'ldrsh', 'ldrsht', 'strb', 'strbt', 'strexb', 'ldrb', 'ldrbt', 'ldrexb', 'ldrsb', 'ldrsbt', 'ldrd', 'strd', 'ldrexd', 'strexd']
 LDSTMUL_INSNS = ['ldm', 'ldmia', 'ldmfd', 'ldmda', 'ldmfa', 'ldmdb', 'ldmea', 'ldmib', 'ldmed', 'pop', 'push', 'stm', 'stmia', 'stmea', 'stmda', 'stmed', 'stmdb', 'stmfd', 'stmib', 'stmfa']
 
-SIMD_INSNS = ['vldm', 'vldr', 'vstm', 'vstr', 'vdup', 'vmov', 'vmrs', 'vmsr']
+SIMD_LDST_INSNS = ['vldm', 'vldr', 'vstm', 'vstr', 'vdup', 'vmov', 'vmrs', 'vmsr']
 SIMD_PAR_INSNS = ['vadd', 'vaddhn', 'vaddl', 'vaddw', 'vhadd', 'vhsub', 'vpadal', 'vpadd', 'vpaddl', 'vraddhn', 'vrhadd', 'vrsubhn', 'vqadd', 'vqsub', 'vsub', 'vsubhn', 'vsubl', 'vsubw']
 SIMD_BIT_INSNS = ['vand', 'vbic', 'veor', 'vbif', 'vbit', 'vbsl', 'vmov', 'vmvn', 'vorr', 'vorn']
 SIMD_ADV_INSNS = ['vagce', 'vacgt', 'vacle', 'vaclt', 'vceq', 'vcge', 'vcgt', 'vcle'] #none: 'vtst'
@@ -42,6 +42,12 @@ def pars_r(line, seen_lines)
     seen_lines.concat(ret[:seen_lines]).uniq!
   end
   return {lines: lines.push(strip_line(line)), seen_lines: seen_lines.push(line[:addr]).uniq}
+end
+
+def dump_bb(bbs, func)
+  bbs.each do |bb|
+    pp bb if bb[:func] == func
+  end
 end
 
 if ARGV.length < 4 then
@@ -88,7 +94,8 @@ File.open(DIS_FILE, 'r') do |obj|
       end
 
       unless cur_function.nil? then
-        if line =~ /([0-9a-f]+):\t([0-9a-f ]+)\s\t([a-z.]+)(\t(.*))?$/ then
+        if line =~ /([0-9a-f]+):\t([0-9a-f ]+)\s\t([a-z.,\[\]{}:0-9]+)(\t(.*))?$/ then
+
           #Line
           #puts "line:"
           #puts $1
@@ -106,6 +113,8 @@ File.open(DIS_FILE, 'r') do |obj|
 end
 
 puts "Read-in completed in #{sections.count} sections"
+
+puts "-"*60
 
 puts "Reading in gprof file"
 
@@ -128,6 +137,7 @@ File.open(PROF_FILE, 'r') do |gp|
 end
 
 puts "Read-in completed for gprof file for #{flat_prof.count} functions"
+puts "-"*60
 
 #################################
 # Initial Analysis - basic blocks
@@ -147,7 +157,7 @@ if STAGES.include? "bb" then
       cur_block.push line
 
       base = line[:instr].split(".")[0]
-      if BRANCH_INSNS.include?(base) || BRANCH_IT.include?(base) || BRANCH_SUFFIXES.include?(base[-2,2]) then
+      if BRANCH_INSNS.include?(base) || BRANCH_IT.include?(base) || BRANCH_SUFFIXES.include?(base[-2,2]) || LDST_INSNS.include?(base) || SIMD_LDST_INSNS.include?(base) then
         #Was a non-basic thing
         func_base = func.split(".")[0]
         prof = (flat_prof.include? func_base) ? flat_prof[func_base] : {time_p: 0, time_cum: 0, time_sef: 0, calls:0 , call_self: 0, call_total: 0}
@@ -161,6 +171,7 @@ if STAGES.include? "bb" then
   bbs.sort_by! { |bb| bb[:size] }.reverse!
 
   puts "#{bbs.count} Basic Blocks completed"
+  puts "-"*60
 
 end
 
@@ -197,6 +208,7 @@ if STAGES.include? "arith" then
   end
 
   puts "Arithmetic analysis concluded"
+  puts "-"*60
 
 end
 
@@ -212,16 +224,31 @@ if STAGES.include? "simd" then
     puts "analysing bb: #{bb[:func]}@#{bb[:addr]}"
 
     bb[:has_simd] = false
+    arith_num = 0
+    arith_seq = 0
+    max_arith_seq = 0
 
     bb[:code].each do |line|
-      if SIMD_ARITH_INSNS.include? line[:instr] then
+      base = line[:instr].split(".")[0]
+      if SIMD_ARITH_INSNS.include? base then
         bb[:has_simd] = true
+        arith_num = arith_num + 1
+        arith_seq = arith_seq + 1
+      else
+        max_arith_seq = arith_seq if arith_seq > max_arith_seq
+        arith_seq = 0
       end
     end
+
+    bb[:simd_arith_num] = arith_num
+    bb[:simd_arith_seq] = max_arith_seq
+    bb[:simd_num_p] = (bb[:size] > 1) ? arith_num.to_f / (bb[:size]-1) * 100 : 0
+    bb[:simd_seq_p] = (bb[:size] > 1) ? max_arith_seq.to_f / (bb[:size] - 1) * 100 : 0
   end
 
   bbs_simd = bbs.select { |bb| bb[:has_simd] }
   puts "SIMD analysis conclude - found #{bbs_simd.count} BBs"
+  puts "-"*60
 
 end
 
@@ -229,7 +256,13 @@ end
 # BBs Gen assignment
 #######################################
 
-bbs_gen = bbs.sort_by{|bb| bb[:prof][:time_p] }.reverse.select{|bb| bb[:arith_seq] > 4}.take(NUM_TAKE).reverse
+MIN_RUNTIME_PERCENTAGE = 5
+MIN_NUM_ARITH = 4
+MIN_SIZE = 10
+
+bbs_gen = bbs.sort_by{|bb| bb[:prof][:time_p] }.reverse.select do |bb|
+  ((bb[:arith_seq] > MIN_NUM_ARITH) || (bb[:simd_arith_seq] > MIN_NUM_ARITH)) && (bb[:size] > MIN_SIZE) && (bb[:prof][:time_p] > MIN_RUNTIME_PERCENTAGE)
+end.take(NUM_TAKE).reverse
 
 #######################################
 # Verilog Generation
@@ -289,7 +322,8 @@ if STAGES.include? "gen" then
     #TODO: statement transliteration
     puts "################"
     puts "#{bb[:func]}@#{bb[:addr]}->"
-    puts "#{bb[:arith_num]} #{bb[:arith_seq]} #{bb[:arith_num_p]} #{bb[:arith_seq_p]}"
+    puts "A #{bb[:arith_num]} #{bb[:arith_seq]} #{bb[:arith_num_p]} #{bb[:arith_seq_p]}"
+    puts "S #{bb[:simd_arith_num]} #{bb[:simd_arith_seq]} #{bb[:simd_num_p]} #{bb[:simd_seq_p]}" if bb[:has_simd]
     pp bb[:prof]
     puts "pars: #{bb[:par_code].count}"
     puts "################"
