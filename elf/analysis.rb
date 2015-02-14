@@ -286,30 +286,46 @@ if STAGES.include? "gen" then
 
     puts "order analysing bb: #{bb[:func]}@#{bb[:addr].to_s(16)}"
 
+    #records where each reg was last written to
     used_regs = {}
+
     bb[:code].each do |line|
       line[:deps] = []
       line[:deps_lines] = []
 
-      #TODO: explain argument order - we only care about changed registers, there should not be a dep for a single register fed into lots of insns.
-
       #check for deps
-      line[:args].each do |arg|
-        if arg[0] == '#' then
-          #immediate argument, err...
-        else
-          #register
-          if used_regs.include? arg then
-            #dependency
+      line[:args].each_with_index do |arg, i|
+        if arg[0] == 'r' then
+          #GP register
+
+          #don't generate deps for the first register arg, as this is always rt/rd
+          if (i > 0) && (used_regs.include? arg) then
+            #this line depends on used_regs[arg], unless that is us, or we already depend on it
             unless (line[:deps_lines].include? used_regs[arg][:addr]) || (line[:addr] == used_regs[arg][:addr]) then
               line[:deps].push used_regs[arg]
               line[:deps_lines].push used_regs[arg][:addr]
             end
           end
-          used_regs[arg] = line
+
+          #only update first register arg, or this is the last use of this register as an argument
+          if (line[:args].count(arg) == 1 && i == 0) ||
+             (line[:args].count(arg) > 1 && !(line[:args][i+1, line[:args].length].include? arg)) then
+            used_regs[arg] = line
+          end
+        else
+          #immediate argument, array of registers, etc
         end
       end
     end
+
+    puts '<'*50
+    bb[:code].each do |line|
+      puts '='*30
+      puts "l: #{line[:addr].to_s(16)}: #{line[:instr]} #{line[:args]}"
+      puts "d: #{line[:deps].join(",")}"
+      puts "dl: #{line[:deps_lines].map{|dl| dl.to_s(16)}.join(",")}"
+    end
+    puts '>'*50
 
     puts "parallelizing bb: #{bb[:func]}@#{bb[:addr]}: #{bb[:code].count} lines"
 
