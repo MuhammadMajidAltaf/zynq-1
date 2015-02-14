@@ -278,6 +278,8 @@ if STAGES.include? "gen" then
       line[:deps] = []
       line[:deps_lines] = []
 
+      #TODO: explain argument order - we only care about changed registers, there should not be a dep for a single register fed into lots of insns.
+
       #check for deps
       line[:args].each do |arg|
         if arg[0] == '#' then
@@ -321,7 +323,7 @@ if STAGES.include? "gen" then
 
     #dump the thing
     puts "#"*70
-    puts "#{bb[:func]}@#{bb[:addr]}->"
+    puts "#{bb[:func]}@#{bb[:addr].to_s(16)}[#{bb[:code][0][:addr].to_s(16)}:#{bb[:code][-1][:addr].to_s(16)}]->"
     puts "A #{bb[:arith_num]} #{bb[:arith_seq]} #{bb[:arith_num_p]} #{bb[:arith_seq_p]}"
     puts "S #{bb[:simd_arith_num]} #{bb[:simd_arith_seq]} #{bb[:simd_num_p]} #{bb[:simd_seq_p]}" if bb[:has_simd]
     pp bb[:prof]
