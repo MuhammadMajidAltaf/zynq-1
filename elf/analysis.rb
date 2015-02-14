@@ -91,7 +91,7 @@ File.open(DIS_FILE, 'r') do |obj|
     end
 
     unless cur_section.nil? then
-      if line =~ /^(\d+) <(.*)>:/ then
+      if line =~ /^([0-9a-f]+) <(.*)>:/ then
         #Section/Function header
         addr = $1.to_i(16)
         cur_function = $2
@@ -104,7 +104,7 @@ File.open(DIS_FILE, 'r') do |obj|
           #Line
           #TODO: extend arg parsing to curly-brace expressions
           args = $5.nil? ? [] : $5.split(", ")
-          l = { addr: $1, raw: $2, instr: $3 , args: args}
+          l = { addr: $1.to_i(16), raw: $2, instr: $3 , args: args}
           sections[cur_section][cur_function][:code].push l
         end
       end
