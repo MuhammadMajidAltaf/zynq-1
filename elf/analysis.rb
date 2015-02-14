@@ -58,6 +58,20 @@ def dump_bb(bbs, func)
   end
 end
 
+def instr_base(instr)
+  p instr
+  base = instr.split(".")[0]
+  if base[-1] == "s" then
+    #possibly want to remove this s (if outside an IT block - but I can't tell that from here...)
+    test_base = base[0,base.length-1]
+    if ALL_ARITH_INSNS.include? test_base then
+      base = test_base
+    end
+  end
+  p base
+  return base
+end
+
 if ARGV.length < 4 then
   puts "Not enough arguments"
   puts "[objdump-file] [num-take] [stages] [gprof-file]"
@@ -158,8 +172,8 @@ if STAGES.include? "bb" then
     data[:code].each do |line|
       cur_block.push line
 
-      base = line[:instr].split(".")[0]
-      if BRANCH_INSNS.include?(base) || BRANCH_IT.include?(base) || BRANCH_SUFFIXES.include?(base[-2,2]) || LDST_INSNS.include?(base) || SIMD_LDST_INSNS.include?(base) then
+      base = instr_base(line[:instr])
+      if BRANCH_INSNS.include?(base) || BRANCH_IT.include?(base) || BRANCH_SUFFIXES.include?(base[-2,2]) || ALL_LDST_INSNS.include?(base)  then
         #Was a non-basic thing
         func_base = func.split(".")[0]
         prof = (flat_prof.include? func_base) ? flat_prof[func_base] : {time_p: 0, time_cum: 0, time_sef: 0, calls:0 , call_self: 0, call_total: 0}
@@ -194,7 +208,7 @@ if STAGES.include? "arith" then
     max_arith_seq = 0
 
     bb[:code].each do |line|
-      if ARITH_INSNS.include? line[:instr] then
+      if ARITH_INSNS.include? instr_base(line[:instr]) then
         arith_num = arith_num + 1
         arith_seq = arith_seq + 1
       else
@@ -231,8 +245,7 @@ if STAGES.include? "simd" then
     max_arith_seq = 0
 
     bb[:code].each do |line|
-      base = line[:instr].split(".")[0]
-      if SIMD_ARITH_INSNS.include? base then
+      if SIMD_ARITH_INSNS.include? instr_base(line[:instr]) then
         bb[:has_simd] = true
         arith_num = arith_num + 1
         arith_seq = arith_seq + 1
