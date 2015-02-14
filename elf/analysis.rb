@@ -317,13 +317,28 @@ if STAGES.include? "gen" then
 
     puts "generating bb: #{bb[:func]}@#{bb[:addr]}"
     #TODO: statement transliteration
-    puts "################"
+
+
+    #dump the thing
+    puts "#"*70
     puts "#{bb[:func]}@#{bb[:addr]}->"
     puts "A #{bb[:arith_num]} #{bb[:arith_seq]} #{bb[:arith_num_p]} #{bb[:arith_seq_p]}"
     puts "S #{bb[:simd_arith_num]} #{bb[:simd_arith_seq]} #{bb[:simd_num_p]} #{bb[:simd_seq_p]}" if bb[:has_simd]
     pp bb[:prof]
+    print "L> "
+    bb[:code].each do |line|
+      print "#{line[:instr]}, "
+    end
+    puts ""
     puts "pars: #{bb[:par_code].count}"
-    puts "################"
+    bb[:par_code].each_with_index do |lines, i|
+      print "#{i}> "
+      lines.each do |line|
+        print "#{line[:instr]}, "
+      end
+      puts ""
+    end
+    puts "#"*70
 
   end
 
