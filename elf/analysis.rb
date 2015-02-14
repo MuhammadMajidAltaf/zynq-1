@@ -79,6 +79,7 @@ def trans(l)
   base = instr_base(l[:instr])
 
   return trans_dp(l) if DP_INSNS.include? base
+  return trans_mul(l) if MUL_INSNS.include? base
 
   return "-- #{l[:instr]}@#{l[:addr].to_s(16)}"
   #raise CantTranslateError
@@ -86,6 +87,14 @@ end
 
 def check_args_rr(args)
   args.length >= 2 && args[0][0] == 'r' && args[1][0] == 'r'
+end
+
+def check_args_rrr(args)
+  args.length >= 3 && args[0][0] == 'r' && args[1][0] == 'r' && args[2][0] == 'r'
+end
+
+def check_args_rrrr(args)
+  args.length >= 4 && args[0][0] == 'r' && args[1][0] == 'r' && args[2][0] == 'r' && args[3][0] == 'r'
 end
 
 def trans_dp(l)
@@ -132,6 +141,28 @@ def trans_dp(l)
     end
 
     return [line_shift, "#{dst} <= #{n} #{reg1} #{DP_INSNS_MAP[l[:instr]]} #{reg2};"]
+  end
+end
+
+def trans_mul(l)
+  raise RegError unless check_args_rrr(l[:args])
+
+  dst = l[:args][0]
+  rn = l[:args][1]
+  rm = l[:args][2]
+
+  case l[:instr]
+  when "mla"
+    ra = l[:args][3]
+    return "#{dst} <= std_logic_vector(RESIZE(unsigned(#{rn}) * unsigned(#{rm}) + unsigned(#{ra}), 32));"
+  when "mls"
+    ra = l[:args][3]
+    return "#{dst} <= #{ra} - #{rn} * #{rm};"
+  when "mul"
+    return "#{dst} <= #{rn} * #{rm};"
+  else
+    #TODO: do the rest of them
+    return "-- #{l[:instr]}"
   end
 end
 
@@ -441,7 +472,10 @@ if STAGES.include? "gen" then
       puts ""
     end
     puts "trans: "
-    pp bb[:trans_code]
+    bb[:trans_code].each_with_index do |lines, i|
+      puts "trans #{i}>"
+      lines.each { |l| puts l }
+    end
     puts "#"*70
 
   end
