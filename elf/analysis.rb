@@ -6,8 +6,6 @@ BRANCH_INSNS = ['bl', 'blx', 'bx', 'cbnz', 'cbz', 'b', 'tbb', 'tbh']
 BRANCH_SUFFIXES = ['eq', 'ne', 'cs', 'cc', 'mi', 'pl', 'vs', 'vc', 'hi', 'ls', 'ge', 'lt', 'gt', 'le']
 BRANCH_IT = ['it', 'itt', 'ite', 'itt', 'itet' ,'itte', 'itee', 'itttt', 'itett', 'ittet', 'iteet', 'ittte' ,'itete' ,'ittee', 'iteee']
 
-SHIFTS = ['lsl', 'lsr', 'asr', 'ror', 'rrx']
-
 DP_INSNS = ['adc', 'add', 'adr', 'and', 'bic', 'cmn', 'cmp', 'eor', 'mov', 'mvn', 'orn', 'orr', 'rsb', 'rsc', 'sbc', 'sub',] #none: 'teq', 'tst'
 SHIFT_INSNS = ['asr', 'lsl', 'lsr', 'ror', 'rrx']
 MUL_INSNS = ['mla', 'mls', 'mul', 'smlabb', 'smlabt', 'smlatb', 'mslatt', 'smlad', 'smlal', 'smlalbb', 'smlalbt', 'smlaltb', 'smlaltt', 'smlald', 'smlawb', 'smlawt', 'smlsd', 'smlsld', 'smmla', 'smlls', 'smmul', 'smuad', 'smulbb', 'smulbt', 'smultb', 'smultt', 'smull', 'smulwb', 'smulwt', 'smusd', 'umaal', 'umlal', 'umull']
@@ -29,6 +27,9 @@ SIMD_MISC_INSNS = ['vaba', 'vabal', 'vabd', 'vabdl', 'vabs', 'vcvt', 'vcls', 'vc
 
 ARITH_INSNS = DP_INSNS + SHIFT_INSNS + MUL_INSNS + SAT_INSNS + PAR_INSNS + DIV_INSNS + MISC_INSNS
 SIMD_ARITH_INSNS = SIMD_PAR_INSNS + SIMD_BIT_INSNS + SIMD_SHIFT_INSNS + SIMD_MUL_INSNS + SIMD_ADV_INSNS + SIMD_MISC_INSNS
+
+ALL_ARITH_INSNS = ARITH_INSNS + SIMD_ARITH_INSNS
+ALL_LDST_INSNS = LDST_INSNS + LDSTMUL_INSNS + SIMD_LDST_INSNS
 
 # Important magic constants (but not important enough to pass in every time...)
 MIN_RUNTIME_PERCENTAGE = 5
