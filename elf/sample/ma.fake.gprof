@@ -1,0 +1,9 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 80.00    123.00     0.00        5     0.00     0.00  ma_10
+ 10.00    123.00     0.00        5     0.00     0.00  ma
+  5.00    123.00     0.00        5     0.00     0.00  ma_20
+  5.00    123.00     0.00        5     0.00     0.00  ma_50
