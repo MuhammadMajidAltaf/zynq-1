@@ -58,3 +58,4 @@
 23:21:52 INFO  : 'device_tree' is a board support package for an OS for which applications cannot be developed within SDK.
 23:21:52 INFO  : You can configure and build project 'device_tree_bsp_1' within SDK at will, but have to export it into the appropriate third party environment to develop applications.
 23:21:58 INFO  : BSP Project P/device_tree_bsp_1 has been successfully migrated.
+01:28:18 ERROR : Unexpected error while parsing XMD response ￿: com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: invalid number or unquoted string near 
