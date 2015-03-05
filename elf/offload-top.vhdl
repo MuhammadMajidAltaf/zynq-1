@@ -28,7 +28,8 @@ port
   m_axis_tready : in std_logic;
   m_axis_tdata : out std_logic_vector(31 downto 0);
   m_axis_tkeep : out std_logic_vector(3 downto 0);
-  m_axis_tlast : out std_logic
+  m_axis_tlast : out std_logic;
+  dbg : out std_logic_vector(3 downto 0)
 );
 end entity;
 
@@ -104,6 +105,7 @@ begin
         s_axis_tready <= '1';
         m_axis_tvalid <= '0';
         reg_count <= 0;
+        dbg <= "0000";
       else
         case state is
           when s0_check =>
