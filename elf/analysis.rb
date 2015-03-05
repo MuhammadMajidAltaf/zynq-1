@@ -74,6 +74,10 @@ def instr_base(instr)
   return base
 end
 
+def treg(l, reg, off = 0)
+  return "#{reg}_#{(l[:addr]+4*off).to_s(16)}"
+end
+
 def trans(l)
   #has :instr, :args, :raw
   base = instr_base(l[:instr])
@@ -97,11 +101,13 @@ def check_args_rrrr(args)
   args.length >= 4 && args[0][0] == 'r' && args[1][0] == 'r' && args[2][0] == 'r' && args[3][0] == 'r'
 end
 
+$added_temps = []
+
 def trans_dp(l)
   raise RegError unless check_args_rr(l[:args])
 
   dst = l[:args][0]
-  reg1 = l[:args][1]
+  reg1 = treg(l, l[:args][1])
 
   if l[:args].length == 2 then
     #mov or mvn
@@ -113,16 +119,16 @@ def trans_dp(l)
     end
   else
     if l[:args][2][0] == 'r' then
+      reg2 = treg(l, l[:args][2])
       if l[:args].length == 3 then
         #dst, reg, reg type
-        reg2 = l[:args][2]
       else
         #dst, reg, reg, shift-thing
-        reg2 = l[:args][2]
         shift = l[:args][3].split(" ")
 
         temp_name = "t_#{l[:addr].to_s(16)}_s"
-        line_shift = "#{temp_name} <= std_logic_vector(unsigned(#{reg2}) #{SHIFT_INSNS_MAP[shift[0]]} TO_INTEGER(unsigned(#{shift[1]})));"
+        $added_temps.push temp_name
+        line_shift = "#{temp_name} <= std_logic_vector(unsigned(#{reg2}) #{SHIFT_INSNS_MAP[shift[0]]} TO_INTEGER(unsigned(#{treg(l, shift[1])})));"
         reg2 = temp_name
 
       end
@@ -140,7 +146,7 @@ def trans_dp(l)
       reg2 = t
     end
 
-    return [line_shift, "#{dst} <= std_logic_vector(#{n} unsigned(#{reg1}) #{DP_INSNS_MAP[l[:instr]]} unsigned(#{reg2}));"]
+    return [line_shift, "#{treg(l, dst, 1)} <= std_logic_vector(#{n} unsigned(#{reg1}) #{DP_INSNS_MAP[l[:instr]]} unsigned(#{reg2}));"]
   end
 end
 
@@ -154,12 +160,12 @@ def trans_mul(l)
   case l[:instr]
   when "mla"
     ra = l[:args][3]
-    return "#{dst} <= std_logic_vector(RESIZE(unsigned(#{rn}) * unsigned(#{rm}) + unsigned(#{ra}), 32));"
+    return "#{treg(l, dst, 1)} <= std_logic_vector(RESIZE(unsigned(#{treg(l, rn)}) * unsigned(#{treg(l, rm)}) + unsigned(#{treg(l, ra)}), 32));"
   when "mls"
     ra = l[:args][3]
-    return "#{dst} <= #{ra} - #{rn} * #{rm};"
+    return "#{treg(l, dst, 1)} <= #{treg(l, ra)} - #{treg(l, rn)} * #{treg(l, rm)};"
   when "mul"
-    return "#{dst} <= #{rn} * #{rm};"
+    return "#{treg(l, dst, 1)} <= #{treg(l, rn)} * #{treg(l, rm)};"
   else
     #TODO: do the rest of them
     return "-- #{l[:instr]}"
@@ -446,11 +452,46 @@ if STAGES.include? "gen" then
     end
 
     puts "generating bb: #{bb[:func]}@#{bb[:addr]}"
-    #TODO: statement transliteration
+    #statement transliteration
     bb[:trans_code] = []
+    bb[:trans_signals] = []
+
+    #TODO: optimize the bodging!
+    par_regs = []
     bb[:par_code].each do |par|
-      bb[:trans_code].push par.map{ |l| trans(l) }.flatten.reject{ |l| l.nil? }
+      par_trans = []
+
+      #add bodge
+      par_trans.concat (0..13).map{ |i| "r#{i}_#{par.first[:addr].to_s(16)} <= regs_in(#{i});" }
+
+      #transliterate
+      par.each_index do |l_i|
+        l = par[l_i]
+        trans_lines = [trans(l)].flatten.reject{|l| l.nil?}
+        par_trans.concat trans_lines
+
+        (0..13).map {|i| par_regs.push "r#{i}_#{l[:addr].to_s(16)}"}
+
+        #bodge
+        dst = 0
+        dst = trans_lines.last.slice(1..trans_lines.last.index('_')).to_i if trans_lines.last.include? '<='
+
+        if l != par.last then
+          regs_gap = (0..13).to_a
+          regs_gap.delete(dst)
+
+          par_trans.concat regs_gap.map { |i| "r#{i}_#{par[l_i+1][:addr].to_s(16)} <= r#{i}_#{l[:addr].to_s(16)};" }
+        end
+      end
+
+      #add post bodge
+      par_trans.concat (0..13).map{ |i| "regs_out(#{i}) <= r#{i}_#{par.last[:addr].to_s(16)};" }
+
+      bb[:trans_code].push par_trans
     end
+
+    #generate needed signals:
+    bb[:trans_signals].push "signal #{($added_temps + par_regs).join(", ")} : std_logic_vector(31 downto 0);"
 
     #dump the thing
     puts "#"*70
@@ -472,6 +513,8 @@ if STAGES.include? "gen" then
       puts ""
     end
     puts "trans: "
+    puts bb[:trans_signals]
+    puts "-------------"
     bb[:trans_code].each_with_index do |lines, i|
       puts "trans #{i}>"
       lines.each { |l| puts l }
