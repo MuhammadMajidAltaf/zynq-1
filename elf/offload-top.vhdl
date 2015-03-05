@@ -74,7 +74,8 @@ begin
             m_axis_tlast <= '0';
 
             if s_axis_tvalid = '1' then
-              if s_axis_tkeep = "0000" and s_axis_tdata = PKT_MAGIC then
+              if s_axis_tkeep = "1111" and s_axis_tdata = PKT_MAGIC then
+                dbg(0) <= '1';
                 reg_count <= 0;
                 state <= s1_have_header;
               end if;
@@ -84,7 +85,8 @@ begin
             dbg(1) <= '1';
 
             --Next 14 data items are the register starting states - assuming no partial packets
-            if not (s_axis_tkeep = "1111" ) or s_axis_tlast = '1' or s_axis_tvalid = '0' then
+            if not (s_axis_tkeep = "1111" ) or (s_axis_tlast = '1' and not (reg_count = 13)) or s_axis_tvalid = '0' then
+              dbg(2) <= '1';
               state <= s0_check;
             else
               regs_in(reg_count) <= s_axis_tdata;
