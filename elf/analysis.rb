@@ -81,49 +81,30 @@ end
 VHDL_IN = "regs_in"
 VHDL_OUT = "regs_out"
 
-$written_regs = []
+$written_regs = {}
 
 def treg_newpar
-  $written_regs = []
+  $written_regs.clear
+  (0..13).map { |i| $written_regs["r#{i}"] = "#{VHDL_IN}(#{i})" }
 end
 
 def treg_in(par)
-  (0..13).map{ |i| "r#{i}_#{par.first[:addr].to_s(16)} <= #{VHDL_IN}(#{i});" }
+  []
 end
 
 def treg_post_line(par, trans_lines, line, line_i)
-  ret = []
-
-  dst = 0
-  dst = trans_lines.last.slice(1..trans_lines.last.index('_')).to_i if trans_lines.last.include? '<='
-
-  if line != par.last then
-    regs_gap = (0..13).to_a
-    regs_gap.delete(dst)
-
-    ret.concat regs_gap.map { |i| "r#{i}_#{par[line_i+1][:addr].to_s(16)} <= r#{i}_#{line[:addr].to_s(16)};" }
-  end
-
-  return ret
+  []
 end
 
 def treg_out(par, par_trans)
-  ret = []
-
-  dst = par_trans.last.slice(0..par_trans.last.index(' ')-1) if par_trans.last.include? '<='
-  regs = (0..13).to_a
-  unless dst.nil? then
-    i = dst.slice(1..dst.index('_')).to_i
-    regs.delete(i)
-    ret.push "#{VHDL_OUT}(#{i}) <= #{dst};"
-  end
-  ret.concat regs.map{ |i| "#{VHDL_OUT}(#{i}) <= r#{i}_#{par.last[:addr].to_s(16)};" }
-
-  return ret
+  (0..13).map { |i| "#{VHDL_OUT}(#{i}) <= #{$written_regs["r#{i}"]};" }
 end
 
-def treg(l, reg, off = 0)
-  "#{reg}_#{(l[:addr]+4*off).to_s(16)}"
+def treg(l, reg, off = 0, write=false)
+  if write then
+    $written_regs[reg] = "#{reg}_#{l[:addr].to_s(16)}"
+  end
+  return $written_regs[reg]
 end
 
 #--------------------------------------
@@ -196,7 +177,7 @@ def trans_dp(l)
       reg2 = t
     end
 
-    return [line_shift, "#{treg(l, dst, 1)} <= std_logic_vector(#{n}unsigned(#{reg1}) #{DP_INSNS_MAP[l[:instr]]} unsigned(#{reg2}));"]
+    return [line_shift, "#{treg(l, dst, 1, true)} <= std_logic_vector(#{n}unsigned(#{reg1}) #{DP_INSNS_MAP[l[:instr]]} unsigned(#{reg2}));"]
   end
 end
 
@@ -210,12 +191,12 @@ def trans_mul(l)
   case l[:instr]
   when "mla"
     ra = l[:args][3]
-    return "#{treg(l, dst, 1)} <= std_logic_vector(RESIZE(unsigned(#{treg(l, rn)}) * unsigned(#{treg(l, rm)}) + unsigned(#{treg(l, ra)}), 32));"
+    return "#{treg(l, dst, 1, true)} <= std_logic_vector(RESIZE(unsigned(#{treg(l, rn)}) * unsigned(#{treg(l, rm)}) + unsigned(#{treg(l, ra)}), 32));"
   when "mls"
     ra = l[:args][3]
-    return "#{treg(l, dst, 1)} <= #{treg(l, ra)} - #{treg(l, rn)} * #{treg(l, rm)};"
+    return "#{treg(l, dst, 1, true)} <= #{treg(l, ra)} - #{treg(l, rn)} * #{treg(l, rm)};"
   when "mul"
-    return "#{treg(l, dst, 1)} <= #{treg(l, rn)} * #{treg(l, rm)};"
+    return "#{treg(l, dst, 1, true)} <= #{treg(l, rn)} * #{treg(l, rm)};"
   else
     #TODO: do the rest of them
     return "-- #{l[:instr]}"
