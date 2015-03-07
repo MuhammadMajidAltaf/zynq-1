@@ -82,9 +82,11 @@ VHDL_IN = "regs_in"
 VHDL_OUT = "regs_out"
 
 $written_regs = {}
+$mentioned_regs = []
 
 def treg_newpar
   $written_regs.clear
+  $mentioned_regs.clear
   (0..13).map { |i| $written_regs["r#{i}"] = "#{VHDL_IN}(#{i})" }
 end
 
@@ -100,9 +102,15 @@ def treg_out(par, par_trans)
   (0..13).map { |i| "#{VHDL_OUT}(#{i}) <= #{$written_regs["r#{i}"]};" }
 end
 
+def treg_used
+  $mentioned_regs
+end
+
 def treg(l, reg, off = 0, write=false)
   if write then
-    $written_regs[reg] = "#{reg}_#{l[:addr].to_s(16)}"
+    reg_name ="#{reg}_#{l[:addr].to_s(16)}"
+    $written_regs[reg] = reg_name
+    $mentioned_regs.push reg_name
   end
   return $written_regs[reg]
 end
@@ -501,12 +509,12 @@ if STAGES.include? "gen" then
         trans_lines = [trans(l)].flatten.reject{|l| l.nil?}
         par_trans.concat trans_lines
 
-        (0..13).map {|i| par_regs.push "r#{i}_#{l[:addr].to_s(16)}"}
-
         par_trans.concat treg_post_line(par, trans_lines, l, l_i)
       end
 
       par_trans.concat treg_out(par, par_trans)
+
+      par_regs.concat treg_used
 
       bb[:trans_code].push par_trans
     end
