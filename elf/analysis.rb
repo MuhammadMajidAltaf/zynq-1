@@ -485,7 +485,14 @@ if STAGES.include? "gen" then
       end
 
       #add post bodge
-      par_trans.concat (0..13).map{ |i| "regs_out(#{i}) <= r#{i}_#{par.last[:addr].to_s(16)};" }
+      dst = par_trans.last.slice(0..par_trans.last.index(' ')-1) if par_trans.last.include? '<='
+      regs = (0..13).to_a
+      unless dst.nil? then
+        i = dst.slice(1..dst.index('_')).to_i
+        regs.delete(i)
+        par_trans.push "regs_out(#{i}) <= #{dst};"
+      end
+      par_trans.concat regs.map{ |i| "regs_out(#{i}) <= r#{i}_#{par.last[:addr].to_s(16)};" }
 
       bb[:trans_code].push par_trans
     end
