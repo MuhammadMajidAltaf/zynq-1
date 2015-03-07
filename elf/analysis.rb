@@ -74,9 +74,59 @@ def instr_base(instr)
   return base
 end
 
-def treg(l, reg, off = 0)
-  return "#{reg}_#{(l[:addr]+4*off).to_s(16)}"
+#--------------------------------------
+# register naming/tracking/bodging section
+# TODO: this is looking rather module-like...
+
+VHDL_IN = "regs_in"
+VHDL_OUT = "regs_out"
+
+$written_regs = []
+
+def treg_newpar
+  $written_regs = []
 end
+
+def treg_in(par)
+  (0..13).map{ |i| "r#{i}_#{par.first[:addr].to_s(16)} <= #{VHDL_IN}(#{i});" }
+end
+
+def treg_post_line(par, trans_lines, line, line_i)
+  ret = []
+
+  dst = 0
+  dst = trans_lines.last.slice(1..trans_lines.last.index('_')).to_i if trans_lines.last.include? '<='
+
+  if line != par.last then
+    regs_gap = (0..13).to_a
+    regs_gap.delete(dst)
+
+    ret.concat regs_gap.map { |i| "r#{i}_#{par[line_i+1][:addr].to_s(16)} <= r#{i}_#{line[:addr].to_s(16)};" }
+  end
+
+  return ret
+end
+
+def treg_out(par, par_trans)
+  ret = []
+
+  dst = par_trans.last.slice(0..par_trans.last.index(' ')-1) if par_trans.last.include? '<='
+  regs = (0..13).to_a
+  unless dst.nil? then
+    i = dst.slice(1..dst.index('_')).to_i
+    regs.delete(i)
+    ret.push "#{VHDL_OUT}(#{i}) <= #{dst};"
+  end
+  ret.concat regs.map{ |i| "#{VHDL_OUT}(#{i}) <= r#{i}_#{par.last[:addr].to_s(16)};" }
+
+  return ret
+end
+
+def treg(l, reg, off = 0)
+  "#{reg}_#{(l[:addr]+4*off).to_s(16)}"
+end
+
+#--------------------------------------
 
 def trans(l)
   #has :instr, :args, :raw
@@ -461,8 +511,8 @@ if STAGES.include? "gen" then
     bb[:par_code].each do |par|
       par_trans = []
 
-      #add bodge
-      par_trans.concat (0..13).map{ |i| "r#{i}_#{par.first[:addr].to_s(16)} <= regs_in(#{i});" }
+      treg_newpar
+      par_trans.concat treg_in(par)
 
       #transliterate
       par.each_index do |l_i|
@@ -472,27 +522,10 @@ if STAGES.include? "gen" then
 
         (0..13).map {|i| par_regs.push "r#{i}_#{l[:addr].to_s(16)}"}
 
-        #bodge
-        dst = 0
-        dst = trans_lines.last.slice(1..trans_lines.last.index('_')).to_i if trans_lines.last.include? '<='
-
-        if l != par.last then
-          regs_gap = (0..13).to_a
-          regs_gap.delete(dst)
-
-          par_trans.concat regs_gap.map { |i| "r#{i}_#{par[l_i+1][:addr].to_s(16)} <= r#{i}_#{l[:addr].to_s(16)};" }
-        end
+        par_trans.concat treg_post_line(par, trans_lines, l, l_i)
       end
 
-      #add post bodge
-      dst = par_trans.last.slice(0..par_trans.last.index(' ')-1) if par_trans.last.include? '<='
-      regs = (0..13).to_a
-      unless dst.nil? then
-        i = dst.slice(1..dst.index('_')).to_i
-        regs.delete(i)
-        par_trans.push "regs_out(#{i}) <= #{dst};"
-      end
-      par_trans.concat regs.map{ |i| "regs_out(#{i}) <= r#{i}_#{par.last[:addr].to_s(16)};" }
+      par_trans.concat treg_out(par, par_trans)
 
       bb[:trans_code].push par_trans
     end
