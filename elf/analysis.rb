@@ -138,7 +138,7 @@ def trans_dp(l)
     end
 
     #fixups
-    n = "not" if l[:instr] == "orn"
+    n = "not " if l[:instr] == "orn"
 
     if l[:instr] == "rsb" then
       t = reg1
@@ -146,7 +146,7 @@ def trans_dp(l)
       reg2 = t
     end
 
-    return [line_shift, "#{treg(l, dst, 1)} <= std_logic_vector(#{n} unsigned(#{reg1}) #{DP_INSNS_MAP[l[:instr]]} unsigned(#{reg2}));"]
+    return [line_shift, "#{treg(l, dst, 1)} <= std_logic_vector(#{n}unsigned(#{reg1}) #{DP_INSNS_MAP[l[:instr]]} unsigned(#{reg2}));"]
   end
 end
 
