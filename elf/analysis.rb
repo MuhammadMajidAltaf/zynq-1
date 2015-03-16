@@ -173,7 +173,7 @@ def trans_dp(l)
 
         temp_name = "t_#{l[:addr].to_s(16)}_s"
         $added_temps.push temp_name
-        line_shift = "#{temp_name} <= std_logic_vector(unsigned(#{reg2}) #{SHIFT_INSNS_MAP[shift[0]]} TO_INTEGER(unsigned(#{treg(l, shift[1])})));"
+        line_shift = "#{temp_name} := std_logic_vector(unsigned(#{reg2}) #{SHIFT_INSNS_MAP[shift[0]]} TO_INTEGER(unsigned(#{treg(l, shift[1])})));"
         reg2 = temp_name
 
       end
@@ -191,7 +191,7 @@ def trans_dp(l)
       reg2 = t
     end
 
-    return [line_shift, "#{treg(l, dst, 1, true)} <= std_logic_vector(#{n}unsigned(#{reg1}) #{DP_INSNS_MAP[l[:instr]]} unsigned(#{reg2}));"]
+    return [line_shift, "#{treg(l, dst, 1, true)} := std_logic_vector(#{n}unsigned(#{reg1}) #{DP_INSNS_MAP[l[:instr]]} unsigned(#{reg2}));"]
   end
 end
 
@@ -205,12 +205,12 @@ def trans_mul(l)
   case l[:instr]
   when "mla"
     ra = l[:args][3]
-    return "#{treg(l, dst, 1, true)} <= std_logic_vector(RESIZE(unsigned(#{treg(l, rn)}) * unsigned(#{treg(l, rm)}) + unsigned(#{treg(l, ra)}), 32));"
+    return "#{treg(l, dst, 1, true)} := std_logic_vector(RESIZE(unsigned(#{treg(l, rn)}) * unsigned(#{treg(l, rm)}) + unsigned(#{treg(l, ra)}), 32));"
   when "mls"
     ra = l[:args][3]
-    return "#{treg(l, dst, 1, true)} <= #{treg(l, ra)} - #{treg(l, rn)} * #{treg(l, rm)};"
+    return "#{treg(l, dst, 1, true)} := #{treg(l, ra)} - #{treg(l, rn)} * #{treg(l, rm)};"
   when "mul"
-    return "#{treg(l, dst, 1, true)} <= #{treg(l, rn)} * #{treg(l, rm)};"
+    return "#{treg(l, dst, 1, true)} := #{treg(l, rn)} * #{treg(l, rm)};"
   else
     #TODO: do the rest of them
     return "-- #{l[:instr]}"
@@ -526,7 +526,7 @@ if STAGES.include? "gen" then
     end
 
     #generate needed signals:
-    bb[:trans_signals].push "signal #{($added_temps + par_regs).join(", ")} : std_logic_vector(31 downto 0);"
+    bb[:trans_signals].push "variable #{($added_temps + par_regs).join(", ")} : std_logic_vector(31 downto 0);"
 
     #dump the thing
     puts "#"*70
