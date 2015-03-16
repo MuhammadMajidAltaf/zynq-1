@@ -1,7 +1,7 @@
 //Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2014.4 (lin64) Build 1071353 Tue Nov 18 16:48:31 MST 2014
-//Date        : Wed Feb 25 02:50:42 2015
+//Date        : Mon Mar 16 14:08:41 2015
 //Host        : alipc-desktop-ex running 64-bit unknown
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -30,7 +30,8 @@ module design_1
     FIXED_IO_mio,
     FIXED_IO_ps_clk,
     FIXED_IO_ps_porb,
-    FIXED_IO_ps_srstb);
+    FIXED_IO_ps_srstb,
+    ledsp1);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -52,9 +53,11 @@ module design_1
   inout FIXED_IO_ps_clk;
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
+  output [3:0]ledsp1;
 
   wire GND_1;
   wire VCC_1;
+  wire [3:0]addtest_0_dbg;
   wire [31:0]addtest_0_m_axis_TDATA;
   wire [3:0]addtest_0_m_axis_TKEEP;
   wire addtest_0_m_axis_TLAST;
@@ -261,12 +264,14 @@ module design_1
   wire [0:0]rst_processing_system7_0_50M_peripheral_aresetn;
   wire [1:0]xlconcat_0_dout;
 
+  assign ledsp1[3:0] = addtest_0_dbg;
 GND GND
        (.G(GND_1));
 VCC VCC
        (.P(VCC_1));
 design_1_addtest_0_0 addtest_0
        (.clk(processing_system7_0_FCLK_CLK0),
+        .dbg(addtest_0_dbg),
         .m_axis_tdata(addtest_0_m_axis_TDATA),
         .m_axis_tkeep(addtest_0_m_axis_TKEEP),
         .m_axis_tlast(addtest_0_m_axis_TLAST),
@@ -479,7 +484,6 @@ design_1_axi_mem_intercon_0 axi_mem_intercon
         .S02_AXI_wvalid(axi_dma_0_M_AXI_S2MM_WVALID));
 design_1_axi_gpio_0_0 axi_regs
        (.gpio2_io_i({GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1}),
-        .gpio_io_i({GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1}),
         .s_axi_aclk(processing_system7_0_FCLK_CLK0),
         .s_axi_araddr(processing_system7_0_axi_periph_M01_AXI_ARADDR),
         .s_axi_aresetn(rst_processing_system7_0_50M_peripheral_aresetn),
@@ -922,6 +926,7 @@ module design_1_axi_mem_intercon_0
   wire [0:0]S01_ARESETN_1;
   wire S02_ACLK_1;
   wire [0:0]S02_ARESETN_1;
+  wire VCC_1;
   wire axi_mem_intercon_ACLK_net;
   wire [0:0]axi_mem_intercon_ARESETN_net;
   wire [31:0]axi_mem_intercon_to_s00_couplers_ARADDR;
@@ -1230,6 +1235,8 @@ module design_1_axi_mem_intercon_0
   assign m00_couplers_to_axi_mem_intercon_WREADY = M00_AXI_wready;
 GND GND
        (.G(GND_1));
+VCC VCC
+       (.P(VCC_1));
 m00_couplers_imp_1R706YB m00_couplers
        (.M_ACLK(M00_ACLK_1),
         .M_ARESETN(M00_ARESETN_1),
@@ -1515,7 +1522,7 @@ design_1_xbar_1 xbar
         .s_axi_rready({GND_1,s01_couplers_to_xbar_RREADY,s00_couplers_to_xbar_RREADY}),
         .s_axi_rresp({s01_couplers_to_xbar_RRESP,s00_couplers_to_xbar_RRESP}),
         .s_axi_rvalid({s01_couplers_to_xbar_RVALID,s00_couplers_to_xbar_RVALID}),
-        .s_axi_wdata({s02_couplers_to_xbar_WDATA,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,s00_couplers_to_xbar_WDATA}),
+        .s_axi_wdata({s02_couplers_to_xbar_WDATA,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,VCC_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,s00_couplers_to_xbar_WDATA}),
         .s_axi_wlast({s02_couplers_to_xbar_WLAST,GND_1,s00_couplers_to_xbar_WLAST}),
         .s_axi_wready({s02_couplers_to_xbar_WREADY,NLW_xbar_s_axi_wready_UNCONNECTED[1],s00_couplers_to_xbar_WREADY}),
         .s_axi_wstrb({s02_couplers_to_xbar_WSTRB,GND_1,GND_1,GND_1,GND_1,s00_couplers_to_xbar_WSTRB}),
