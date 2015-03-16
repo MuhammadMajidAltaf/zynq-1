@@ -49,9 +49,6 @@ Architecture offload_top_1 of offload_top is
 
   constant PKT_MAGIC : std_logic_vector(31 downto 0) := x"0FFA0FFB";
 
---<<< BEGIN SIGNALS
-signal t_40_s, t_50_s, t_60_s, t_70_s, t_80_s, t_90_s, t_a0_s, t_b0_s, t_c0_s, t_d0_s, r3_3c, r3_40, r3_44, r3_48, r3_4c, r3_50, r3_54, r3_58, r3_5c, r3_60, r3_64, r3_68, r3_6c, r3_70, r3_74, r3_78, r3_7c, r3_80, r3_84, r3_88, r3_8c, r3_90, r3_94, r3_98, r3_9c, r3_a0, r3_a4, r3_a8, r3_ac, r3_b0, r3_b4, r3_b8, r3_bc, r3_c0, r3_c4, r3_c8, r3_cc, r3_d0, r0_d4, r0_d8 : std_logic_vector(31 downto 0);
---->>> END SIGNALS
 
 begin
 
@@ -125,61 +122,28 @@ begin
     end if;
   end process;
 
+
+  process(clk, state, regs_in)
+--<<< BEGIN SIGNALS
+variable r3_30, r3_34, r3_38, r3_3c, r3_40, r3_44, r3_48, r3_4c, r3_50, r0_54 : std_logic_vector(31 downto 0);
+--->>> END SIGNALS
+  begin
+    if clk'event and clk = '1' and state = s2_compute then
 ---<<< BEGIN LOGIC
-r3_3c <= std_logic_vector(unsigned(regs_in(0)) + unsigned(regs_in(1)));
-t_40_s <= std_logic_vector(unsigned(r3_3c) sll TO_INTEGER(unsigned(regs_in(0))));
-r3_40 <= std_logic_vector(unsigned(regs_in(1)) or unsigned(t_40_s));
-r3_44 <= std_logic_vector(unsigned(r3_40) xor unsigned(regs_in(0)));
-r3_48 <= std_logic_vector(unsigned(r3_44) - unsigned(regs_in(1)));
-r3_4c <= std_logic_vector(RESIZE(unsigned(r3_4c) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
-t_50_s <= std_logic_vector(unsigned(r3_4c) sll TO_INTEGER(unsigned(regs_in(0))));
-r3_50 <= std_logic_vector(unsigned(regs_in(1)) or unsigned(t_50_s));
-r3_54 <= std_logic_vector(unsigned(r3_50) xor unsigned(regs_in(0)));
-r3_58 <= std_logic_vector(unsigned(r3_54) - unsigned(regs_in(1)));
-r3_5c <= std_logic_vector(RESIZE(unsigned(r3_5c) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
-t_60_s <= std_logic_vector(unsigned(r3_5c) sll TO_INTEGER(unsigned(regs_in(0))));
-r3_60 <= std_logic_vector(unsigned(regs_in(1)) or unsigned(t_60_s));
-r3_64 <= std_logic_vector(unsigned(r3_60) xor unsigned(regs_in(0)));
-r3_68 <= std_logic_vector(unsigned(r3_64) - unsigned(regs_in(1)));
-r3_6c <= std_logic_vector(RESIZE(unsigned(r3_6c) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
-t_70_s <= std_logic_vector(unsigned(r3_6c) sll TO_INTEGER(unsigned(regs_in(0))));
-r3_70 <= std_logic_vector(unsigned(regs_in(1)) or unsigned(t_70_s));
-r3_74 <= std_logic_vector(unsigned(r3_70) xor unsigned(regs_in(0)));
-r3_78 <= std_logic_vector(unsigned(r3_74) - unsigned(regs_in(1)));
-r3_7c <= std_logic_vector(RESIZE(unsigned(r3_7c) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
-t_80_s <= std_logic_vector(unsigned(r3_7c) sll TO_INTEGER(unsigned(regs_in(0))));
-r3_80 <= std_logic_vector(unsigned(regs_in(1)) or unsigned(t_80_s));
-r3_84 <= std_logic_vector(unsigned(r3_80) xor unsigned(regs_in(0)));
-r3_88 <= std_logic_vector(unsigned(r3_84) - unsigned(regs_in(1)));
-r3_8c <= std_logic_vector(RESIZE(unsigned(r3_8c) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
-t_90_s <= std_logic_vector(unsigned(r3_8c) sll TO_INTEGER(unsigned(regs_in(0))));
-r3_90 <= std_logic_vector(unsigned(regs_in(1)) or unsigned(t_90_s));
-r3_94 <= std_logic_vector(unsigned(r3_90) xor unsigned(regs_in(0)));
-r3_98 <= std_logic_vector(unsigned(r3_94) - unsigned(regs_in(1)));
-r3_9c <= std_logic_vector(RESIZE(unsigned(r3_9c) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
-t_a0_s <= std_logic_vector(unsigned(r3_9c) sll TO_INTEGER(unsigned(regs_in(0))));
-r3_a0 <= std_logic_vector(unsigned(regs_in(1)) or unsigned(t_a0_s));
-r3_a4 <= std_logic_vector(unsigned(r3_a0) xor unsigned(regs_in(0)));
-r3_a8 <= std_logic_vector(unsigned(r3_a4) - unsigned(regs_in(1)));
-r3_ac <= std_logic_vector(RESIZE(unsigned(r3_ac) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
-t_b0_s <= std_logic_vector(unsigned(r3_ac) sll TO_INTEGER(unsigned(regs_in(0))));
-r3_b0 <= std_logic_vector(unsigned(regs_in(1)) or unsigned(t_b0_s));
-r3_b4 <= std_logic_vector(unsigned(r3_b0) xor unsigned(regs_in(0)));
-r3_b8 <= std_logic_vector(unsigned(r3_b4) - unsigned(regs_in(1)));
-r3_bc <= std_logic_vector(RESIZE(unsigned(r3_bc) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
-t_c0_s <= std_logic_vector(unsigned(r3_bc) sll TO_INTEGER(unsigned(regs_in(0))));
-r3_c0 <= std_logic_vector(unsigned(regs_in(1)) or unsigned(t_c0_s));
-r3_c4 <= std_logic_vector(unsigned(r3_c0) xor unsigned(regs_in(0)));
-r3_c8 <= std_logic_vector(unsigned(r3_c4) - unsigned(regs_in(1)));
-r3_cc <= std_logic_vector(RESIZE(unsigned(r3_cc) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
-t_d0_s <= std_logic_vector(unsigned(r3_cc) sll TO_INTEGER(unsigned(regs_in(0))));
-r3_d0 <= std_logic_vector(unsigned(regs_in(1)) or unsigned(t_d0_s));
-r0_d4 <= std_logic_vector(unsigned(regs_in(0)) xor unsigned(r3_d0));
-r0_d8 <= std_logic_vector(unsigned(r0_d4) - unsigned(regs_in(1)));
-regs_out(0) <= r0_d8;
+r3_30 := std_logic_vector(unsigned(regs_in(0)) + unsigned(regs_in(1)));
+r3_34 := std_logic_vector(RESIZE(unsigned(r3_30) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
+r3_38 := std_logic_vector(RESIZE(unsigned(r3_34) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
+r3_3c := std_logic_vector(RESIZE(unsigned(r3_38) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
+r3_40 := std_logic_vector(RESIZE(unsigned(r3_3c) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
+r3_44 := std_logic_vector(RESIZE(unsigned(r3_40) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
+r3_48 := std_logic_vector(RESIZE(unsigned(r3_44) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
+r3_4c := std_logic_vector(RESIZE(unsigned(r3_48) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
+r3_50 := std_logic_vector(RESIZE(unsigned(r3_4c) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
+r0_54 := std_logic_vector(RESIZE(unsigned(r3_50) * unsigned(regs_in(0)) + unsigned(regs_in(1)), 32));
+regs_out(0) <= r0_54;
 regs_out(1) <= regs_in(1);
 regs_out(2) <= regs_in(2);
-regs_out(3) <= r3_d0;
+regs_out(3) <= r3_50;
 regs_out(4) <= regs_in(4);
 regs_out(5) <= regs_in(5);
 regs_out(6) <= regs_in(6);
@@ -191,6 +155,8 @@ regs_out(11) <= regs_in(11);
 regs_out(12) <= regs_in(12);
 regs_out(13) <= regs_in(13);
 --->>> END LOGIC
+    end if;
+  end process;
 
 end architecture offload_top_1;
 
