@@ -1,8 +1,13 @@
 CC=arm-linux-gnueabihf-gcc
 OD=arm-linux-gnueabihf-objdump
-CFLAGS=-march=armv7-a -mtune=cortex-a9 -mfpu=neon -marm -std=c11 -O3
 
-all: loop.o ma.o matrix.o ma.dis
+INCPATH=/tools/zynq/zynq-xdma/lib/
+LIBPATH=/tools/zynq/zynq-xdma/lib/
+LIBS=-lxdma -lrt
+
+CFLAGS=-march=armv7-a -mtune=cortex-a9 -mfpu=neon -marm -std=gnu99 -O3 -I${INCPATH} -L${LIBPATH}
+
+all: loop.o ma matrix.o ma.dis
 
 clean:
 	rm *.o *.dis
@@ -15,6 +20,9 @@ ma.dis: ma.o
 
 ma.o: ma.c
 	${CC} ${CFLAGS} -c -o ma.o ma.c
+
+ma: ma.o
+	${CC} ${CFLAGS} -o ma ma.o ${LIBS}
 
 matrix.o: matrix.c
 	${CC} ${CFLAGS} -c -o matrix.o matrix.c
