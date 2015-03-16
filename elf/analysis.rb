@@ -82,12 +82,15 @@ VHDL_IN = "regs_in"
 VHDL_OUT = "regs_out"
 
 $written_regs = {}
+$written_regs_new = {}
 $mentioned_regs = []
 
 def treg_newpar
   $written_regs.clear
+  $written_regs_new.clear
   $mentioned_regs.clear
   (0..13).map { |i| $written_regs["r#{i}"] = "#{VHDL_IN}(#{i})" }
+  $written_regs_new = $written_regs.clone
 end
 
 def treg_in(par)
@@ -95,6 +98,7 @@ def treg_in(par)
 end
 
 def treg_post_line(par, trans_lines, line, line_i)
+  $written_regs = $written_regs_new.clone
   []
 end
 
@@ -109,10 +113,12 @@ end
 def treg(l, reg, off = 0, write=false)
   if write then
     reg_name ="#{reg}_#{l[:addr].to_s(16)}"
-    $written_regs[reg] = reg_name
+    $written_regs_new[reg] = reg_name
     $mentioned_regs.push reg_name
+    return $written_regs_new[reg]
+  else
+    return $written_regs[reg]
   end
-  return $written_regs[reg]
 end
 
 #--------------------------------------
