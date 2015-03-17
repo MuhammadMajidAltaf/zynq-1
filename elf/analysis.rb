@@ -191,7 +191,15 @@ def trans_dp(l)
       reg2 = t
     end
 
-    return [line_shift, "#{treg(l, dst, 1, true)} := std_logic_vector(#{n}unsigned(#{reg1}) #{DP_INSNS_MAP[l[:instr]]} unsigned(#{reg2}));"]
+    i_parts = l[:instr].split(".")
+    instr = i_parts[0]
+    #trailing S?
+    if instr[-1] == 's' then
+      #update flags?
+      instr = instr[0..instr.length-2]
+    end
+    raise "UnknownDPInstruction #{l[:instr]} -> #{instr}" unless DP_INSNS_MAP.include? instr
+    return [line_shift, "#{treg(l, dst, 1, true)} := std_logic_vector(#{n}unsigned(#{reg1}) #{DP_INSNS_MAP[instr]} unsigned(#{reg2}));"]
   end
 end
 
