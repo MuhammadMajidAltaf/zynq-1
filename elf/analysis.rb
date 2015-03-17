@@ -512,25 +512,29 @@ if STAGES.include? "gen" then
     #TODO: optimize the bodging!
     par_regs = []
     bb[:par_code].each do |par|
-      par_trans = []
+      begin
+        par_trans = []
 
-      treg_newpar
-      par_trans.concat treg_in(par)
+        treg_newpar
+        par_trans.concat treg_in(par)
 
-      #transliterate
-      par.each_index do |l_i|
-        l = par[l_i]
-        trans_lines = [trans(l)].flatten.reject{|l| l.nil?}
-        par_trans.concat trans_lines
+        #transliterate
+        par.each_index do |l_i|
+          l = par[l_i]
+          trans_lines = [trans(l)].flatten.reject{|l| l.nil?}
+          par_trans.concat trans_lines
 
-        par_trans.concat treg_post_line(par, trans_lines, l, l_i)
+          par_trans.concat treg_post_line(par, trans_lines, l, l_i)
+        end
+
+        par_trans.concat treg_out(par, par_trans)
+
+        par_regs.concat treg_used
+
+        bb[:trans_code].push par_trans
+      rescue
+        puts "Unable to translate par: #{$!}"
       end
-
-      par_trans.concat treg_out(par, par_trans)
-
-      par_regs.concat treg_used
-
-      bb[:trans_code].push par_trans
     end
 
     #generate needed signals:
