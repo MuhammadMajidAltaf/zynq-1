@@ -149,7 +149,7 @@ end
 $added_temps = []
 
 def trans_dp(l)
-  raise RegError unless check_args_rr(l[:args])
+  raise "DP args error #{l[:args]}" unless check_args_rr(l[:args])
 
   dst = l[:args][0]
   reg1 = treg(l, l[:args][1])
@@ -204,7 +204,7 @@ def trans_dp(l)
 end
 
 def trans_mul(l)
-  raise RegError unless check_args_rrr(l[:args])
+  raise "MulArgsError #{l[:args]}" unless check_args_rrr(l[:args])
 
   dst = l[:args][0]
   rn = l[:args][1]
