@@ -277,7 +277,17 @@ File.open(DIS_FILE, 'r') do |obj|
           #Line
           #TODO: extend arg parsing to curly-brace expressions
           args = $5.nil? ? [] : $5.split(", ")
-          l = { addr: $1.to_i(16), raw: $2, instr: $3 , args: args}
+
+          addr = $1.to_i(16)
+          raw = $2
+          instr = $3
+
+          unless $4.nil? then
+            $4.match(/\d+\s\<([\w]+)(\+([\dx]+))?\>/)
+            offset = $3.nil? ? nil : $3.to_i(16)
+            branch = { base: $1, offset: offset }
+          end
+          l = { addr: addr, raw: raw, instr: instr, args: args, branch: branch}
           sections[cur_section][cur_function][:code].push l
         end
       end
@@ -322,6 +332,7 @@ if STAGES.include? "bb" then
   puts "Starting Basic Block analysis"
 
   bbs = []
+  funcs = {}
   cur_block = []
 
   sections[".text"].each do |func, data|
@@ -336,6 +347,8 @@ if STAGES.include? "bb" then
         func_base = func.split(".")[0]
         prof = (flat_prof.include? func_base) ? flat_prof[func_base] : {time_p: 0, time_cum: 0, time_sef: 0, calls:0 , call_self: 0, call_total: 0}
         b = {func: func, addr: data[:addr], size: cur_block.count, code: cur_block.clone, prof: prof}
+        funcs[func] = [] unless funcs.include? func
+        funcs[func].push b
         bbs.push b
         cur_block = []
       end
@@ -423,6 +436,62 @@ if STAGES.include? "simd" then
   puts "SIMD analysis conclude - found #{bbs_simd.count} BBs"
   puts "-"*60
 
+end
+
+
+#################################
+# Loop analysis
+#################################
+
+if STAGES.include? "loop" then
+
+  puts "Starting Loop analysis"
+
+  loops = []
+
+  sections[".text"].each do |func, data|
+    puts "analysing func: #{func}@#{data[:addr].to_s(16)}"
+
+    cur_block = []
+
+    data[:code].each do |line|
+      cur_block.push line
+
+      base = instr_base(line[:instr])
+      if BRANCH_INSNS.include?(base) || BRANCH_IT.include?(base) || BRANCH_SUFFIXES.include?(base[-2,2]) || ALL_LDST_INSNS.include?(base)  then
+        #Found a branch. Check if target is behind PC.
+        pc = line[:addr]
+
+        base = line[:branch][:base]
+        offset = line[:branch][:offset]
+
+        unless base.nil? and offset.nil?
+          #lookup location of target
+          addr = sections[".text"][base][:addr] + offset
+
+          if addr < pc then
+            #is a loop! (probably)
+
+            #find bbs between addr and pc
+            loop_bbs = []
+            funcs[base].each do |bb|
+              loop_bbs.push bb if ((bb[:addr] <= addr) && (bb[:addr] + bb[:size]*4 > addr)) || ((bb[:addr] >= addr) && (bb[:addr] + bb[:size]*4 >= pc))
+            end
+
+            l = {start: addr, end: pc, func: base, bbs: loop_bbs}
+            loops.push l
+          end
+        end
+
+        cur_block = []
+      end
+    end
+  end
+
+  pp loops
+
+  puts "Loop analysis concluded - found #{loops.count} loops"
+  puts "-"*60
 end
 
 #######################################
