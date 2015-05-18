@@ -37,19 +37,19 @@ output m_axis_tlast;
 //Port wires
 wire clk;
 wire reset_n;
-wire [3:0] dbg;
+reg [3:0] dbg;
 
 wire s_axis_tvalid;
-wire s_axis_tready;
+reg s_axis_tready;
 wire [511:0] s_axis_tdata;
 wire [63:0] s_axis_tkeep;
 wire s_axis_tlast;
 
-wire m_axis_tvalid;
+reg m_axis_tvalid;
 wire m_axis_tready;
-wire [511:0] m_axis_tdata;
-wire [63:0] m_axis_tkeep;
-wire m_axis_tlast;
+reg [511:0] m_axis_tdata;
+reg [63:0] m_axis_tkeep;
+reg m_axis_tlast;
 
 //Constants
 parameter PIPELINE_DEPTH = 3;
@@ -67,10 +67,9 @@ parameter S_FULL     = 3'b010;
 parameter S_DRAINING = 3'b100;
 
 //Internal Variables
-wire s_axis_tready_out;
-genvar i;
+integer i;
 
-reg state;
+reg [2:0] state;
 reg [REG_SIZE-1:0] regs [PIPELINE_DEPTH-1:0][NUM_REGS-1:0];
 
 reg pipeline_en;
@@ -78,56 +77,54 @@ reg [PIPELINE_DEPTH-1:0] pipeline_state;
 reg pipeline_state_feed;
 
 //Actual logic starts here
-assign s_axis_tready = s_axis_tready_out;
 
 //Pipeline management
-always@(negedge clk)
-  if (!pipeline_en) begin
-    pipeline_state <= 0;
-  end
-  else
+always@(posedge clk)
+  begin
     //Move pipeline stages along
-    pipeline_state[0] <= pipeline_state_feed;
-    for (i=0; i<PIPELINE_DEPTH-2; i=i+1) begin: STAGES
+    for (i=0; i<PIPELINE_DEPTH-1; i=i+1) begin: STAGES
       pipeline_state[i+1] <= pipeline_state[i];
     end
 
     //Stage 1 - clock in registers
     for (i=0; i<NUM_REGS-1; i=i+1) begin: REGS_IN
-      assign regs[0][i] = s_axis_tdata[(i+1) * REG_SIZE-1:i*REG_SIZE];
+      regs[0][i] <= s_axis_tdata[i*REG_SIZE +: REG_SIZE];
     end
 
     //Stage 2 - perform processing
-    assign regs[2] = regs[1];
+    for(i=0; i<NUM_REGS-1; i=i+1) begin: REGS_PROCESS
+      regs[2][i] <= regs[1][i];
+    end
 
     //Stage 3 - clock out registers
-    assign m_axis_tdata[16*REG_SIZE-1:15*REG_SIZE] = PKT_MAGIC;
+    m_axis_tdata[16*REG_SIZE-1:15*REG_SIZE] <= PKT_MAGIC;
     for (i=0;i<NUM_REGS-1; i=i+1) begin: REGS_OUT
       //TODO: check endianess?
-      assign m_axis_tdata[(i+1)*REG_SIZE-1:i*REG_SIZE] = regs[2][i];
+      m_axis_tdata[i*REG_SIZE +: REG_SIZE] <= regs[2][i];
     end
+  end
 
 //FSM control
 always@(posedge clk)
-  if (reset) begin
+  if (!reset_n) begin
     state <= S_FILLING;
-    s_axis_tready_out <= 0;
+    s_axis_tready <= 0;
     m_axis_tvalid <= 0;
     dbg <= 4'b0000;
     pipeline_en <= 0;
   end
-  else
-    //TODO: wait for tready
+  else begin
+    //TODO: wait for tready?
     case (state)
       S_FILLING: begin
-        s_axis_tready_out <= 1;
+        s_axis_tready <= 1;
         m_axis_tvalid <= 0;
         m_axis_tlast <= 0;
         dbg[0] <= 1;
 
-        if (s_axis_tvalid && s_axis_tkeep == 'hffffffffffffffff && s_axis_tdata[16*REG_SIZE-1:15*REG_SIZE] == PKT_MAGIC) begin
+        if (s_axis_tvalid && s_axis_tkeep == 64'hffffffffffffffff && s_axis_tdata[16*REG_SIZE-1:15*REG_SIZE] == PKT_MAGIC) begin
           pipeline_en <= 1;
-          pipeline_state_feed <= 1;
+          pipeline_state[0] <= 1;
           //Triggers when almost full
           if (&pipeline_state[PIPELINE_DEPTH-2:0]) begin
             state <= S_FULL;
@@ -140,17 +137,18 @@ always@(posedge clk)
         m_axis_tkeep <= 'b1;
         dbg[1] <= 1;
 
-        if (s_axis_tvalid && s_axis_tkeep == 'hffffffffffffffff && s_axis_tdata[16*REG_SIZE-1:15*REG_SIZE] == PKT_MAGIC) begin
+        if (s_axis_tvalid && s_axis_tkeep == 64'hffffffffffffffff && s_axis_tdata[16*REG_SIZE-1:15*REG_SIZE] == PKT_MAGIC) begin
           //No change
         end
-        else
-          pipeline_state_feed <= 0;
+        else begin
+          pipeline_state[0] <= 0;
           state <= S_DRAINING;
         end
+      end
 
       S_DRAINING: begin
         dbg[2] <= 1;
-        pipeline_state_feed <= 0;
+        pipeline_state[0] <= 0;
         if (!pipeline_state[STAGE_DATA_OUT-1]) begin
           pipeline_en <= 0;
           m_axis_tlast <= 1;
@@ -158,7 +156,33 @@ always@(posedge clk)
         end
       end
     endcase
+  end
 
-    //TODO:ADD SECTION THAT DOES ACTUAL DATA PROCESSING!
+//Actual Work
+//Knowingly breaks Verilog coding guidelines by mixing assignment types
+
+//<<< BEGIN VARIABLES
+reg [31:0] r3_30;
+//>>> END VARIABLES
+always@(posedge clk)
+  if (pipeline_state[0]) begin
+    //<<< BEGIN LOGIC
+    r3_30 = regs[0][0] + regs[0][1];
+    regs[1][0] <= r3_30;
+    regs[1][1] <= r3_30;
+    regs[1][2] <= r3_30;
+    regs[1][3] <= r3_30;
+    regs[1][4] <= r3_30;
+    regs[1][5] <= r3_30;
+    regs[1][6] <= r3_30;
+    regs[1][7] <= r3_30;
+    regs[1][8] <= r3_30;
+    regs[1][9] <= r3_30;
+    regs[1][10] <= r3_30;
+    regs[1][11] <= r3_30;
+    regs[1][12] <= r3_30;
+    regs[1][13] <= regs[1][0];
+    //>>> END LOGIC
+  end
 
 endmodule
