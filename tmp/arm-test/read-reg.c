@@ -16,6 +16,23 @@
   asm("mov %0, %%r12" : "=r" (regs[12]));\
   asm("mov %0, %%r13" : "=r" (regs[13]))
 
+#define SETREGS(regs) \
+  asm("mov %%r0, %0" : "r" (regs[0]));\
+  asm("mov %%r1, %0" : "r" (regs[1]));\
+  asm("mov %%r2, %0" : "r" (regs[2]));\
+  asm("mov %%r3, %0" : "r" (regs[3]));\
+  asm("mov %%r4, %0" : "r" (regs[4]));\
+  asm("mov %%r5, %0" : "r" (regs[5]));\
+  asm("mov %%r6, %0" : "r" (regs[6]));\
+  asm("mov %%r7, %0" : "r" (regs[7]));\
+  asm("mov %%r8, %0" : "r" (regs[8]));\
+  asm("mov %%r9, %0" : "r" (regs[9]));\
+  asm("mov %%r10, %0" : "r" (regs[10]));\
+  asm("mov %%r11, %0" : "r" (regs[11]));\
+  asm("mov %%r12, %0" : "r" (regs[12]));\
+  asm("mov %%r13, %0" : "r" (regs[13]));\
+
+
 #define PRINTREGS(regs) \
   offload(regs[0], regs[1], regs[2], regs[3], regs[4], regs[5], regs[6], regs[7], regs[8], regs[9], regs[10], regs[11], regs[12], regs[13])
 
@@ -29,6 +46,12 @@ int getvalues(int a, int b, int c, int d, int e, int f, int g, int h, int i, int
 
   n = a + b + c + d + e + f + g + h + i + j + k + l + m;
 
+  GETREGS(regs);
+  PRINTREGS(regs);
+
+  regs[0] = 0x01;
+
+  SETREGS(regs);
   GETREGS(regs);
   PRINTREGS(regs);
 
