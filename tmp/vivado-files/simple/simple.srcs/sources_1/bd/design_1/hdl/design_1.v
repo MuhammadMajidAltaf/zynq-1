@@ -1,7 +1,7 @@
 //Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2014.4 (lin64) Build 1071353 Tue Nov 18 16:48:31 MST 2014
-//Date        : Mon Mar 16 14:08:41 2015
+//Date        : Sat Mar 21 17:56:37 2015
 //Host        : alipc-desktop-ex running 64-bit unknown
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -166,6 +166,16 @@ module design_1
   wire axi_mem_intercon_M00_AXI_WREADY;
   wire [3:0]axi_mem_intercon_M00_AXI_WSTRB;
   wire axi_mem_intercon_M00_AXI_WVALID;
+  wire [31:0]axis_data_fifo_0_M_AXIS_TDATA;
+  wire [3:0]axis_data_fifo_0_M_AXIS_TKEEP;
+  wire axis_data_fifo_0_M_AXIS_TLAST;
+  wire axis_data_fifo_0_M_AXIS_TREADY;
+  wire axis_data_fifo_0_M_AXIS_TVALID;
+  wire [31:0]axis_data_fifo_1_M_AXIS_TDATA;
+  wire [3:0]axis_data_fifo_1_M_AXIS_TKEEP;
+  wire axis_data_fifo_1_M_AXIS_TLAST;
+  wire axis_data_fifo_1_M_AXIS_TREADY;
+  wire axis_data_fifo_1_M_AXIS_TVALID;
   wire [14:0]processing_system7_0_DDR_ADDR;
   wire [2:0]processing_system7_0_DDR_BA;
   wire processing_system7_0_DDR_CAS_N;
@@ -278,11 +288,11 @@ design_1_addtest_0_0 addtest_0
         .m_axis_tready(addtest_0_m_axis_TREADY),
         .m_axis_tvalid(addtest_0_m_axis_TVALID),
         .reset_n(rst_processing_system7_0_50M_peripheral_aresetn),
-        .s_axis_tdata(axi_dma_0_M_AXIS_MM2S_TDATA),
-        .s_axis_tkeep(axi_dma_0_M_AXIS_MM2S_TKEEP),
-        .s_axis_tlast(axi_dma_0_M_AXIS_MM2S_TLAST),
-        .s_axis_tready(axi_dma_0_M_AXIS_MM2S_TREADY),
-        .s_axis_tvalid(axi_dma_0_M_AXIS_MM2S_TVALID));
+        .s_axis_tdata(axis_data_fifo_0_M_AXIS_TDATA),
+        .s_axis_tkeep(axis_data_fifo_0_M_AXIS_TKEEP),
+        .s_axis_tlast(axis_data_fifo_0_M_AXIS_TLAST),
+        .s_axis_tready(axis_data_fifo_0_M_AXIS_TREADY),
+        .s_axis_tvalid(axis_data_fifo_0_M_AXIS_TVALID));
 design_1_axi_dma_0_1 axi_dma_0
        (.axi_resetn(rst_processing_system7_0_50M_peripheral_aresetn),
         .m_axi_mm2s_aclk(processing_system7_0_FCLK_CLK0),
@@ -370,11 +380,11 @@ design_1_axi_dma_0_1 axi_dma_0
         .s_axi_lite_wdata(processing_system7_0_axi_periph_M00_AXI_WDATA),
         .s_axi_lite_wready(processing_system7_0_axi_periph_M00_AXI_WREADY),
         .s_axi_lite_wvalid(processing_system7_0_axi_periph_M00_AXI_WVALID),
-        .s_axis_s2mm_tdata(addtest_0_m_axis_TDATA),
-        .s_axis_s2mm_tkeep(addtest_0_m_axis_TKEEP),
-        .s_axis_s2mm_tlast(addtest_0_m_axis_TLAST),
-        .s_axis_s2mm_tready(addtest_0_m_axis_TREADY),
-        .s_axis_s2mm_tvalid(addtest_0_m_axis_TVALID));
+        .s_axis_s2mm_tdata(axis_data_fifo_1_M_AXIS_TDATA),
+        .s_axis_s2mm_tkeep(axis_data_fifo_1_M_AXIS_TKEEP),
+        .s_axis_s2mm_tlast(axis_data_fifo_1_M_AXIS_TLAST),
+        .s_axis_s2mm_tready(axis_data_fifo_1_M_AXIS_TREADY),
+        .s_axis_s2mm_tvalid(axis_data_fifo_1_M_AXIS_TVALID));
 design_1_axi_mem_intercon_0 axi_mem_intercon
        (.ACLK(processing_system7_0_FCLK_CLK0),
         .ARESETN(rst_processing_system7_0_50M_interconnect_aresetn),
@@ -503,6 +513,32 @@ design_1_axi_gpio_0_0 axi_regs
         .s_axi_wready(processing_system7_0_axi_periph_M01_AXI_WREADY),
         .s_axi_wstrb(processing_system7_0_axi_periph_M01_AXI_WSTRB),
         .s_axi_wvalid(processing_system7_0_axi_periph_M01_AXI_WVALID));
+design_1_axis_data_fifo_0_0 axis_data_fifo_0
+       (.m_axis_tdata(axis_data_fifo_0_M_AXIS_TDATA),
+        .m_axis_tkeep(axis_data_fifo_0_M_AXIS_TKEEP),
+        .m_axis_tlast(axis_data_fifo_0_M_AXIS_TLAST),
+        .m_axis_tready(axis_data_fifo_0_M_AXIS_TREADY),
+        .m_axis_tvalid(axis_data_fifo_0_M_AXIS_TVALID),
+        .s_axis_aclk(processing_system7_0_FCLK_CLK0),
+        .s_axis_aresetn(rst_processing_system7_0_50M_peripheral_aresetn),
+        .s_axis_tdata(axi_dma_0_M_AXIS_MM2S_TDATA),
+        .s_axis_tkeep(axi_dma_0_M_AXIS_MM2S_TKEEP),
+        .s_axis_tlast(axi_dma_0_M_AXIS_MM2S_TLAST),
+        .s_axis_tready(axi_dma_0_M_AXIS_MM2S_TREADY),
+        .s_axis_tvalid(axi_dma_0_M_AXIS_MM2S_TVALID));
+design_1_axis_data_fifo_1_0 axis_data_fifo_1
+       (.m_axis_tdata(axis_data_fifo_1_M_AXIS_TDATA),
+        .m_axis_tkeep(axis_data_fifo_1_M_AXIS_TKEEP),
+        .m_axis_tlast(axis_data_fifo_1_M_AXIS_TLAST),
+        .m_axis_tready(axis_data_fifo_1_M_AXIS_TREADY),
+        .m_axis_tvalid(axis_data_fifo_1_M_AXIS_TVALID),
+        .s_axis_aclk(processing_system7_0_FCLK_CLK0),
+        .s_axis_aresetn(rst_processing_system7_0_50M_peripheral_aresetn),
+        .s_axis_tdata(addtest_0_m_axis_TDATA),
+        .s_axis_tkeep(addtest_0_m_axis_TKEEP),
+        .s_axis_tlast(addtest_0_m_axis_TLAST),
+        .s_axis_tready(addtest_0_m_axis_TREADY),
+        .s_axis_tvalid(addtest_0_m_axis_TVALID));
 design_1_xlconcat_0_0 dmaconcat
        (.In0(axi_dma_0_mm2s_introut),
         .In1(axi_dma_0_s2mm_introut),
@@ -926,7 +962,6 @@ module design_1_axi_mem_intercon_0
   wire [0:0]S01_ARESETN_1;
   wire S02_ACLK_1;
   wire [0:0]S02_ARESETN_1;
-  wire VCC_1;
   wire axi_mem_intercon_ACLK_net;
   wire [0:0]axi_mem_intercon_ARESETN_net;
   wire [31:0]axi_mem_intercon_to_s00_couplers_ARADDR;
@@ -1235,8 +1270,6 @@ module design_1_axi_mem_intercon_0
   assign m00_couplers_to_axi_mem_intercon_WREADY = M00_AXI_wready;
 GND GND
        (.G(GND_1));
-VCC VCC
-       (.P(VCC_1));
 m00_couplers_imp_1R706YB m00_couplers
        (.M_ACLK(M00_ACLK_1),
         .M_ARESETN(M00_ARESETN_1),
@@ -1522,7 +1555,7 @@ design_1_xbar_1 xbar
         .s_axi_rready({GND_1,s01_couplers_to_xbar_RREADY,s00_couplers_to_xbar_RREADY}),
         .s_axi_rresp({s01_couplers_to_xbar_RRESP,s00_couplers_to_xbar_RRESP}),
         .s_axi_rvalid({s01_couplers_to_xbar_RVALID,s00_couplers_to_xbar_RVALID}),
-        .s_axi_wdata({s02_couplers_to_xbar_WDATA,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,VCC_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,s00_couplers_to_xbar_WDATA}),
+        .s_axi_wdata({s02_couplers_to_xbar_WDATA,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,GND_1,s00_couplers_to_xbar_WDATA}),
         .s_axi_wlast({s02_couplers_to_xbar_WLAST,GND_1,s00_couplers_to_xbar_WLAST}),
         .s_axi_wready({s02_couplers_to_xbar_WREADY,NLW_xbar_s_axi_wready_UNCONNECTED[1],s00_couplers_to_xbar_WREADY}),
         .s_axi_wstrb({s02_couplers_to_xbar_WSTRB,GND_1,GND_1,GND_1,GND_1,s00_couplers_to_xbar_WSTRB}),
