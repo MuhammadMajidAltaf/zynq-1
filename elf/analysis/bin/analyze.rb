@@ -49,7 +49,7 @@ end
 
 #Add default values for missing
 options[:num_taken] ||= Defaults::NUM_TAKEN
-options[:num_parallel] |= Defaults::NUM_PARALLEL
+options[:num_parallel] ||= Defaults::NUM_PARALLEL
 options[:min_runtime_percentage] ||= Defaults::MIN_RUNTIME_PERCENTAGE
 options[:min_num_arith] ||= Defaults::MIN_NUM_ARITH
 options[:min_length] ||= Defaults::MIN_LENGTH
@@ -67,6 +67,9 @@ end
 ####################################################
 # Run the Stages in the order specified
 ####################################################
+state = {:options => options}
 options[:stages].each do |stage|
-  Module.const_get("Phases::#{stage}").run options
+  p stage
+  p state.keys
+  state = Module.const_get("Phases::#{stage}").run state
 end

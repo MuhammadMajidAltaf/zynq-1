@@ -1,4 +1,5 @@
 require 'analysis/defaults'
+require 'analysis/helpers'
 require 'analysis/arm'
 require 'analysis/phase'
 require 'analysis/phases/read'

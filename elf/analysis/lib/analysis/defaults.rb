@@ -1,5 +1,6 @@
 module Defaults
   # Important magic constants (but not important enough to pass in every time...)
+  # Might be overriden though...
   NUM_TAKEN = 10
   NUM_PARALLEL = 3
   MIN_RUNTIME_PERCENTAGE = 5

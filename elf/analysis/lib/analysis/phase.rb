@@ -4,14 +4,17 @@ class Phase
 
   def self.load_state s
     #Must overload
+    raise NotYetImplemented
   end
 
   def self.save_state s
     #Must overload
+    raise NotYetImplemented
   end
 
   def self.run s
     #Must overload
+    raise MustOverloadThis
   end
 
   def self.descendants
