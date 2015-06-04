@@ -9,7 +9,7 @@ module Phases
 
       loops = []
 
-      ss[:sections][".text"].each do |func, data|
+      s[:sections][".text"].each do |func, data|
         puts "analysing func: #{func}@#{data[:addr].to_s(16)}"
 
         cur_block = []
@@ -27,7 +27,7 @@ module Phases
 
             unless base.nil? and offset.nil?
               #lookup location of target
-              addr = sections[".text"][base][:addr] + offset
+              addr = s[:sections][".text"][base][:addr] + offset
 
               if addr < pc then
                 #is a loop! (probably)
