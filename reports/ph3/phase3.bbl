@@ -1,0 +1,30 @@
+\begin{thebibliography}{1}
+
+\bibitem{hls}
+Inc. Berkeley Design~Technology.
+\newblock High level synthesis tools for xilinx fpgas.
+\newblock White paper, 2010.
+
+\bibitem{mf-fpga}
+Michael~J. Flynn.
+\newblock Using fpgas for hpc acceleration: now and in 20 years.
+\newblock Presentation, 2012.
+
+\bibitem{cuda}
+E.~Phillips and M.~Fatica.
+\newblock Cuda accelerated linpack on clusters.
+\newblock Presentation, 2010.
+
+\bibitem{ZC702}
+Xilinx.
+\newblock Zc702 evaluation kit product page.
+\newblock
+  \url{http://www.xilinx.com/products/boards-and-kits/ek-z7-zc702-g.html},
+  2014.
+
+\bibitem{ug585}
+Xilinx.
+\newblock Zynq-7000 all programmable soc.
+\newblock Technical reference manual, 2014.
+
+\end{thebibliography}

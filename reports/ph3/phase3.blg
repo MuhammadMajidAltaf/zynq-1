@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2014)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: phase3.aux
+The style file: plain.bst
+Database file #1: phase3.bib
+Warning--empty institution in hls
+Warning--empty institution in mf-fpga
+Warning--empty institution in cuda
+Warning--empty institution in ug585
+You've used 5 entries,
+            2118 wiz_defined-function locations,
+            518 strings with 4420 characters,
+and the built_in function-call counts, 1052 in all, are:
+= -- 103
+> -- 41
+< -- 0
++ -- 17
+- -- 12
+* -- 48
+:= -- 206
+add.period$ -- 15
+call.type$ -- 5
+change.case$ -- 25
+chr.to.int$ -- 0
+cite$ -- 9
+duplicate$ -- 39
+empty$ -- 83
+format.name$ -- 12
+if$ -- 206
+int.to.chr$ -- 0
+int.to.str$ -- 5
+missing$ -- 0
+newline$ -- 28
+num.names$ -- 10
+pop$ -- 25
+preamble$ -- 1
+purify$ -- 16
+quote$ -- 0
+skip$ -- 28
+stack$ -- 0
+substring$ -- 25
+swap$ -- 1
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 20
+warning$ -- 4
+while$ -- 10
+width$ -- 6
+write$ -- 52
+(There were 4 warnings)
