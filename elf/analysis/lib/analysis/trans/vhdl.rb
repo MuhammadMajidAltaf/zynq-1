@@ -113,7 +113,8 @@ module Trans
       end
 
       #fixups
-      n = "not " if l[:instr] == "orn"
+      n1 = "not " if l[:instr] == "orn"
+      n2 = "not" if l[:instr] == "bic"
 
       if l[:instr] == "rsb" then
         t = reg1
@@ -129,7 +130,7 @@ module Trans
         instr = instr[0..instr.length-2]
       end
       raise "UnknownDPInstruction #{l[:instr]} -> #{instr}" unless ARM::DP_INSNS_MAP.include? instr
-      return [line_shift, "#{treg(l, dst, 1, true)} := std_logic_vector(#{n}unsigned(#{reg1}) #{ARM::DP_INSNS_MAP[instr]} unsigned(#{reg2}));"]
+      return [line_shift, "#{treg(l, dst, 1, true)} := std_logic_vector(#{n1}unsigned(#{reg1}) #{ARM::DP_INSNS_MAP[instr]} #{n2}unsigned(#{reg2}));"]
     end
   end
 

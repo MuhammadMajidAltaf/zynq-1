@@ -3,7 +3,7 @@ module ARM
   BRANCH_SUFFIXES = ['eq', 'ne', 'cs', 'cc', 'mi', 'pl', 'vs', 'vc', 'hi', 'ls', 'ge', 'lt', 'gt', 'le']
   BRANCH_IT = ['it', 'itt', 'ite', 'itt', 'itet' ,'itte', 'itee', 'itttt', 'itett', 'ittet', 'iteet', 'ittte' ,'itete' ,'ittee', 'iteee']
 
-  DP_INSNS_MAP = {'adc' => '+', 'add' => '+', 'and' => 'and', 'bic' => nil, 'eor' => 'xor', 'mov' => nil, 'mvn' => nil, 'orn' => 'or', 'orr' => 'or', 'rsb' => '-', 'sub' => '-'} #adr, cmn, cmp, rsc, sbc, teq, tst
+  DP_INSNS_MAP = {'adc' => '+', 'add' => '+', 'and' => 'and', 'bic' => "&", 'eor' => 'xor', 'mov' => nil, 'mvn' => nil, 'orn' => 'or', 'orr' => 'or', 'rsb' => '-', 'sub' => '-'} #adr, cmn, cmp, rsc, sbc, teq, tst
   DP_INSNS = DP_INSNS_MAP.keys
 
   #TODO: deal with extend somewhere...
