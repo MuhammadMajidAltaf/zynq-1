@@ -1,0 +1,705 @@
+"Read"
+[:options]
+Reading in objdump
+sec .text
+sec .text.startup
+Read-in completed in 2 sections
+------------------------------------------------------------
+"BasicBlock"
+[:options, :sections, :flat_prof]
+Starting Basic Block analysis
+analysing func: small_add@0
+analysing func: gt@10
+analysing func: movn@1c
+analysing func: mvn@28
+analysing func: shift@30
+analysing func: mul@3c
+analysing func: mla@44
+analysing func: mls@4c
+analysing func: mulrsb@54
+analysing func: andnot@60
+13 Basic Blocks completed
+------------------------------------------------------------
+"Arith"
+[:options, :sections, :flat_prof, :bbs]
+Starting arithmetic analysis
+analysing bb: small_add@0
+analysing bb: shift@30
+analysing bb: mulrsb@54
+analysing bb: mla@44
+analysing bb: gt@10
+analysing bb: mul@3c
+analysing bb: andnot@60
+analysing bb: movn@1c
+analysing bb: mvn@28
+analysing bb: movn@1c
+analysing bb: gt@10
+analysing bb: mls@4c
+analysing bb: mls@4c
+Arithmetic analysis concluded
+------------------------------------------------------------
+"GenVHDL"
+[:options, :sections, :flat_prof, :bbs]
+VHDL Generation started
+order analysing bb: small_add@0
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 0: add ["r0", "r0", "r1"]
+d: 
+dl: 
+==============================
+l: 4: add ["r0", "r0", "r2"]
+d: {:addr=>0, :raw=>"e0800001", :instr=>"add", :args=>["r0", "r0", "r1"], :branch=>{:base=>nil, :offset=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 0
+==============================
+l: 8: add ["r0", "r0", "r3"]
+d: {:addr=>4, :raw=>"e0800002", :instr=>"add", :args=>["r0", "r0", "r2"], :branch=>{:base=>nil, :offset=>nil}, :deps=>[{:addr=>0, :raw=>"e0800001", :instr=>"add", :args=>["r0", "r0", "r1"], :branch=>{:base=>nil, :offset=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[0]}
+dl: 4
+==============================
+l: c: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: small_add@0: 4 lines
+parallelized into 2 pars
+generating bb: small_add@0
+######################################################################
+small_add@0[0:c]->
+A 3 3 100.0 100.0
+L> add, add, add, bx, 
+pars: 2
+0> bx, 
+1> add, add, add, 
+trans: 
+variable r0_0, r0_4, r0_8 : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@c
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+r0_0 := std_logic_vector(unsigned(regs_in(0)) + unsigned(regs_in(1)));
+r0_4 := std_logic_vector(unsigned(r0_0) + unsigned(regs_in(2)));
+r0_8 := std_logic_vector(unsigned(r0_4) + unsigned(regs_in(3)));
+regs_out(0) <= r0_8;
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: shift@30
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 30: lsl ["r1", "r1", "r0"]
+d: 
+dl: 
+==============================
+l: 34: asr ["r0", "r0", "r1"]
+d: {:addr=>48, :raw=>"e1a01011", :instr=>"lsl", :args=>["r1", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 30
+==============================
+l: 38: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: shift@48: 3 lines
+parallelized into 2 pars
+generating bb: shift@48
+######################################################################
+shift@30[30:38]->
+A 2 2 100.0 100.0
+L> lsl, asr, bx, 
+pars: 2
+0> bx, 
+1> lsl, asr, 
+trans: 
+variable  : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@38
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+-- lsl@30
+-- asr@34
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: mulrsb@54
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 54: mul ["r0", "r1", "r0"]
+d: 
+dl: 
+==============================
+l: 58: rsb ["r0", "r2", "r0"]
+d: {:addr=>84, :raw=>"e0000091", :instr=>"mul", :args=>["r0", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 54
+==============================
+l: 5c: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: mulrsb@84: 3 lines
+parallelized into 2 pars
+generating bb: mulrsb@84
+######################################################################
+mulrsb@54[54:5c]->
+A 2 2 100.0 100.0
+L> mul, rsb, bx, 
+pars: 2
+0> bx, 
+1> mul, rsb, 
+trans: 
+variable r0_54, r0_58 : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@5c
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+r0_54 := regs_in(1) * regs_in(0);
+r0_58 := std_logic_vector(unsigned(r0_54) - unsigned(regs_in(2)));
+regs_out(0) <= r0_58;
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: mla@44
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 44: mla ["r0", "r1", "r0", "r2"]
+d: 
+dl: 
+==============================
+l: 48: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: mla@68: 2 lines
+parallelized into 2 pars
+generating bb: mla@68
+######################################################################
+mla@44[44:48]->
+A 1 1 100.0 100.0
+L> mla, bx, 
+pars: 2
+0> bx, 
+1> mla, 
+trans: 
+variable r0_44 : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@48
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+r0_44 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(0)) + unsigned(regs_in(2)), 32));
+regs_out(0) <= r0_44;
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: gt@10
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 10: cmp ["r1", "r0"]
+d: 
+dl: 
+==============================
+l: 14: movge ["r0", "r1"]
+d: {:addr=>16, :raw=>"e1510000", :instr=>"cmp", :args=>["r1", "r0"], :branch=>{:base=>nil, :offset=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 10
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: gt@16: 2 lines
+parallelized into 1 pars
+generating bb: gt@16
+######################################################################
+gt@10[10:14]->
+A 0 0 0.0 0.0
+L> cmp, movge, 
+pars: 1
+0> cmp, movge, 
+trans: 
+variable  : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- cmp@10
+-- movge@14
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: mul@3c
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 3c: mul ["r0", "r1", "r0"]
+d: 
+dl: 
+==============================
+l: 40: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: mul@60: 2 lines
+parallelized into 2 pars
+generating bb: mul@60
+######################################################################
+mul@3c[3c:40]->
+A 1 1 100.0 100.0
+L> mul, bx, 
+pars: 2
+0> bx, 
+1> mul, 
+trans: 
+variable r0_3c : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@40
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+r0_3c := regs_in(1) * regs_in(0);
+regs_out(0) <= r0_3c;
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: andnot@60
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 60: bic ["r0", "r0", "r1"]
+d: 
+dl: 
+==============================
+l: 64: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: andnot@96: 2 lines
+parallelized into 2 pars
+generating bb: andnot@96
+######################################################################
+andnot@60[60:64]->
+A 1 1 100.0 100.0
+L> bic, bx, 
+pars: 2
+0> bx, 
+1> bic, 
+trans: 
+variable r0_60 : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@64
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+r0_60 := std_logic_vector(unsigned(regs_in(0)) & notunsigned(regs_in(1)));
+regs_out(0) <= r0_60;
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: movn@1c
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 1c: cmp ["r1", "#0"]
+d: 
+dl: 
+==============================
+l: 20: moveq ["r0", "#0"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: movn@28: 2 lines
+parallelized into 2 pars
+generating bb: movn@28
+######################################################################
+movn@1c[1c:20]->
+A 0 0 0.0 0.0
+L> cmp, moveq, 
+pars: 2
+0> moveq, 
+1> cmp, 
+trans: 
+variable  : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- moveq@20
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+-- cmp@1c
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: mvn@28
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 28: mvn ["r0", "r1"]
+d: 
+dl: 
+==============================
+l: 2c: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: mvn@40: 2 lines
+parallelized into 2 pars
+generating bb: mvn@40
+######################################################################
+mvn@28[28:2c]->
+A 1 1 100.0 100.0
+L> mvn, bx, 
+pars: 2
+0> bx, 
+1> mvn, 
+trans: 
+variable  : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@2c
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+r0 <= not regs_in(1);
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: movn@1c
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 24: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: movn@28: 1 lines
+parallelized into 1 pars
+generating bb: movn@28
+######################################################################
+movn@1c[24:24]->
+A 0 0 0 0
+L> bx, 
+pars: 1
+0> bx, 
+trans: 
+variable  : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@24
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: gt@10
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 18: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: gt@16: 1 lines
+parallelized into 1 pars
+generating bb: gt@16
+######################################################################
+gt@10[18:18]->
+A 0 0 0 0
+L> bx, 
+pars: 1
+0> bx, 
+trans: 
+variable  : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@18
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: mls@4c
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 4c: mls ["r0", "r1", "r0", "r2"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: mls@76: 1 lines
+parallelized into 1 pars
+generating bb: mls@76
+######################################################################
+mls@4c[4c:4c]->
+A 1 0 0 0
+L> mls, 
+pars: 1
+0> mls, 
+trans: 
+variable r0_4c : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+r0_4c := regs_in(2) - regs_in(1) * regs_in(0);
+regs_out(0) <= r0_4c;
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: mls@4c
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 50: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: mls@76: 1 lines
+parallelized into 1 pars
+generating bb: mls@76
+######################################################################
+mls@4c[50:50]->
+A 0 0 0 0
+L> bx, 
+pars: 1
+0> bx, 
+trans: 
+variable  : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@50
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+VHDL Generation concluded
