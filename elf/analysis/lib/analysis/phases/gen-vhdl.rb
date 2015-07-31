@@ -58,7 +58,7 @@ module Phases
         seen_lines = []
         bb[:par_code] = []
 
-        if bb[:code].count < s[:options][:num_parallel] then
+        if (bb[:code].count < s[:options][:num_parallel]) || s[:options][:do_all_blocks] then
           bb[:code].reverse_each do |line|
             unless seen_lines.include? line[:addr] then
               ret = pars_r(line, seen_lines)
@@ -114,7 +114,6 @@ module Phases
         puts "#{bb[:func]}@#{bb[:addr].to_s(16)}[#{bb[:code][0][:addr].to_s(16)}:#{bb[:code][-1][:addr].to_s(16)}]->"
         puts "A #{bb[:arith_num]} #{bb[:arith_seq]} #{bb[:arith_num_p]} #{bb[:arith_seq_p]}"
         puts "S #{bb[:simd_arith_num]} #{bb[:simd_arith_seq]} #{bb[:simd_num_p]} #{bb[:simd_seq_p]}" if bb[:has_simd]
-        pp bb[:prof]
         print "L> "
         bb[:code].each do |line|
           print "#{line[:instr]}, "

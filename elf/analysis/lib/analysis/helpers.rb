@@ -33,7 +33,18 @@ def instr_base(instr)
 end
 
 def select_bbs(s)
-  s[:bbs].sort_by{|bb| bb[:prof][:time_p] }.reverse.select do |bb|
-    ((bb[:arith_seq] > s[:options][:min_num_arith]) || (bb[:has_simd] && (bb[:simd_arith_seq] > s[:options][:min_num_arith]))) && (bb[:size] > s[:options][:min_length]) && (bb[:prof][:time_p] > s[:options][:min_runtime_percentage])
+  #Do all override
+  return s[:bbs] if s[:options][:do_all_blocks]
+
+  unless s[:options][:gprof_file].nil? then
+    #Have profiling data
+    return s[:bbs].sort_by{|bb| bb[:prof][:time_p] }.reverse.select do |bb|
+      ((bb[:arith_seq] > s[:options][:min_num_arith]) || (bb[:has_simd] && (bb[:simd_arith_seq] > s[:options][:min_num_arith]))) && (bb[:size] > s[:options][:min_length]) && (bb[:prof][:time_p] > s[:options][:min_runtime_percentage])
+    end.take(s[:options][:num_taken]).reverse
+  end
+
+  #Just have the calculated statistics
+  return s[:bbs] do |bb|
+    ((bb[:arith_seq] > s[:options][:min_num_arith]) || (bb[:has_simd] && (bb[:simd_arith_seq] > s[:options][:min_num_arith]))) && (bb[:size] > s[:options][:min_length])
   end.take(s[:options][:num_taken]).reverse
 end

@@ -20,7 +20,10 @@ module Phases
           if ARM::BRANCH_INSNS.include?(base) || ARM::BRANCH_IT.include?(base) || ARM::BRANCH_SUFFIXES.include?(base[-2,2]) || ARM::ALL_LDST_INSNS.include?(base)  then
             #Was a non-basic thing
             func_base = func.split(".")[0]
-            prof = (s[:flat_prof].include? func_base) ? s[:flat_prof][func_base] : {time_p: 0, time_cum: 0, time_sef: 0, calls:0 , call_self: 0, call_total: 0}
+
+            unless s[:options][:gprof_file].nil?
+              prof = (s[:flat_prof].include? func_base) ? s[:flat_prof][func_base] : {time_p: 0, time_cum: 0, time_sef: 0, calls:0 , call_self: 0, call_total: 0}
+            end
             b = {func: func, addr: data[:addr], size: cur_block.count, code: cur_block.clone, prof: prof}
             funcs[func] = [] unless funcs.include? func
             funcs[func].push b

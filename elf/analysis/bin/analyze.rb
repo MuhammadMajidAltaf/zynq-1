@@ -37,14 +37,16 @@ OptionParser.new do |opts|
   opts.on("-S", "--save-dump-file FILE", "Dump file to save to if appropriate") do |f|
     options[:save_dump_file] = f
   end
+  opts.on("-!", "--do-all-blocks", "Translates all blocks irrespective of whether they meet the normal criteria") do |ex|
+    options[:do_all_blocks] = ex
+  end
 end.parse!
 
 #Check required arguments
 if options[:disassembly_file].nil? ||
   options[:stages].nil? ||
-  (!options[:stages].nil? && options[:stages].length == 0) ||
-  options[:gprof_file].nil?
-  raise OptionParser::MissingArgument, "Need disassembly file, stages and gprof file"
+  (!options[:stages].nil? && options[:stages].length == 0)
+  raise OptionParser::MissingArgument, "Need disassembly file and stages"
 end
 
 #Add default values for missing

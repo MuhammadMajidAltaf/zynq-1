@@ -57,28 +57,30 @@ module Phases
 
       puts "-"*60
 
-      puts "Reading in gprof file"
-
       flat_prof = {}
-      in_flat = false
-      File.open(s[:options][:gprof_file], 'r') do |gp|
-        gp.each_line do |line|
-          if line =~ /Flat profile:/ then
-            in_flat = true
-          end
+      unless s[:options][:gprof_file].nil? then
+        puts "Reading in gprof file"
 
-          if line =~ /Call graph/ then
-            in_flat = false
-          end
+        in_flat = false
+        File.open(s[:options][:gprof_file], 'r') do |gp|
+          gp.each_line do |line|
+            if line =~ /Flat profile:/ then
+              in_flat = true
+            end
 
-          if in_flat && line =~ /^\s+([0-9.]+)\s+([0-9.]+)\s+([0-9.]+)\s+(([0-9]+)\s+([0-9.]+)\s+([0-9.]+))?\s(.*)$/ then
-            flat_prof[$8.strip] = {time_p: $1.to_f, time_cum: $2.to_f, time_self: $3.to_f, calls: $5.to_i, call_self: $6.to_i, call_total: $7.to_i}
+            if line =~ /Call graph/ then
+              in_flat = false
+            end
+
+            if in_flat && line =~ /^\s+([0-9.]+)\s+([0-9.]+)\s+([0-9.]+)\s+(([0-9]+)\s+([0-9.]+)\s+([0-9.]+))?\s(.*)$/ then
+              flat_prof[$8.strip] = {time_p: $1.to_f, time_cum: $2.to_f, time_self: $3.to_f, calls: $5.to_i, call_self: $6.to_i, call_total: $7.to_i}
+            end
           end
         end
-      end
 
-      puts "Read-in completed for gprof file for #{flat_prof.count} functions"
-      puts "-"*60
+        puts "Read-in completed for gprof file for #{flat_prof.count} functions"
+        puts "-"*60
+      end
 
       new = {sections: sections, flat_prof: flat_prof}
       return s.merge new
