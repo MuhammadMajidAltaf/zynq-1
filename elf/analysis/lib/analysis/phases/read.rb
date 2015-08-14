@@ -40,9 +40,10 @@ module Phases
                 instr = $3
 
                 unless $4.nil? then
-                  $4.match(/\d+\s\<([\w]+)(\+([\dx]+))?\>/)
-                  offset = $3.nil? ? nil : $3.to_i(16)
-                  branch = { base: $1, offset: offset }
+                  $4.match(/\s+([0-9a-f]+)\s\<([\w]+)(\+([0-9a-fx]+))?\>/)
+                  offset = $4.nil? ? nil : $4.to_i(16)
+                  absolute = $1.nil? ? nil : $1.to_i(16)
+                  branch = { base: $2, offset: offset, absolute: absolute }
                 end
                 l = { addr: addr, raw: raw, instr: instr, args: args, branch: branch}
                 sections[cur_section][cur_function][:code].push l
