@@ -28,6 +28,7 @@ module Phases
             funcs[func] = [] unless funcs.include? func
             funcs[func].push b
             bbs.push b
+            pp b
             cur_block = []
           end
         end
@@ -38,7 +39,7 @@ module Phases
       puts "#{bbs.count} Basic Blocks completed"
       puts "-"*60
 
-      new = {bbs: bbs}
+      new = {bbs: bbs, funcs: funcs}
       return s.merge new
     end
   end
