@@ -18,23 +18,28 @@ module Phases
           cur_block.push line
 
           base = instr_base(line[:instr])
-          if ARM::BRANCH_INSNS.include?(base) || ARM::BRANCH_IT.include?(base) || ARM::BRANCH_SUFFIXES.include?(base[-2,2]) || ARM::ALL_LDST_INSNS.include?(base)  then
+          if ARM::BRANCH_INSNS.include?(base) || ARM::BRANCH_IT.include?(base) || ARM::BRANCH_SUFFIXES.include?(base[-2,2]) then
             #Found a branch. Check if target is behind PC.
             pc = line[:addr]
 
             base = line[:branch][:base]
             offset = line[:branch][:offset]
+            absolute = line[:branch][:absolute]
 
             unless base.nil? and offset.nil?
               #lookup location of target
               addr = s[:sections][".text"][base][:addr] + offset
+              if addr != absolute then
+                #Something has gone wrong with either the read-in, or the symbol location calculation
+                raise "Absolute address not equal to calculated address: 0x#{absolute.to_i(16)} != 0x#{addr.to_i(16)}"
+              end
 
-              if addr < pc then
+              if absolute < pc then
                 #is a loop! (probably)
 
                 #find bbs between addr and pc
                 loop_bbs = []
-                funcs[base].each do |bb|
+                s[:funcs][base].each do |bb|
                   loop_bbs.push bb if ((bb[:addr] <= addr) && (bb[:addr] + bb[:size]*4 > addr)) || ((bb[:addr] >= addr) && (bb[:addr] + bb[:size]*4 >= pc))
                 end
 
