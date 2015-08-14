@@ -1,0 +1,43 @@
+
+loops.o:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <unrolled>:
+   0:	e0230091 	mla	r3, r1, r0, r0
+   4:	e0230193 	mla	r3, r3, r1, r0
+   8:	e0230193 	mla	r3, r3, r1, r0
+   c:	e0230193 	mla	r3, r3, r1, r0
+  10:	e0230193 	mla	r3, r3, r1, r0
+  14:	e0230193 	mla	r3, r3, r1, r0
+  18:	e0230193 	mla	r3, r3, r1, r0
+  1c:	e0230193 	mla	r3, r3, r1, r0
+  20:	e0200193 	mla	r0, r3, r1, r0
+  24:	e12fff1e 	bx	lr
+
+00000028 <rolled>:
+  28:	e3520000 	cmp	r2, #0
+  2c:	da000004 	ble	44 <rolled+0x1c>
+  30:	e3a03000 	mov	r3, #0
+  34:	e2833001 	add	r3, r3, #1
+  38:	e1530002 	cmp	r3, r2
+  3c:	e02c0c91 	mla	ip, r1, ip, r0
+  40:	1afffffb 	bne	34 <rolled+0xc>
+  44:	e1a0000c 	mov	r0, ip
+  48:	e12fff1e 	bx	lr
+
+0000004c <partial_unrolled>:
+  4c:	e1a02142 	asr	r2, r2, #2
+  50:	e3520000 	cmp	r2, #0
+  54:	da000007 	ble	78 <partial_unrolled+0x2c>
+  58:	e3a0c000 	mov	ip, #0
+  5c:	e0230391 	mla	r3, r1, r3, r0
+  60:	e28cc001 	add	ip, ip, #1
+  64:	e15c0002 	cmp	ip, r2
+  68:	e0230193 	mla	r3, r3, r1, r0
+  6c:	e0230193 	mla	r3, r3, r1, r0
+  70:	e0230193 	mla	r3, r3, r1, r0
+  74:	1afffff8 	bne	5c <partial_unrolled+0x10>
+  78:	e1a00003 	mov	r0, r3
+  7c:	e12fff1e 	bx	lr
