@@ -32,4 +32,10 @@ module ARM
 
   ALL_ARITH_INSNS = ARITH_INSNS + SIMD_ARITH_INSNS
   ALL_LDST_INSNS = LDST_INSNS + LDSTMUL_INSNS + SIMD_LDST_INSNS
+
+  #Used in loop detection
+  CMP_INSNS = ['cmp', 'cmn']
+  #TODO: not complete
+  SIMPLE_ARITH_INSNS = ['add', 'sub', 'rsb', 'mul']
+  MOV_INSNS = ['mov', 'mvn']
 end

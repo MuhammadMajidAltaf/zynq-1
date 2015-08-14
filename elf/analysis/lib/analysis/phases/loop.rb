@@ -1,6 +1,8 @@
 require 'analysis/phase'
 require 'analysis/arm'
 
+#Note: I apologise to whoever reads this file for some of the short variable naming used
+
 module Phases
   class Loops < Phase
 
@@ -43,7 +45,47 @@ module Phases
                   loop_bbs.push bb if ((bb[:addr] <= addr) && (bb[:addr] + bb[:size]*4 > addr)) || ((bb[:addr] >= addr) && (bb[:addr] + bb[:size]*4 >= pc))
                 end
 
-                l = {start: addr, end: pc, func: base, bbs: loop_bbs}
+                #define the inital form of the loop data
+                l = {start: addr, end: pc, func: base, bbs: loop_bbs.sort_by { |b| b[:addr] }}
+
+                #try to find the interesting parts of the loop: initialization, loop counter, loop body
+                #TODO: makes some single instruction assumptions
+
+                last_cmp = self.find_last_cmp(l)
+                unless last_cmp.nil? then
+                  #TODO: assumes first arg of cmp will be correct - assumes compiler generated
+                  counter_reg = last_cmp[:args][0]
+                  #try to find the loop counter arithmetic operations
+                  counter = self.find_first_constant_arith_with_reg(l, counter_reg)
+                  unless counter.nil? then
+                    #try to find the initialization for this counter
+                    init = self.find_last_mov_with_reg_before_loop(l, counter_reg)
+                    unless init.nil? then
+                      #Determine loop body based on this information
+                      body_init = []
+                      body = []
+
+                      l[:bbs].each do |bb|
+                        bb[:code].each do |ll|
+                          if ll[:addr] < l[:start] then
+                            body_init.push ll if ll != init
+                          else
+                            body.push ll if ll != counter and ll != line and ll != last_cmp
+                          end
+                        end
+                      end
+
+                      #Found all expected items, record in the loop data blob
+                      l[:structured] = {counter_reg: counter_reg,
+                                        counter: counter,
+                                        counter_init: init,
+                                        branch: line,
+                                        body: body}
+                    end
+                  end
+                end
+
+                #push the final loop data to the global list
                 loops.push l
               end
             end
@@ -61,5 +103,53 @@ module Phases
       new = {loops: loops}
       return s.merge new
     end
+
+    private
+    def self.find_last_cmp(lp)
+      lp[:bbs].reverse.each do |bb|
+        bb[:code].reverse.each do |line|
+          return line if ARM::CMP_INSNS.include? instr_base(line[:instr])
+        end
+      end
+      return nil
+    end
+
+    def self.find_first_constant_arith_with_reg(lp, reg)
+      lp[:bbs].each do |bb|
+        bb[:code].each do |line|
+          next if line[:addr] < lp[:start]
+
+          if ARM::SIMPLE_ARITH_INSNS.include? instr_base(line[:instr]) then
+            if line[:args][0] == reg and line[:args][1] == reg then
+              #Arithmetic instruction, destination and source register matches
+              #Need to check if it performs a constant operation
+              #Forms: (rx, #imm) or (rx, Op2)
+              if line[:args][2][0] == "#" or line[:args][2][0] == "r" then
+                #rx, #imm form or rx, register form
+                return line
+              end
+            end
+          end
+        end
+      end
+      return nil
+    end
+
+    def self.find_last_mov_with_reg_before_loop(lp, reg)
+      lp[:bbs].each do |bb|
+        bb[:code].reverse.each do |line|
+          next if line[:addr] >= lp[:start]
+
+          if ARM::MOV_INSNS.include? instr_base(line[:instr]) then
+            if line[:args][0] == reg then
+              #Either imm or Op2 setup, don't care here for new with either
+              return line
+            end
+          end
+        end
+      end
+      return nil
+    end
+
   end
 end
