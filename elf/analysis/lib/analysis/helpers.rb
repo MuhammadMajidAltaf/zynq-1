@@ -4,16 +4,6 @@ def strip_line(line)
   return {addr: line[:addr], raw: line[:raw], instr: line[:instr], args: line[:args]}
 end
 
-def pars_r(line, seen_lines)
-  lines = []
-  line[:deps].each do |dep|
-    ret = pars_r(dep, seen_lines)
-    lines.concat(ret[:lines])
-    seen_lines.concat(ret[:seen_lines]).uniq!
-  end
-  return {lines: lines.push(strip_line(line)), seen_lines: seen_lines.push(line[:addr]).uniq}
-end
-
 def dump_bb(bbs, func)
   bbs.each do |bb|
     pp bb if bb[:func] == func
@@ -47,4 +37,15 @@ def select_bbs(s)
   return s[:bbs] do |bb|
     ((bb[:arith_seq] > s[:options][:min_num_arith]) || (bb[:has_simd] && (bb[:simd_arith_seq] > s[:options][:min_num_arith]))) && (bb[:size] > s[:options][:min_length])
   end.take(s[:options][:num_taken]).reverse
+end
+
+def dump_bb_code(bb)
+  puts '<'*50
+  bb[:code].each do |line|
+    puts '='*30
+    puts "l: #{line[:addr].to_s(16)}: #{line[:instr]} #{line[:args]}"
+    puts "d: #{line[:deps].join(",")}"
+    puts "dl: #{line[:deps_lines].map{|dl| dl.to_s(16)}.join(",")}"
+  end
+  puts '>'*50
 end
