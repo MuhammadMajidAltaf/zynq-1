@@ -8,6 +8,7 @@ module Phases
     def self.run s
       puts "VHDL Generation started"
 
+      puts "Generating BBs"
       select_bbs(s).each do |bb|
 
         puts "order analysing bb: #{bb[:func]}@#{bb[:addr].to_s(16)}"
@@ -28,6 +29,72 @@ module Phases
         self.translate_bb_pars(bb)
 
         self.print_translated_bb(bb)
+      end
+
+      puts "Generating Loops"
+      s[:loops].each do |loop|
+        puts "working on loop: #{loop[:func]} #{loop[:start].to_s(16)}-#{loop[:end].to_s(16)}"
+
+        loop[:trans] = {}
+        loop[:trans][:name] = "loop_#{loop[:start].to_s(16)}"
+        loop[:trans][:sensitive_signals] = []
+
+        if loop[:structured].nil? then
+          puts "skipping loop due to unknown structure"
+          next
+        end
+
+        Trans::treg_newpar
+
+        #translate COUNTER_INIT
+        loop[:trans][:counter_init] = []
+        loop[:structured][:counter].each do |line|
+          loop[:trans][:counter_init].concat Trans::trans(line)
+          Trans::treg_post_line
+        end
+
+        #translate COUNTER_INCREMENT to arithmetic operation
+        loop[:trans][:counter_increment] = []
+        loop[:structured][:counter].each do |line|
+          loop[:trans][:counter_increment].concat Trans::trans(line)
+          Trans::treg_post_line
+        end
+
+        #translate LOOP_BODY
+        loop[:trans][:body] = []
+        loop[:structured][:body].each do |line|
+          loop[:trans][:body].concat Trans::trans(line)
+          Trans::treg_post_line
+        end
+
+        #translate condition
+        cond_base = instr_base(loop[:structured][:comparison][:instr])
+        branch_base = instr_base(loop[:structured][:branch][:instr])
+        negate = false
+        case cond_base
+          when "cmp"
+          when "cmn"
+            negate = !negate
+          else
+            puts "unknown comparison condition #{cond_base}, skipping loop"
+            next
+        end
+        case branch_base
+          when "bne"
+          when "beq"
+            negate = !negate
+          else
+            puts "unknown branch #{branch_base}, skipping loop"
+            next
+        end
+        loop[:trans][:condition] = "#{loop[:structured][:comparison][:args][0]} = #{loop[:structured][:comparison][:args][1]}"
+        loop[:trans][:condition] = "not (#{loop[:trans][:condition]})" if negate
+
+        loop[:trans][:temps] = Trans::treg_used
+
+        pp loop
+
+        self.print_translated_loop(loop)
       end
 
       puts "VHDL Generation concluded"
@@ -110,10 +177,9 @@ module Phases
           #transliterate
           par.each_index do |l_i|
             l = par[l_i]
-            trans_lines = [Trans::trans(l)].flatten.reject{|l| l.nil?}
-            par_trans.concat trans_lines
+            par_trans.concat Trans::trans(l)
 
-            par_trans.concat Trans::treg_post_line(par, trans_lines, l, l_i)
+            par_trans.concat Trans::treg_post_line
           end
 
           par_trans.concat Trans::treg_out(par, par_trans)
@@ -159,6 +225,43 @@ module Phases
         puts "trans #{i}>"
         lines.each { |l| puts l }
       end
+      puts "#"*70
+    end
+
+    def self.print_translated_loop(loop)
+      unless loop[:trans][:sensitive_signals].empty?
+        sensitivity_list = ", #{loop[:trans][:sensitive_signals].join(", ")}"
+      end
+
+      puts "#"*70
+      puts "#{loop[:trans][:name]}_proc : process(clk, reset#{sensitivity_list}})"
+      puts "variable #{loop[:trans][:temps].join(", ")} : std_logic_vector(31 downto 0)";
+      puts "variable loop_finished : std_logic;"
+      puts "begin"
+      puts "  if clk = '1' and clk'event then"
+      puts "    if reset = '1' then"
+      puts "      loop_finished := '0';"
+      loop[:trans][:counter_init].each do |line|
+        puts " "*6 + line
+      end
+      puts "    elif loop_finished = '1' then"
+      #DO NOTHING ELSE
+      puts "    else"
+      puts "      if #{loop[:trans][:condition]} then"
+      puts "        loop_finished := '1';"
+      puts "      else"
+      puts "-- body:"
+      loop[:trans][:body].each do |line|
+        puts " "*8 + line
+      end
+      puts "-- counter:"
+      loop[:trans][:counter_increment].each do |line|
+        puts " "*8 + line
+      end
+      puts "      end if;"
+      puts "    end if;"
+      puts "  end if;"
+      puts "end process;"
       puts "#"*70
     end
 
