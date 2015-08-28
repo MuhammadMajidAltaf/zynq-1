@@ -242,3 +242,34 @@ Algorithm:
 3) Find loop counter initialization, by working backwards from the start of the loop for a mov into that register
 3.5) Might be a load instead, but can't cope with them for a while
 4) Conclude that any code between the determined sections must be the loop body, and any other remaining code in this BB before the loop start is body initialization code
+
+-------------------------------------------------------------
+
+for(COUNTER_INIT; COUNTER_CONDITION; COUNTER_INCREMENT)
+{
+  LOOP_BODY
+}
+
+translate into =>
+
+loop_process : process(clk, reset, loop_condition, loop_finished)
+  DEFINE_VARIABLES
+begin
+  if clk = '1' and clk'event then
+    if reset = '1' or loop_finished = '1' then
+      COUNTER_INIT
+    else
+      if LOOP_CONDITION then
+        loop_finished := '1';
+      else
+        LOOP_BODY
+        COUNTER_INCREMENT
+      end if;
+    end if;
+  end if;
+end process;
+
+can I use for-generate syntax to unroll the loop here?
+If I know it is COUNTER_INIT = int i=0, COUNTER_CONDITION = i<MAX_INT; COUNTER_INCREMENT = i++ then, I could use a simple for..loop construct of for..generate construct
+
+So, if COUNTER_INIT is mov [rX], [integer]
