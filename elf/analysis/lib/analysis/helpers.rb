@@ -49,3 +49,7 @@ def dump_bb_code(bb)
   end
   puts '>'*50
 end
+
+def is_reg(name)
+  return (name[0] == 'r') || (name == "pc") || (name == "ip") || (name == "sp")
+end

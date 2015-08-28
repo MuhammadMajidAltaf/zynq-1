@@ -63,17 +63,17 @@ module Trans
   ##################################################
   #Internal
   ##################################################
-
+  private
   def self.check_args_rr(args)
-    args.length >= 2 && args[0][0] == 'r' && args[1][0] == 'r'
+    args.length >= 2 && is_reg(args[0]) && is_reg(args[1])
   end
 
   def self.check_args_rrr(args)
-    args.length >= 3 && args[0][0] == 'r' && args[1][0] == 'r' && args[2][0] == 'r'
+    args.length >= 3 && is_reg(args[0]) && is_reg(args[1]) && is_reg(args[2])
   end
 
   def self.check_args_rrrr(args)
-    args.length >= 4 && args[0][0] == 'r' && args[1][0] == 'r' && args[2][0] == 'r' && args[3][0] == 'r'
+    args.length >= 4 && is_reg(args[0]) && is_reg(args[1]) && is_reg(args[2]) && is_reg(args[3])
   end
 
   $added_temps = []
