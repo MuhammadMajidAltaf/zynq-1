@@ -1,5 +1,5 @@
-CC=arm-linux-gnueabihf-gcc
-OD=arm-linux-gnueabihf-objdump
+CC=arm-cortex_a9-linux-gnueabihf-gcc
+OD=arm-cortex_a9-linux-gnueabihf-objdump
 
 INCPATH=/tools/zynq/zynq-xdma/lib/
 LIBPATH=/tools/zynq/zynq-xdma/lib/
@@ -7,7 +7,7 @@ LIBS=-lxdma -lrt
 
 CFLAGS=-march=armv7-a -mtune=cortex-a9 -mfpu=neon -marm -std=gnu99 -O3 -I${INCPATH} -L${LIBPATH}
 
-all: ma matrix.o ma.dis read-reg.dis read-reg
+all: ma matrix.o ma.dis
 
 clean:
 	rm *.o *.dis
