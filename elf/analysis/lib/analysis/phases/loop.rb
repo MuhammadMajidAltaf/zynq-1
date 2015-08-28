@@ -56,10 +56,10 @@ module Phases
                   #TODO: assumes first arg of cmp will be correct - assumes compiler generated
                   counter_reg = last_cmp[:args][0]
                   #try to find the loop counter arithmetic operations
-                  counter = self.find_first_constant_arith_with_reg(l, counter_reg)
+                  counter = [self.find_first_constant_arith_with_reg(l, counter_reg)]
                   unless counter.nil? then
                     #try to find the initialization for this counter
-                    init = self.find_last_mov_with_reg_before_loop(l, counter_reg)
+                    init = [self.find_last_mov_with_reg_before_loop(l, counter_reg)]
                     unless init.nil? then
                       #Determine loop body based on this information
                       body_init = []
@@ -70,7 +70,11 @@ module Phases
                           if ll[:addr] < l[:start] then
                             body_init.push ll if ll != init
                           else
-                            body.push ll if ll != counter and ll != line and ll != last_cmp
+                            unless counter.include?(ll) ||
+                                   init.include?(ll) ||
+                                   line == ll || last_cmp == ll then
+                              body.push ll
+                            end
                           end
                         end
                       end
