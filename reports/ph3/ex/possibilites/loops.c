@@ -6,6 +6,15 @@ int unrolled(int a, int b)
   return sum;
 }
 
+int huge_unrolled(int a, int b)
+{
+
+  int sum;
+  for (int i=0; i<5000; i++)
+    sum = sum * b + a;
+  return sum;
+}
+
 int rolled(int a, int b, int num)
 {
   int sum;
