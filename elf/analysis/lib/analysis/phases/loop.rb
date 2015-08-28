@@ -80,6 +80,7 @@ module Phases
                                         counter: counter,
                                         counter_init: init,
                                         branch: line,
+                                        comparison: last_cmp,
                                         body: body}
                     end
                   end
