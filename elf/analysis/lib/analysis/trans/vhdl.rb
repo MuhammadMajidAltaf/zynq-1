@@ -25,7 +25,7 @@ module Trans
     []
   end
 
-  def self.treg_post_line(par, trans_lines, line, line_i)
+  def self.treg_post_line
     $written_regs = $written_regs_new.clone
     []
   end
@@ -50,14 +50,7 @@ module Trans
   end
 
   def self.trans(l)
-    #has :instr, :args, :raw
-    base = instr_base(l[:instr])
-
-    return trans_dp(l) if ARM::DP_INSNS.include? base
-    return trans_mul(l) if ARM::MUL_INSNS.include? base
-
-    return "-- #{l[:instr]}@#{l[:addr].to_s(16)}"
-    #raise CantTranslateError
+    [self.do_trans(l)].flatten.reject{|l| l.nil?}
   end
 
   ##################################################
@@ -74,6 +67,16 @@ module Trans
 
   def self.check_args_rrrr(args)
     args.length >= 4 && is_reg(args[0]) && is_reg(args[1]) && is_reg(args[2]) && is_reg(args[3])
+  end
+
+  def self.do_trans(l)
+    base = instr_base(l[:instr])
+
+    return trans_dp(l) if ARM::DP_INSNS.include? base
+    return trans_mul(l) if ARM::MUL_INSNS.include? base
+
+    return "-- #{l[:instr]}@#{l[:addr].to_s(16)}"
+    #raise CantTranslateError
   end
 
   $added_temps = []
