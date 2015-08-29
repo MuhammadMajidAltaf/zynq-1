@@ -57,6 +57,10 @@ module Trans
   #Internal
   ##################################################
   private
+  def self.check_args_ri(args)
+    args.length >= 2 && is_reg(args[0]) && is_imm(args[1])
+  end
+
   def self.check_args_rr(args)
     args.length >= 2 && is_reg(args[0]) && is_reg(args[1])
   end
@@ -82,12 +86,17 @@ module Trans
   $added_temps = []
 
   def self.trans_dp(l)
-    raise "DP args error #{l[:args]}" unless check_args_rr(l[:args])
+    raise "DP args error #{l[:args]}" unless check_args_rr(l[:args]) or check_args_ri(l[:args])
 
     dst = l[:args][0]
     reg1 = treg(l, l[:args][1])
 
     if l[:args].length == 2 then
+      if check_args_ri(l[:args]) then
+        #extract immediate
+        reg1 = l[:args][1][1,l[:args][1].length-1]
+      end
+
       #mov or mvn
       case l[:instr]
       when "mov"
