@@ -235,7 +235,14 @@ module Phases
           puts "unknown branch #{branch_base}, skipping loop"
           return
       end
-      loop[:trans][:condition] = "#{loop[:structured][:comparison][:args][0]} = #{loop[:structured][:comparison][:args][1]}"
+      lhs = loop[:structured][:comparison][:args][0]
+      rhs = loop[:structured][:comparison][:args][1]
+      unless is_reg(lhs) && is_reg(rhs) then
+        puts "comparison is not reg-reg, is #{lhs}-#{rhs}!"
+        return
+      end
+
+      loop[:trans][:condition] = "#{Trans::treg(loop[:structured][:comparison], lhs)} = #{Trans::treg(loop[:structured][:comparison], rhs)}"
       loop[:trans][:condition] = "not (#{loop[:trans][:condition]})" if negate
 
       loop[:trans][:temps] = Trans::treg_used
