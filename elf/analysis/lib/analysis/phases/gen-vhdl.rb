@@ -35,70 +35,12 @@ module Phases
       s[:loops].each do |loop|
         puts "working on loop: #{loop[:func]} #{loop[:start].to_s(16)}-#{loop[:end].to_s(16)}"
 
-        loop[:trans] = {}
-        loop[:trans][:name] = "loop_#{loop[:start].to_s(16)}"
-        loop[:trans][:sensitive_signals] = []
-
         if loop[:structured].nil? then
           puts "skipping loop due to unknown structure"
           next
         end
 
-        Trans::treg_newpar
-
-        #translate COUNTER_INIT
-        loop[:trans][:counter_init] = []
-        loop[:structured][:counter_init].each do |line|
-          loop[:trans][:counter_init].concat Trans::trans(line)
-          Trans::treg_post_line
-        end
-
-        #translate COUNTER_INCREMENT to arithmetic operation
-        loop[:trans][:counter_increment] = []
-        loop[:structured][:counter].each do |line|
-          loop[:trans][:counter_increment].concat Trans::trans(line)
-          Trans::treg_post_line
-        end
-
-        #add COUNTER_FIXUP after COUNTER_INCREMENT
-        #this is because the translate behaviour will generate a line like
-        #'new_counter = counter + 1'
-        #but we need 'counter = counter + 1', so lets add a line like
-        #'counter = new_counter' manually here
-        relevant_regs = Trans::treg_used.select { |r| r.start_with?(loop[:structured][:counter_reg]) }.sort
-        loop[:trans][:counter_fixup] = "#{relevant_regs.first} := #{relevant_regs.last};"
-
-        #translate LOOP_BODY
-        loop[:trans][:body] = []
-        loop[:structured][:body].each do |line|
-          loop[:trans][:body].concat Trans::trans(line)
-          Trans::treg_post_line
-        end
-
-        #translate condition
-        cond_base = instr_base(loop[:structured][:comparison][:instr])
-        branch_base = instr_base(loop[:structured][:branch][:instr])
-        negate = false
-        case cond_base
-          when "cmp"
-          when "cmn"
-            negate = !negate
-          else
-            puts "unknown comparison condition #{cond_base}, skipping loop"
-            next
-        end
-        case branch_base
-          when "bne"
-          when "beq"
-            negate = !negate
-          else
-            puts "unknown branch #{branch_base}, skipping loop"
-            next
-        end
-        loop[:trans][:condition] = "#{loop[:structured][:comparison][:args][0]} = #{loop[:structured][:comparison][:args][1]}"
-        loop[:trans][:condition] = "not (#{loop[:trans][:condition]})" if negate
-
-        loop[:trans][:temps] = Trans::treg_used
+        self.translate_loop(loop)
 
         pp loop
 
@@ -234,6 +176,68 @@ module Phases
         lines.each { |l| puts l }
       end
       puts "#"*70
+    end
+
+    def self.translate_loop(loop)
+      loop[:trans] = {}
+      loop[:trans][:name] = "loop_#{loop[:start].to_s(16)}"
+      loop[:trans][:sensitive_signals] = []
+
+      Trans::treg_newpar
+
+      #translate COUNTER_INIT
+      loop[:trans][:counter_init] = []
+      loop[:structured][:counter_init].each do |line|
+        loop[:trans][:counter_init].concat Trans::trans(line)
+        Trans::treg_post_line
+      end
+
+      #translate COUNTER_INCREMENT to arithmetic operation
+      loop[:trans][:counter_increment] = []
+      loop[:structured][:counter].each do |line|
+        loop[:trans][:counter_increment].concat Trans::trans(line)
+        Trans::treg_post_line
+      end
+
+      #add COUNTER_FIXUP after COUNTER_INCREMENT
+      #this is because the translate behaviour will generate a line like
+      #'new_counter = counter + 1'
+      #but we need 'counter = counter + 1', so lets add a line like
+      #'counter = new_counter' manually here
+      relevant_regs = Trans::treg_used.select { |r| r.start_with?(loop[:structured][:counter_reg]) }.sort
+      loop[:trans][:counter_fixup] = "#{relevant_regs.first} := #{relevant_regs.last};"
+
+      #translate LOOP_BODY
+      loop[:trans][:body] = []
+      loop[:structured][:body].each do |line|
+        loop[:trans][:body].concat Trans::trans(line)
+        Trans::treg_post_line
+      end
+
+      #translate condition
+      cond_base = instr_base(loop[:structured][:comparison][:instr])
+      branch_base = instr_base(loop[:structured][:branch][:instr])
+      negate = false
+      case cond_base
+        when "cmp"
+        when "cmn"
+          negate = !negate
+        else
+          puts "unknown comparison condition #{cond_base}, skipping loop"
+          return
+      end
+      case branch_base
+        when "bne"
+        when "beq"
+          negate = !negate
+        else
+          puts "unknown branch #{branch_base}, skipping loop"
+          return
+      end
+      loop[:trans][:condition] = "#{loop[:structured][:comparison][:args][0]} = #{loop[:structured][:comparison][:args][1]}"
+      loop[:trans][:condition] = "not (#{loop[:trans][:condition]})" if negate
+
+      loop[:trans][:temps] = Trans::treg_used
     end
 
     def self.print_translated_loop(loop)
