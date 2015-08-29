@@ -100,9 +100,9 @@ module Trans
       #mov or mvn
       case l[:instr]
       when "mov"
-        return "#{dst} <= #{reg1};"
+        return "#{dst} := #{reg1};"
       when "mvn"
-        return "#{dst} <= not #{reg1};"
+        return "#{dst} := not #{reg1};"
       end
     else
       if l[:args][2][0] == 'r' then
