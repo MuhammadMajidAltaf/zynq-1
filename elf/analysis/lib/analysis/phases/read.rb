@@ -31,13 +31,17 @@ module Phases
             unless cur_function.nil? then
               if line =~ /([0-9a-f]+):\t([0-9a-f ]+)\s\t([a-z.,\[\]{}:0-9]+)(\t(.*))?$/ then
 
-                #Line
-                #TODO: extend arg parsing to curly-brace expressions
-                args = $5.nil? ? [] : $5.split(", ")
-
                 addr = $1.to_i(16)
                 raw = $2
                 instr = $3
+
+                #Line
+                #TODO: extend arg parsing to curly-brace expressions
+                if $5.include? ";" then
+                  args = $5.split(";")[0]
+                else
+                  args = $5
+                end
 
                 unless $4.nil? then
                   $4.match(/\s+([0-9a-f]+)\s\<([\w]+)(\+([0-9a-fx]+))?\>/)
@@ -45,6 +49,9 @@ module Phases
                   absolute = $1.nil? ? nil : $1.to_i(16)
                   branch = { base: $2, offset: offset, absolute: absolute }
                 end
+
+                args = args.nil? ? [] : args.split(", ").collect { |a| a.strip.gsub(/\t/, '') }
+
                 l = { addr: addr, raw: raw, instr: instr, args: args, branch: branch}
                 sections[cur_section][cur_function][:code].push l
               end
