@@ -48,7 +48,7 @@ module Phases
 
         #translate COUNTER_INIT
         loop[:trans][:counter_init] = []
-        loop[:structured][:counter].each do |line|
+        loop[:structured][:counter_init].each do |line|
           loop[:trans][:counter_init].concat Trans::trans(line)
           Trans::treg_post_line
         end
