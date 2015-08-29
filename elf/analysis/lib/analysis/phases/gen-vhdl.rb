@@ -60,6 +60,14 @@ module Phases
           Trans::treg_post_line
         end
 
+        #add COUNTER_FIXUP after COUNTER_INCREMENT
+        #this is because the translate behaviour will generate a line like
+        #'new_counter = counter + 1'
+        #but we need 'counter = counter + 1', so lets add a line like
+        #'counter = new_counter' manually here
+        relevant_regs = Trans::treg_used.select { |r| r.start_with?(loop[:structured][:counter_reg]) }.sort
+        loop[:trans][:counter_fixup] = "#{relevant_regs.first} := #{relevant_regs.last};"
+
         #translate LOOP_BODY
         loop[:trans][:body] = []
         loop[:structured][:body].each do |line|
@@ -258,6 +266,7 @@ module Phases
       loop[:trans][:counter_increment].each do |line|
         puts " "*8 + line
       end
+      puts " "*8 + loop[:trans][:counter_fixup]
       puts "      end if;"
       puts "    end if;"
       puts "  end if;"
