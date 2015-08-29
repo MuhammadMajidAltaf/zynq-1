@@ -246,7 +246,7 @@ module Phases
       end
 
       puts "#"*70
-      puts "#{loop[:trans][:name]}_proc : process(clk, reset#{sensitivity_list}})"
+      puts "#{loop[:trans][:name]}_proc : process(clk, reset#{sensitivity_list})"
       puts "variable #{loop[:trans][:temps].join(", ")} : std_logic_vector(31 downto 0)";
       puts "variable loop_finished : std_logic;"
       puts "begin"
