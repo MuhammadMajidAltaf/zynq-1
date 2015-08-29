@@ -38,7 +38,7 @@ module Trans
     $mentioned_regs
   end
 
-  def self.treg(l, reg, off = 0, write=false)
+  def self.treg(l, reg, write=false)
     if write then
       reg_name ="#{reg}_#{l[:addr].to_s(16)}"
       $written_regs_new[reg] = reg_name
@@ -88,13 +88,14 @@ module Trans
   def self.trans_dp(l)
     raise "DP args error #{l[:args]}" unless check_args_rr(l[:args]) or check_args_ri(l[:args])
 
-    dst = l[:args][0]
+    dst = treg(l, l[:args][0], true)
     reg1 = treg(l, l[:args][1])
 
     if l[:args].length == 2 then
+
       if check_args_ri(l[:args]) then
         #extract immediate
-        reg1 = l[:args][1][1,l[:args][1].length-1]
+        reg1 = l[:args][1][1,]
       end
 
       #mov or mvn
@@ -105,7 +106,7 @@ module Trans
         return "#{dst} := not #{reg1};"
       end
     else
-      if l[:args][2][0] == 'r' then
+      if is_reg(l[:args][2][0]) then
         reg2 = treg(l, l[:args][2])
         if l[:args].length == 3 then
           #dst, reg, reg type
@@ -142,7 +143,7 @@ module Trans
         instr = instr[0..instr.length-2]
       end
       raise "UnknownDPInstruction #{l[:instr]} -> #{instr}" unless ARM::DP_INSNS_MAP.include? instr
-      return [line_shift, "#{treg(l, dst, 1, true)} := std_logic_vector(#{n1}unsigned(#{reg1}) #{ARM::DP_INSNS_MAP[instr]} #{n2}unsigned(#{reg2}));"]
+      return [line_shift, "#{dst} := std_logic_vector(#{n1}unsigned(#{reg1}) #{ARM::DP_INSNS_MAP[instr]} #{n2}unsigned(#{reg2}));"]
     end
   end
 
@@ -156,12 +157,12 @@ module Trans
     case l[:instr]
     when "mla"
       ra = l[:args][3]
-      return "#{treg(l, dst, 1, true)} := std_logic_vector(RESIZE(unsigned(#{treg(l, rn)}) * unsigned(#{treg(l, rm)}) + unsigned(#{treg(l, ra)}), 32));"
+      return "#{treg(l, dst, true)} := std_logic_vector(RESIZE(unsigned(#{treg(l, rn)}) * unsigned(#{treg(l, rm)}) + unsigned(#{treg(l, ra)}), 32));"
     when "mls"
       ra = l[:args][3]
-      return "#{treg(l, dst, 1, true)} := #{treg(l, ra)} - #{treg(l, rn)} * #{treg(l, rm)};"
+      return "#{treg(l, dst, true)} := #{treg(l, ra)} - #{treg(l, rn)} * #{treg(l, rm)};"
     when "mul"
-      return "#{treg(l, dst, 1, true)} := #{treg(l, rn)} * #{treg(l, rm)};"
+      return "#{treg(l, dst, true)} := #{treg(l, rn)} * #{treg(l, rm)};"
     else
       #TODO: do the rest of them
       return "-- #{l[:instr]}"
