@@ -75,11 +75,13 @@ module Phases
                       l[:bbs].each do |bb|
                         bb[:code].each do |ll|
                           if ll[:addr] < l[:start] then
-                            body_init.push ll if ll != init
+                            body_init.push ll unless init.include?(ll)
+                          elsif ll[:addr] >= l[:end]
                           else
                             unless counter.include?(ll) ||
                                    init.include?(ll) ||
-                                   line == ll || last_cmp == ll then
+                                   (line == ll) ||
+                                   (last_cmp == ll) then
                               body.push ll
                             end
                           end
