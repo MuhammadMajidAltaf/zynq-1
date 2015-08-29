@@ -76,7 +76,7 @@ module Trans
   def self.do_trans(l)
     base = instr_base(l[:instr])
 
-    return trans_dp(l) if ARM::DP_INSNS.include? base
+    return trans_dp(l) if ARM::DP_INSNS.include?(base) || ARM::LARGEIMM_INSNS.include?(base)
     return trans_mul(l) if ARM::MUL_INSNS.include? base
 
     return "-- #{l[:instr]}@#{l[:addr].to_s(16)}"
@@ -88,6 +88,8 @@ module Trans
   def self.trans_dp(l)
     raise "DP args error #{l[:args]}" unless check_args_rr(l[:args]) or check_args_ri(l[:args])
 
+    puts "TRANSDP #{l[:instr]}"
+
     dst = treg(l, l[:args][0], true)
     reg1 = treg(l, l[:args][1])
 
@@ -95,15 +97,17 @@ module Trans
 
       if check_args_ri(l[:args]) then
         #extract immediate
-        reg1 = l[:args][1][1,]
+        reg1 = l[:args][1][1,l[:args][1].length-1]
       end
 
-      #mov or mvn
+      #mov variants
       case l[:instr]
-      when "mov"
+      when "mov", "movw", "movt"
         return "#{dst} := #{reg1};"
       when "mvn"
         return "#{dst} := not #{reg1};"
+      else
+        raise "unknown 2-arg DP variant #{l[:instr]}"
       end
     else
       if is_reg(l[:args][2][0]) then
@@ -122,8 +126,10 @@ module Trans
         end
       elsif l[:args][2][0] == '#'
         #dst, reg, imm type
-        reg2 = l[:args][2][1,]
+        reg2 = l[:args][2][1,l[:args][2].length-1]
       end
+
+      #TODO: add support for addw, subw
 
       #fixups
       n1 = "not " if l[:instr] == "orn"

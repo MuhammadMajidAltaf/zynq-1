@@ -26,8 +26,9 @@ module ARM
   SIMD_SHIFT_INSNS = ['vqrshl', 'vqrshrn', 'vqrshrun', 'vqshl', 'vqshlu', 'vqshrn', 'vqshrun', 'vrshl', 'vrshr', 'vrsa', 'vrshn', 'vshl', 'vshll', 'vshr', 'vshrn', 'vsli', 'vsra', 'vsri']
   SIMD_MUL_INSNS = ['vmla', 'vmlal', 'vmls', 'vmlsl', 'vmul', 'vmull', 'vfma', 'vfms', 'vqdmlal', 'vqdmlsl', 'vqdmul', 'vqrdmulh', 'vqdmull']
   SIMD_MISC_INSNS = ['vaba', 'vabal', 'vabd', 'vabdl', 'vabs', 'vcvt', 'vcls', 'vclz', 'vcnt', 'vdup', 'vext', 'vmovn', 'vmovl', 'vmax', 'vmin', 'vneg', 'vpmax', 'vpmin', 'vrecpe', 'vrecps', 'vrsqrte', 'vrsqrts', 'vrev16', 'vrev32', 'vrev64', 'vqabs', 'vqmovn', 'vqmovun', 'vqneg', 'vswp', 'vtbl', 'vtbx', 'vtrn', 'vuzp', 'vzip']
+  LARGEIMM_INSNS = ['movw', 'movt', 'addw', 'subw']
 
-  ARITH_INSNS = DP_INSNS + SHIFT_INSNS + MUL_INSNS + SAT_INSNS + PAR_INSNS + DIV_INSNS + MISC_INSNS
+  ARITH_INSNS = DP_INSNS + SHIFT_INSNS + MUL_INSNS + SAT_INSNS + PAR_INSNS + DIV_INSNS + MISC_INSNS + LARGEIMM_INSNS
   SIMD_ARITH_INSNS = SIMD_PAR_INSNS + SIMD_BIT_INSNS + SIMD_SHIFT_INSNS + SIMD_MUL_INSNS + SIMD_ADV_INSNS + SIMD_MISC_INSNS
 
   ALL_ARITH_INSNS = ARITH_INSNS + SIMD_ARITH_INSNS

@@ -222,6 +222,7 @@ module Phases
         when "cmp"
         when "cmn"
           negate = !negate
+        when "sub"
         else
           puts "unknown comparison condition #{cond_base}, skipping loop"
           return
