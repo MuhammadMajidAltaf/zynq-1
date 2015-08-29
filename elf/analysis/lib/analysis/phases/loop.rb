@@ -51,16 +51,23 @@ module Phases
                 #try to find the interesting parts of the loop: initialization, loop counter, loop body
                 #TODO: makes some single instruction assumptions
 
+                puts "checking for known loop structure"
                 last_cmp = self.find_last_cmp(l)
                 unless last_cmp.nil? then
+                  puts "found last comparison of #{last_cmp[:instr]} at #{last_cmp[:addr].to_s(16)}"
+
                   #TODO: assumes first arg of cmp will be correct - assumes compiler generated
                   counter_reg = last_cmp[:args][0]
                   #try to find the loop counter arithmetic operations
                   counter = [self.find_first_constant_arith_with_reg(l, counter_reg)]
-                  unless counter.nil? then
+                  unless counter.length == 0 || counter[0].nil? then
+                    puts "found loop counter expression starting #{counter[0][:instr]} at #{counter[0][:addr].to_s(16)}"
+
                     #try to find the initialization for this counter
                     init = [self.find_last_mov_with_reg_before_loop(l, counter_reg)]
-                    unless init.nil? then
+                    unless init.length == 0 || init[0].nil? then
+                      puts "found initialization starting #{init[0][:instr]} at #{init[0][:addr].to_s(16)}"
+
                       #Determine loop body based on this information
                       body_init = []
                       body = []
@@ -113,7 +120,11 @@ module Phases
     def self.find_last_cmp(lp)
       lp[:bbs].reverse.each do |bb|
         bb[:code].reverse.each do |line|
-          return line if ARM::CMP_INSNS.include? instr_base(line[:instr])
+          #Might be a cmp instruction, might be a conditional update from ADDS/SUBS etc.
+          if (ARM::CMP_INSNS.include?(instr_base(line[:instr]))) ||
+            (ARM::ARITH_INSNS.include?(instr_base(line[:instr])) && (line[:instr][-1] == ARM::COND_SUFFIX)) then
+            return line
+          end
         end
       end
       return nil

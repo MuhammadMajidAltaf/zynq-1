@@ -35,7 +35,8 @@ module ARM
 
   #Used in loop detection
   CMP_INSNS = ['cmp', 'cmn']
+  COND_SUFFIX = 's'
   #TODO: not complete
   SIMPLE_ARITH_INSNS = ['add', 'sub', 'rsb', 'mul']
-  MOV_INSNS = ['mov', 'mvn']
+  MOV_INSNS = ['mov', 'mvn', 'movw', 'movt']
 end
