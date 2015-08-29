@@ -53,3 +53,7 @@ end
 def is_reg(name)
   return (name[0] == 'r') || (name == "pc") || (name == "ip") || (name == "sp")
 end
+
+def is_imm(imm)
+  return (imm[0] == '#')
+end
