@@ -199,7 +199,7 @@ The project is designed currently to only work with basic blocks (BBs) which are
       \label{lst:x264:placebo}
     \end{sidewaysfigure}
 
-    These show quite a different picture to the default profile, we can see a large quantity of PS time (and power) being spent in functions such as \verb x264_pixel_ads{14} which are entirely arithmetic, along with the NEON optimized \verb x264_pxel_sad_x3_*_neon functions. This suggests that x264 is definitely still a good use case for which PL-backed offloading could result in increased performance, as opposed to simply power reduction.
+    These show quite a different picture to the default profile, we can see a large quantity of PS time (and power) being spent in functions such as \verb x264_pixel_ads{14} which are almost entirely arithmetic, along with the NEON optimized \verb x264_pxel_sad_x3_*_neon functions. This suggests that x264 is definitely still a good use case for which PL-backed offloading could result in increased performance, as opposed to simply power reduction.
 
 %------------------------------------------------------------------------------
 \section{Completed Work}
@@ -329,6 +329,7 @@ Having now covered the fundamentals, I shall provide a few simple demonstrations
 
 \subsubsection{Instruction Fusing 1}
 Refer to figure \ref{fig:if1}.
+This illustrates analysis of a very simple set of chained addition instructions, demonstrating the possibility for performing automated instruction fusing.
 
 \begin{sidewaysfigure}[hp]
   \begin{subfigure}[b]{0.5\textwidth}
@@ -346,6 +347,8 @@ Refer to figure \ref{fig:if1}.
 
 \subsubsection{Instruction Fusing 2}
 Refer to figure \ref{fig:if2}.
+This illustrates analysis of a compiler unrolled loop perfroming a multiply-add instruction repeatedly to some data in registers.
+As it is fully unrolled, the analysis is able to perform extended instruction fusing for this sequence, allowing (at the expense of a non-trivial amount of logic cells) a sequence of 10 32-bit multiplies and 32-bit additions in sequence, in only the time of the propogation through this tree on PL.
 
 \begin{sidewaysfigure}[hp]
   \begin{subfigure}[b]{0.5\textwidth}
@@ -363,6 +366,7 @@ Refer to figure \ref{fig:if2}.
 
 \subsubsection{Loops - partially unrolled by nesting}
 Refer to figure \ref{fig:loop-partial}.
+This illustrates analysis of a fairly common nested loop scenario, but which the analysis program is able to fully identify allowing direct transliteration into a logic process, whilst still performing the inner loop in only the propogation time. This example demonstrates the most complicated instruction sequence the analysis program is currently able to fully handle.
 
 \begin{sidewaysfigure}[hp]
   \begin{subfigure}[b]{0.5\textwidth}
@@ -382,13 +386,11 @@ Refer to figure \ref{fig:loop-partial}.
 \subsection{Problems Left}
 The transliteration generates VHDL, because of personal preference (and the much stricter types make keeping the distinctions between signed and unsigned operations more visible). To enable this work to be joined up with the open-toolchain that was originally intended (a VTR-backed) flow, this would need to be changed to generate Verilog instead due to synthesis limitations.
 
-Support for significantly more instructions in the transliteration phase would make this work much more applicable to a real-world situation. The original intention was to demonstrate offloading of a critical section of x264 video encoder, but support was never completed due to time limitations and the lack of support for loops (see next).
-
-Support for loops (detection was demonstrated in the analysis program, but variant and invariant detection proved problematic without 'running' the code). In the event that this work was to be completed, then the offloading and recovery latency could be 'masked' through a pipelining design. (A hardware framework with pipelining support was completed and verified in simulation (isim), but never in hardware due to hardware limitations). Were the initial constraints relaxed, and this work was instead converted to an LLVM backend, then LLVM IR provides sufficent information to enable detection and transliteration through forced unrolling or pipelining in simplistic designs.
+Support for significantly more instructions in the transliteration phase would make this work much more applicable to a real-world situation. The original intention was to demonstrate offloading of a critical section of x264 video encoder, but support was never completed, due to the necessity to be able to handle memory-backed data - necessitating a need to understand load and store instructions.
 
 Support for loading from memory and storing to memory, would remove the basic-block limitation that this work has been hindered by - as most real-work programs make extensive use, and even calculation heavy programs such as x264 continue to do large quantities of memory usage during critical loops. The Zynq platform theoretically enables support for this, through the use of the cache-coherency port, whilst the Linux host will take care of any access to pages that are not currently resident in pages if required. This would increase the complexity of the hardware framework fairly significantly however, as it requires either stalling the offload-pipeline or re-implementing a fair amount of any processors load/store coherency system, with forwarding lines to enable performance to be kept at a reasonable level.
 
-  Hardware limitations mostly resolve around the very high latency to offload any program, due to the large quantity of information needed to be transferred, and the relatively small size of the AXI ports available between the system. Even something as simple as a few registers (when 32-bits each) requires a clock per register/register-pair (if using the ports in 64-bit mode). By the time a DMA transfer has been scheduled in the kernel for each direction, and then completed, the latency is sufficently large to be restrictive (on the order of thousands of CPU clocks at 600MHz). Alternative silicon designs with larger CPU-Hardware interfaces (in the same way CPU-Memory interfaces have consistently increased in size) would alleviate these problems.
+Hardware limitations mostly resolve around the very high latency to offload any program, due to the large quantity of information needed to be transferred, and the relatively small size of the AXI ports available between the system. Even something as simple as a few registers (when 32-bits each) requires a clock per register/register-pair (if using the ports in 64-bit mode). By the time a DMA transfer has been scheduled in the kernel for each direction, and then completed, the latency is sufficently large to be restrictive (on the order of thousands of CPU clocks at 600MHz). Alternative silicon designs with larger CPU-Hardware interfaces (in the same way CPU-Memory interfaces have consistently increased in size) would alleviate these problems.
 
 \section{Scope for Future Works}
 \subsection{Other Works}
