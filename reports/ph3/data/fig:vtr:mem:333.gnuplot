@@ -1,6 +1,9 @@
 set terminal postscript eps enhanced color
 set output 'fig/vtr:mem:333.eps'
 
+set xlabel "time/s"
+set ylabel "committed/bytes"
+
 set datafile separator ','
 set key autotitle columnhead
 #plot for [col=42:85] 'vtr/vtr-pm-333' u 1:col w lp

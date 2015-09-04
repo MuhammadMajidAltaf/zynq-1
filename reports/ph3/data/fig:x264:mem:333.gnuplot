@@ -1,6 +1,8 @@
 set terminal postscript eps enhanced color
 set output 'fig/x264:mem:333.eps'
 
+set xlabel "time/s"
+set ylabel "commited/bytes"
 set datafile separator ','
 set key autotitle columnhead
 #plot for [col=42:85] 'x264/vtr-pm-333' u 1:col w lp
