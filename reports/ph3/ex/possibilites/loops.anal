@@ -1,0 +1,2142 @@
+"Read"
+[:options]
+Reading in objdump
+sec .text
+Read-in completed in 1 sections
+------------------------------------------------------------
+"BasicBlock"
+[:options, :sections, :flat_prof]
+Starting Basic Block analysis
+analysing func: unrolled@0
+{:func=>"unrolled",
+ :addr=>0,
+ :size=>10,
+ :code=>
+  [{:addr=>0,
+    :raw=>"e0230091",
+    :instr=>"mla",
+    :args=>["r3", "r1", "r0", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>4,
+    :raw=>"e0230193",
+    :instr=>"mla",
+    :args=>["r3", "r3", "r1", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>8,
+    :raw=>"e0230193",
+    :instr=>"mla",
+    :args=>["r3", "r3", "r1", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>12,
+    :raw=>"e0230193",
+    :instr=>"mla",
+    :args=>["r3", "r3", "r1", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>16,
+    :raw=>"e0230193",
+    :instr=>"mla",
+    :args=>["r3", "r3", "r1", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>20,
+    :raw=>"e0230193",
+    :instr=>"mla",
+    :args=>["r3", "r3", "r1", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>24,
+    :raw=>"e0230193",
+    :instr=>"mla",
+    :args=>["r3", "r3", "r1", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>28,
+    :raw=>"e0230193",
+    :instr=>"mla",
+    :args=>["r3", "r3", "r1", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>32,
+    :raw=>"e0200193",
+    :instr=>"mla",
+    :args=>["r0", "r3", "r1", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>36,
+    :raw=>"e12fff1e",
+    :instr=>"bx",
+    :args=>["lr"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}],
+ :prof=>nil}
+analysing func: huge_unrolled@28
+{:func=>"huge_unrolled",
+ :addr=>40,
+ :size=>4,
+ :code=>
+  [{:addr=>40,
+    :raw=>"e3013388",
+    :instr=>"movw",
+    :args=>["r3", "#5000"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>44,
+    :raw=>"e2533001",
+    :instr=>"subs",
+    :args=>["r3", "r3", "#1"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>48,
+    :raw=>"e0220291",
+    :instr=>"mla",
+    :args=>["r2", "r1", "r2", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>52,
+    :raw=>"1afffffc",
+    :instr=>"bne",
+    :args=>["2c <huge_unrolled+0x4>"],
+    :branch=>{:base=>"huge_unrolled", :offset=>4, :absolute=>44}}],
+ :prof=>nil}
+{:func=>"huge_unrolled",
+ :addr=>40,
+ :size=>2,
+ :code=>
+  [{:addr=>56,
+    :raw=>"e1a00002",
+    :instr=>"mov",
+    :args=>["r0", "r2"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>60,
+    :raw=>"e12fff1e",
+    :instr=>"bx",
+    :args=>["lr"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}],
+ :prof=>nil}
+analysing func: rolled@40
+{:func=>"rolled",
+ :addr=>64,
+ :size=>2,
+ :code=>
+  [{:addr=>64,
+    :raw=>"e3520000",
+    :instr=>"cmp",
+    :args=>["r2", "#0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>68,
+    :raw=>"da000004",
+    :instr=>"ble",
+    :args=>["5c <rolled+0x1c>"],
+    :branch=>{:base=>"rolled", :offset=>28, :absolute=>92}}],
+ :prof=>nil}
+{:func=>"rolled",
+ :addr=>64,
+ :size=>5,
+ :code=>
+  [{:addr=>72,
+    :raw=>"e3a03000",
+    :instr=>"mov",
+    :args=>["r3", "#0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>76,
+    :raw=>"e2833001",
+    :instr=>"add",
+    :args=>["r3", "r3", "#1"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>80,
+    :raw=>"e1530002",
+    :instr=>"cmp",
+    :args=>["r3", "r2"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>84,
+    :raw=>"e02c0c91",
+    :instr=>"mla",
+    :args=>["ip", "r1", "ip", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>88,
+    :raw=>"1afffffb",
+    :instr=>"bne",
+    :args=>["4c <rolled+0xc>"],
+    :branch=>{:base=>"rolled", :offset=>12, :absolute=>76}}],
+ :prof=>nil}
+{:func=>"rolled",
+ :addr=>64,
+ :size=>2,
+ :code=>
+  [{:addr=>92,
+    :raw=>"e1a0000c",
+    :instr=>"mov",
+    :args=>["r0", "ip"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>96,
+    :raw=>"e12fff1e",
+    :instr=>"bx",
+    :args=>["lr"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}],
+ :prof=>nil}
+analysing func: partial_unrolled@64
+{:func=>"partial_unrolled",
+ :addr=>100,
+ :size=>3,
+ :code=>
+  [{:addr=>100,
+    :raw=>"e1a02142",
+    :instr=>"asr",
+    :args=>["r2", "r2", "#2"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>104,
+    :raw=>"e3520000",
+    :instr=>"cmp",
+    :args=>["r2", "#0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>108,
+    :raw=>"da000007",
+    :instr=>"ble",
+    :args=>["90 <partial_unrolled+0x2c>"],
+    :branch=>{:base=>"partial_unrolled", :offset=>44, :absolute=>144}}],
+ :prof=>nil}
+{:func=>"partial_unrolled",
+ :addr=>100,
+ :size=>8,
+ :code=>
+  [{:addr=>112,
+    :raw=>"e3a0c000",
+    :instr=>"mov",
+    :args=>["ip", "#0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>116,
+    :raw=>"e0230391",
+    :instr=>"mla",
+    :args=>["r3", "r1", "r3", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>120,
+    :raw=>"e28cc001",
+    :instr=>"add",
+    :args=>["ip", "ip", "#1"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>124,
+    :raw=>"e15c0002",
+    :instr=>"cmp",
+    :args=>["ip", "r2"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>128,
+    :raw=>"e0230193",
+    :instr=>"mla",
+    :args=>["r3", "r3", "r1", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>132,
+    :raw=>"e0230193",
+    :instr=>"mla",
+    :args=>["r3", "r3", "r1", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>136,
+    :raw=>"e0230193",
+    :instr=>"mla",
+    :args=>["r3", "r3", "r1", "r0"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>140,
+    :raw=>"1afffff8",
+    :instr=>"bne",
+    :args=>["74 <partial_unrolled+0x10>"],
+    :branch=>{:base=>"partial_unrolled", :offset=>16, :absolute=>116}}],
+ :prof=>nil}
+{:func=>"partial_unrolled",
+ :addr=>100,
+ :size=>2,
+ :code=>
+  [{:addr=>144,
+    :raw=>"e1a00003",
+    :instr=>"mov",
+    :args=>["r0", "r3"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+   {:addr=>148,
+    :raw=>"e12fff1e",
+    :instr=>"bx",
+    :args=>["lr"],
+    :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}],
+ :prof=>nil}
+9 Basic Blocks completed
+------------------------------------------------------------
+"Arith"
+[:options, :sections, :flat_prof, :bbs, :funcs]
+Starting arithmetic analysis
+analysing bb: unrolled@0
+analysing bb: partial_unrolled@64
+analysing bb: rolled@40
+analysing bb: huge_unrolled@28
+analysing bb: partial_unrolled@64
+analysing bb: rolled@40
+analysing bb: huge_unrolled@28
+analysing bb: rolled@40
+analysing bb: partial_unrolled@64
+Arithmetic analysis concluded
+------------------------------------------------------------
+"Loops"
+[:options, :sections, :flat_prof, :bbs, :funcs]
+Starting Loop analysis
+analysing func: unrolled@0
+analysing func: huge_unrolled@28
+checking for known loop structure
+found last comparison of subs at 2c
+found loop counter expression starting subs at 2c
+found initialization starting movw at 28
+analysing func: rolled@40
+checking for known loop structure
+found last comparison of cmp at 50
+found loop counter expression starting add at 4c
+found initialization starting mov at 48
+analysing func: partial_unrolled@64
+checking for known loop structure
+found last comparison of cmp at 7c
+found loop counter expression starting add at 78
+found initialization starting mov at 70
+[{:start=>44,
+  :end=>52,
+  :func=>"huge_unrolled",
+  :bbs=>
+   [{:func=>"huge_unrolled",
+     :addr=>40,
+     :size=>4,
+     :code=>
+      [{:addr=>40,
+        :raw=>"e3013388",
+        :instr=>"movw",
+        :args=>["r3", "#5000"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>44,
+        :raw=>"e2533001",
+        :instr=>"subs",
+        :args=>["r3", "r3", "#1"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>48,
+        :raw=>"e0220291",
+        :instr=>"mla",
+        :args=>["r2", "r1", "r2", "r0"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>52,
+        :raw=>"1afffffc",
+        :instr=>"bne",
+        :args=>["2c <huge_unrolled+0x4>"],
+        :branch=>{:base=>"huge_unrolled", :offset=>4, :absolute=>44}}],
+     :prof=>nil,
+     :arith_num=>3,
+     :arith_seq=>3,
+     :arith_num_p=>100.0,
+     :arith_seq_p=>100.0},
+    {:func=>"huge_unrolled",
+     :addr=>40,
+     :size=>2,
+     :code=>
+      [{:addr=>56,
+        :raw=>"e1a00002",
+        :instr=>"mov",
+        :args=>["r0", "r2"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>60,
+        :raw=>"e12fff1e",
+        :instr=>"bx",
+        :args=>["lr"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}],
+     :prof=>nil,
+     :arith_num=>1,
+     :arith_seq=>1,
+     :arith_num_p=>100.0,
+     :arith_seq_p=>100.0}],
+  :structured=>
+   {:counter_reg=>"r3",
+    :counter=>
+     [{:addr=>44,
+       :raw=>"e2533001",
+       :instr=>"subs",
+       :args=>["r3", "r3", "#1"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}],
+    :counter_init=>
+     [{:addr=>40,
+       :raw=>"e3013388",
+       :instr=>"movw",
+       :args=>["r3", "#5000"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}],
+    :branch=>
+     {:addr=>52,
+      :raw=>"1afffffc",
+      :instr=>"bne",
+      :args=>["2c <huge_unrolled+0x4>"],
+      :branch=>{:base=>"huge_unrolled", :offset=>4, :absolute=>44}},
+    :comparison=>
+     {:addr=>44,
+      :raw=>"e2533001",
+      :instr=>"subs",
+      :args=>["r3", "r3", "#1"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+    :body=>
+     [{:addr=>48,
+       :raw=>"e0220291",
+       :instr=>"mla",
+       :args=>["r2", "r1", "r2", "r0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}]}},
+ {:start=>76,
+  :end=>88,
+  :func=>"rolled",
+  :bbs=>
+   [{:func=>"rolled",
+     :addr=>64,
+     :size=>5,
+     :code=>
+      [{:addr=>72,
+        :raw=>"e3a03000",
+        :instr=>"mov",
+        :args=>["r3", "#0"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>76,
+        :raw=>"e2833001",
+        :instr=>"add",
+        :args=>["r3", "r3", "#1"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>80,
+        :raw=>"e1530002",
+        :instr=>"cmp",
+        :args=>["r3", "r2"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>84,
+        :raw=>"e02c0c91",
+        :instr=>"mla",
+        :args=>["ip", "r1", "ip", "r0"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>88,
+        :raw=>"1afffffb",
+        :instr=>"bne",
+        :args=>["4c <rolled+0xc>"],
+        :branch=>{:base=>"rolled", :offset=>12, :absolute=>76}}],
+     :prof=>nil,
+     :arith_num=>3,
+     :arith_seq=>2,
+     :arith_num_p=>75.0,
+     :arith_seq_p=>50.0}],
+  :structured=>
+   {:counter_reg=>"r3",
+    :counter=>
+     [{:addr=>76,
+       :raw=>"e2833001",
+       :instr=>"add",
+       :args=>["r3", "r3", "#1"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}],
+    :counter_init=>
+     [{:addr=>72,
+       :raw=>"e3a03000",
+       :instr=>"mov",
+       :args=>["r3", "#0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}],
+    :branch=>
+     {:addr=>88,
+      :raw=>"1afffffb",
+      :instr=>"bne",
+      :args=>["4c <rolled+0xc>"],
+      :branch=>{:base=>"rolled", :offset=>12, :absolute=>76}},
+    :comparison=>
+     {:addr=>80,
+      :raw=>"e1530002",
+      :instr=>"cmp",
+      :args=>["r3", "r2"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+    :body=>
+     [{:addr=>84,
+       :raw=>"e02c0c91",
+       :instr=>"mla",
+       :args=>["ip", "r1", "ip", "r0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}]}},
+ {:start=>116,
+  :end=>140,
+  :func=>"partial_unrolled",
+  :bbs=>
+   [{:func=>"partial_unrolled",
+     :addr=>100,
+     :size=>8,
+     :code=>
+      [{:addr=>112,
+        :raw=>"e3a0c000",
+        :instr=>"mov",
+        :args=>["ip", "#0"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>116,
+        :raw=>"e0230391",
+        :instr=>"mla",
+        :args=>["r3", "r1", "r3", "r0"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>120,
+        :raw=>"e28cc001",
+        :instr=>"add",
+        :args=>["ip", "ip", "#1"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>124,
+        :raw=>"e15c0002",
+        :instr=>"cmp",
+        :args=>["ip", "r2"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>128,
+        :raw=>"e0230193",
+        :instr=>"mla",
+        :args=>["r3", "r3", "r1", "r0"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>132,
+        :raw=>"e0230193",
+        :instr=>"mla",
+        :args=>["r3", "r3", "r1", "r0"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>136,
+        :raw=>"e0230193",
+        :instr=>"mla",
+        :args=>["r3", "r3", "r1", "r0"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+       {:addr=>140,
+        :raw=>"1afffff8",
+        :instr=>"bne",
+        :args=>["74 <partial_unrolled+0x10>"],
+        :branch=>{:base=>"partial_unrolled", :offset=>16, :absolute=>116}}],
+     :prof=>nil,
+     :arith_num=>6,
+     :arith_seq=>3,
+     :arith_num_p=>85.71428571428571,
+     :arith_seq_p=>42.857142857142854}],
+  :structured=>
+   {:counter_reg=>"ip",
+    :counter=>
+     [{:addr=>120,
+       :raw=>"e28cc001",
+       :instr=>"add",
+       :args=>["ip", "ip", "#1"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}],
+    :counter_init=>
+     [{:addr=>112,
+       :raw=>"e3a0c000",
+       :instr=>"mov",
+       :args=>["ip", "#0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}],
+    :branch=>
+     {:addr=>140,
+      :raw=>"1afffff8",
+      :instr=>"bne",
+      :args=>["74 <partial_unrolled+0x10>"],
+      :branch=>{:base=>"partial_unrolled", :offset=>16, :absolute=>116}},
+    :comparison=>
+     {:addr=>124,
+      :raw=>"e15c0002",
+      :instr=>"cmp",
+      :args=>["ip", "r2"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+    :body=>
+     [{:addr=>116,
+       :raw=>"e0230391",
+       :instr=>"mla",
+       :args=>["r3", "r1", "r3", "r0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+      {:addr=>128,
+       :raw=>"e0230193",
+       :instr=>"mla",
+       :args=>["r3", "r3", "r1", "r0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+      {:addr=>132,
+       :raw=>"e0230193",
+       :instr=>"mla",
+       :args=>["r3", "r3", "r1", "r0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}},
+      {:addr=>136,
+       :raw=>"e0230193",
+       :instr=>"mla",
+       :args=>["r3", "r3", "r1", "r0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}}]}}]
+Loop analysis concluded - found 3 loops
+------------------------------------------------------------
+"GenVHDL"
+[:options, :sections, :flat_prof, :bbs, :funcs, :loops]
+VHDL Generation started
+Generating BBs
+order analysing bb: unrolled@0
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 0: mla ["r3", "r1", "r0", "r0"]
+d: 
+dl: 
+==============================
+l: 4: mla ["r3", "r3", "r1", "r0"]
+d: {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 0
+==============================
+l: 8: mla ["r3", "r3", "r1", "r0"]
+d: {:addr=>4, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[0]},{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 4,0
+==============================
+l: c: mla ["r3", "r3", "r1", "r0"]
+d: {:addr=>8, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>4, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[4, 0]},{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 8,0
+==============================
+l: 10: mla ["r3", "r3", "r1", "r0"]
+d: {:addr=>12, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>8, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>4, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[4, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[8, 0]},{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}
+dl: c,0
+==============================
+l: 14: mla ["r3", "r3", "r1", "r0"]
+d: {:addr=>16, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>12, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>8, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>4, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[4, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[8, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[12, 0]},{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 10,0
+==============================
+l: 18: mla ["r3", "r3", "r1", "r0"]
+d: {:addr=>20, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>16, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>12, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>8, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>4, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[4, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[8, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[12, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[16, 0]},{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 14,0
+==============================
+l: 1c: mla ["r3", "r3", "r1", "r0"]
+d: {:addr=>24, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>20, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>16, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>12, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>8, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>4, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[4, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[8, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[12, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[16, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[20, 0]},{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 18,0
+==============================
+l: 20: mla ["r0", "r3", "r1", "r0"]
+d: {:addr=>28, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>24, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>20, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>16, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>12, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>8, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>4, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[4, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[8, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[12, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[16, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[20, 0]}, {:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[24, 0]},{:addr=>0, :raw=>"e0230091", :instr=>"mla", :args=>["r3", "r1", "r0", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 1c,0
+==============================
+l: 24: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: unrolled@0: 10 lines
+parallelized into 2 pars
+generating bb: unrolled@0
+######################################################################
+unrolled@0[0:24]->
+A 9 9 100.0 100.0
+L> mla, mla, mla, mla, mla, mla, mla, mla, mla, bx, 
+pars: 2
+0> bx, 
+1> mla, mla, mla, mla, mla, mla, mla, mla, mla, mla, mla, mla, mla, mla, mla, mla, 
+trans: 
+variable r3_0, r3_4, r3_0, r3_8, r3_0, r3_c, r3_0, r3_10, r3_0, r3_14, r3_0, r3_18, r3_0, r3_1c, r3_0, r0_20 : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@24
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+r3_0 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(0)) + unsigned(regs_in(0)), 32));
+r3_4 := std_logic_vector(RESIZE(unsigned(r3_0) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+r3_0 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(0)) + unsigned(regs_in(0)), 32));
+r3_8 := std_logic_vector(RESIZE(unsigned(r3_0) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+r3_0 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(0)) + unsigned(regs_in(0)), 32));
+r3_c := std_logic_vector(RESIZE(unsigned(r3_0) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+r3_0 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(0)) + unsigned(regs_in(0)), 32));
+r3_10 := std_logic_vector(RESIZE(unsigned(r3_0) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+r3_0 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(0)) + unsigned(regs_in(0)), 32));
+r3_14 := std_logic_vector(RESIZE(unsigned(r3_0) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+r3_0 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(0)) + unsigned(regs_in(0)), 32));
+r3_18 := std_logic_vector(RESIZE(unsigned(r3_0) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+r3_0 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(0)) + unsigned(regs_in(0)), 32));
+r3_1c := std_logic_vector(RESIZE(unsigned(r3_0) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+r3_0 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(0)) + unsigned(regs_in(0)), 32));
+r0_20 := std_logic_vector(RESIZE(unsigned(r3_0) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+regs_out(0) <= r0_20;
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= r3_0;
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: partial_unrolled@64
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 70: mov ["ip", "#0"]
+d: 
+dl: 
+==============================
+l: 74: mla ["r3", "r1", "r3", "r0"]
+d: 
+dl: 
+==============================
+l: 78: add ["ip", "ip", "#1"]
+d: 
+dl: 
+==============================
+l: 7c: cmp ["ip", "r2"]
+d: 
+dl: 
+==============================
+l: 80: mla ["r3", "r3", "r1", "r0"]
+d: {:addr=>116, :raw=>"e0230391", :instr=>"mla", :args=>["r3", "r1", "r3", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 74
+==============================
+l: 84: mla ["r3", "r3", "r1", "r0"]
+d: {:addr=>128, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>116, :raw=>"e0230391", :instr=>"mla", :args=>["r3", "r1", "r3", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[116]}
+dl: 80
+==============================
+l: 88: mla ["r3", "r3", "r1", "r0"]
+d: {:addr=>132, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>128, :raw=>"e0230193", :instr=>"mla", :args=>["r3", "r3", "r1", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[{:addr=>116, :raw=>"e0230391", :instr=>"mla", :args=>["r3", "r1", "r3", "r0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}], :deps_lines=>[116]}], :deps_lines=>[128]}
+dl: 84
+==============================
+l: 8c: bne ["74 <partial_unrolled+0x10>"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: partial_unrolled@100: 8 lines
+parallelized into 5 pars
+generating bb: partial_unrolled@100
+TRANSDP add
+TRANSDP mov
+######################################################################
+partial_unrolled@64[70:8c]->
+A 6 3 85.71428571428571 42.857142857142854
+L> mov, mla, add, cmp, mla, mla, mla, bne, 
+pars: 5
+0> bne, 
+1> mla, mla, mla, mla, 
+2> cmp, 
+3> add, 
+4> mov, 
+trans: 
+variable r3_74, r3_80, r3_84, r3_88, ip_78, ip_70 : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bne@8c
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+r3_74 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(3)) + unsigned(regs_in(0)), 32));
+r3_80 := std_logic_vector(RESIZE(unsigned(r3_74) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+r3_84 := std_logic_vector(RESIZE(unsigned(r3_80) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+r3_88 := std_logic_vector(RESIZE(unsigned(r3_84) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= r3_88;
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 2>
+-- cmp@7c
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 3>
+ip_78 := std_logic_vector(unsigned() + unsigned(1));
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 4>
+ip_70 := 0;
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: rolled@40
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 48: mov ["r3", "#0"]
+d: 
+dl: 
+==============================
+l: 4c: add ["r3", "r3", "#1"]
+d: {:addr=>72, :raw=>"e3a03000", :instr=>"mov", :args=>["r3", "#0"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 48
+==============================
+l: 50: cmp ["r3", "r2"]
+d: 
+dl: 
+==============================
+l: 54: mla ["ip", "r1", "ip", "r0"]
+d: 
+dl: 
+==============================
+l: 58: bne ["4c <rolled+0xc>"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: rolled@64: 5 lines
+parallelized into 4 pars
+generating bb: rolled@64
+TRANSDP mov
+TRANSDP add
+######################################################################
+rolled@40[48:58]->
+A 3 2 75.0 50.0
+L> mov, add, cmp, mla, bne, 
+pars: 4
+0> bne, 
+1> mla, 
+2> cmp, 
+3> mov, add, 
+trans: 
+variable ip_54, r3_48, r3_4c : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bne@58
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+ip_54 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned() + unsigned(regs_in(0)), 32));
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 2>
+-- cmp@50
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 3>
+r3_48 := 0;
+r3_4c := std_logic_vector(unsigned(r3_48) + unsigned(1));
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= r3_4c;
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: huge_unrolled@28
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 28: movw ["r3", "#5000"]
+d: 
+dl: 
+==============================
+l: 2c: subs ["r3", "r3", "#1"]
+d: {:addr=>40, :raw=>"e3013388", :instr=>"movw", :args=>["r3", "#5000"], :branch=>{:base=>nil, :offset=>nil, :absolute=>nil}, :deps=>[], :deps_lines=>[]}
+dl: 28
+==============================
+l: 30: mla ["r2", "r1", "r2", "r0"]
+d: 
+dl: 
+==============================
+l: 34: bne ["2c <huge_unrolled+0x4>"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: huge_unrolled@40: 4 lines
+parallelized into 3 pars
+generating bb: huge_unrolled@40
+TRANSDP movw
+TRANSDP subs
+######################################################################
+huge_unrolled@28[28:34]->
+A 3 3 100.0 100.0
+L> movw, subs, mla, bne, 
+pars: 3
+0> bne, 
+1> mla, 
+2> movw, subs, 
+trans: 
+variable r2_30, r3_28, r3_2c : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bne@34
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+r2_30 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(2)) + unsigned(regs_in(0)), 32));
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= r2_30;
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 2>
+r3_28 := 5000;
+r3_2c := std_logic_vector(unsigned(r3_28) - unsigned(1));
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= r3_2c;
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: partial_unrolled@64
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 64: asr ["r2", "r2", "#2"]
+d: 
+dl: 
+==============================
+l: 68: cmp ["r2", "#0"]
+d: 
+dl: 
+==============================
+l: 6c: ble ["90 <partial_unrolled+0x2c>"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: partial_unrolled@100: 3 lines
+parallelized into 3 pars
+generating bb: partial_unrolled@100
+######################################################################
+partial_unrolled@64[64:6c]->
+A 1 1 50.0 50.0
+L> asr, cmp, ble, 
+pars: 3
+0> ble, 
+1> cmp, 
+2> asr, 
+trans: 
+variable  : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- ble@6c
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+-- cmp@68
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 2>
+-- asr@64
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: rolled@40
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 40: cmp ["r2", "#0"]
+d: 
+dl: 
+==============================
+l: 44: ble ["5c <rolled+0x1c>"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: rolled@64: 2 lines
+parallelized into 2 pars
+generating bb: rolled@64
+######################################################################
+rolled@40[40:44]->
+A 0 0 0.0 0.0
+L> cmp, ble, 
+pars: 2
+0> ble, 
+1> cmp, 
+trans: 
+variable  : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- ble@44
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+-- cmp@40
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: huge_unrolled@28
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 38: mov ["r0", "r2"]
+d: 
+dl: 
+==============================
+l: 3c: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: huge_unrolled@40: 2 lines
+parallelized into 2 pars
+generating bb: huge_unrolled@40
+TRANSDP mov
+######################################################################
+huge_unrolled@28[38:3c]->
+A 1 1 100.0 100.0
+L> mov, bx, 
+pars: 2
+0> bx, 
+1> mov, 
+trans: 
+variable r0_38 : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@3c
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+r0_38 := regs_in(2);
+regs_out(0) <= r0_38;
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: rolled@40
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 5c: mov ["r0", "ip"]
+d: 
+dl: 
+==============================
+l: 60: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: rolled@64: 2 lines
+parallelized into 2 pars
+generating bb: rolled@64
+TRANSDP mov
+######################################################################
+rolled@40[5c:60]->
+A 1 1 100.0 100.0
+L> mov, bx, 
+pars: 2
+0> bx, 
+1> mov, 
+trans: 
+variable r0_5c : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@60
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+r0_5c := ;
+regs_out(0) <= r0_5c;
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+order analysing bb: partial_unrolled@64
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+==============================
+l: 90: mov ["r0", "r3"]
+d: 
+dl: 
+==============================
+l: 94: bx ["lr"]
+d: 
+dl: 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+parallelizing bb: partial_unrolled@100: 2 lines
+parallelized into 2 pars
+generating bb: partial_unrolled@100
+TRANSDP mov
+######################################################################
+partial_unrolled@64[90:94]->
+A 1 1 100.0 100.0
+L> mov, bx, 
+pars: 2
+0> bx, 
+1> mov, 
+trans: 
+variable r0_90 : std_logic_vector(31 downto 0);
+-------------
+trans 0>
+-- bx@94
+regs_out(0) <= regs_in(0);
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+trans 1>
+r0_90 := regs_in(3);
+regs_out(0) <= r0_90;
+regs_out(1) <= regs_in(1);
+regs_out(2) <= regs_in(2);
+regs_out(3) <= regs_in(3);
+regs_out(4) <= regs_in(4);
+regs_out(5) <= regs_in(5);
+regs_out(6) <= regs_in(6);
+regs_out(7) <= regs_in(7);
+regs_out(8) <= regs_in(8);
+regs_out(9) <= regs_in(9);
+regs_out(10) <= regs_in(10);
+regs_out(11) <= regs_in(11);
+regs_out(12) <= regs_in(12);
+regs_out(13) <= regs_in(13);
+######################################################################
+Generating Loops
+working on loop: huge_unrolled 2c-34
+TRANSDP movw
+TRANSDP subs
+{:start=>44,
+ :end=>52,
+ :func=>"huge_unrolled",
+ :bbs=>
+  [{:func=>"huge_unrolled",
+    :addr=>40,
+    :size=>4,
+    :code=>
+     [{:addr=>40,
+       :raw=>"e3013388",
+       :instr=>"movw",
+       :args=>["r3", "#5000"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>[],
+       :deps_lines=>[]},
+      {:addr=>44,
+       :raw=>"e2533001",
+       :instr=>"subs",
+       :args=>["r3", "r3", "#1"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>
+        [{:addr=>40,
+          :raw=>"e3013388",
+          :instr=>"movw",
+          :args=>["r3", "#5000"],
+          :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+          :deps=>[],
+          :deps_lines=>[]}],
+       :deps_lines=>[40]},
+      {:addr=>48,
+       :raw=>"e0220291",
+       :instr=>"mla",
+       :args=>["r2", "r1", "r2", "r0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>[],
+       :deps_lines=>[]},
+      {:addr=>52,
+       :raw=>"1afffffc",
+       :instr=>"bne",
+       :args=>["2c <huge_unrolled+0x4>"],
+       :branch=>{:base=>"huge_unrolled", :offset=>4, :absolute=>44},
+       :deps=>[],
+       :deps_lines=>[]}],
+    :prof=>nil,
+    :arith_num=>3,
+    :arith_seq=>3,
+    :arith_num_p=>100.0,
+    :arith_seq_p=>100.0,
+    :par_code=>
+     [[{:addr=>52,
+        :raw=>"1afffffc",
+        :instr=>"bne",
+        :args=>["2c <huge_unrolled+0x4>"]}],
+      [{:addr=>48,
+        :raw=>"e0220291",
+        :instr=>"mla",
+        :args=>["r2", "r1", "r2", "r0"]}],
+      [{:addr=>40, :raw=>"e3013388", :instr=>"movw", :args=>["r3", "#5000"]},
+       {:addr=>44,
+        :raw=>"e2533001",
+        :instr=>"subs",
+        :args=>["r3", "r3", "#1"]}]],
+    :trans_code=>
+     [["-- bne@34",
+       "regs_out(0) <= regs_in(0);",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= regs_in(2);",
+       "regs_out(3) <= regs_in(3);",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"],
+      ["r2_30 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(2)) + unsigned(regs_in(0)), 32));",
+       "regs_out(0) <= regs_in(0);",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= r2_30;",
+       "regs_out(3) <= regs_in(3);",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"],
+      ["r3_28 := 5000;",
+       "r3_2c := std_logic_vector(unsigned(r3_28) - unsigned(1));",
+       "regs_out(0) <= regs_in(0);",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= regs_in(2);",
+       "regs_out(3) <= r3_2c;",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"]],
+    :trans_signals=>
+     ["variable r2_30, r3_28, r3_2c : std_logic_vector(31 downto 0);"],
+    :trans_used_regs=>["r2_30", "r3_28", "r3_2c"]},
+   {:func=>"huge_unrolled",
+    :addr=>40,
+    :size=>2,
+    :code=>
+     [{:addr=>56,
+       :raw=>"e1a00002",
+       :instr=>"mov",
+       :args=>["r0", "r2"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>[],
+       :deps_lines=>[]},
+      {:addr=>60,
+       :raw=>"e12fff1e",
+       :instr=>"bx",
+       :args=>["lr"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>[],
+       :deps_lines=>[]}],
+    :prof=>nil,
+    :arith_num=>1,
+    :arith_seq=>1,
+    :arith_num_p=>100.0,
+    :arith_seq_p=>100.0,
+    :par_code=>
+     [[{:addr=>60, :raw=>"e12fff1e", :instr=>"bx", :args=>["lr"]}],
+      [{:addr=>56, :raw=>"e1a00002", :instr=>"mov", :args=>["r0", "r2"]}]],
+    :trans_code=>
+     [["-- bx@3c",
+       "regs_out(0) <= regs_in(0);",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= regs_in(2);",
+       "regs_out(3) <= regs_in(3);",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"],
+      ["r0_38 := regs_in(2);",
+       "regs_out(0) <= r0_38;",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= regs_in(2);",
+       "regs_out(3) <= regs_in(3);",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"]],
+    :trans_signals=>["variable r0_38 : std_logic_vector(31 downto 0);"],
+    :trans_used_regs=>["r0_38"]}],
+ :structured=>
+  {:counter_reg=>"r3",
+   :counter=>
+    [{:addr=>44,
+      :raw=>"e2533001",
+      :instr=>"subs",
+      :args=>["r3", "r3", "#1"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+      :deps=>
+       [{:addr=>40,
+         :raw=>"e3013388",
+         :instr=>"movw",
+         :args=>["r3", "#5000"],
+         :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+         :deps=>[],
+         :deps_lines=>[]}],
+      :deps_lines=>[40]}],
+   :counter_init=>
+    [{:addr=>40,
+      :raw=>"e3013388",
+      :instr=>"movw",
+      :args=>["r3", "#5000"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+      :deps=>[],
+      :deps_lines=>[]}],
+   :branch=>
+    {:addr=>52,
+     :raw=>"1afffffc",
+     :instr=>"bne",
+     :args=>["2c <huge_unrolled+0x4>"],
+     :branch=>{:base=>"huge_unrolled", :offset=>4, :absolute=>44},
+     :deps=>[],
+     :deps_lines=>[]},
+   :comparison=>
+    {:addr=>44,
+     :raw=>"e2533001",
+     :instr=>"subs",
+     :args=>["r3", "r3", "#1"],
+     :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+     :deps=>
+      [{:addr=>40,
+        :raw=>"e3013388",
+        :instr=>"movw",
+        :args=>["r3", "#5000"],
+        :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+        :deps=>[],
+        :deps_lines=>[]}],
+     :deps_lines=>[40]},
+   :body=>
+    [{:addr=>48,
+      :raw=>"e0220291",
+      :instr=>"mla",
+      :args=>["r2", "r1", "r2", "r0"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+      :deps=>[],
+      :deps_lines=>[]}]},
+ :trans=>
+  {:name=>"loop_2c",
+   :sensitive_signals=>[],
+   :counter_init=>["r3_28 := 5000;"],
+   :counter_increment=>
+    ["r3_2c := std_logic_vector(unsigned(r3_28) - unsigned(1));"],
+   :counter_fixup=>"r3_28 := r3_2c;",
+   :body=>
+    ["r2_30 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(2)) + unsigned(regs_in(0)), 32));"],
+   :condition=>"r3_2c = r3_2c",
+   :temps=>["r3_28", "r3_2c", "r2_30"]}}
+######################################################################
+loop_2c_proc : process(clk, reset)
+variable r3_28, r3_2c, r2_30 : std_logic_vector(31 downto 0)
+variable loop_finished : std_logic;
+begin
+  if clk = '1' and clk'event then
+    if reset = '1' then
+      loop_finished := '0';
+      r3_28 := 5000;
+    elif loop_finished = '1' then
+    else
+      if r3_2c = r3_2c then
+        loop_finished := '1';
+      else
+-- body:
+        r2_30 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(2)) + unsigned(regs_in(0)), 32));
+-- counter:
+        r3_2c := std_logic_vector(unsigned(r3_28) - unsigned(1));
+        r3_28 := r3_2c;
+      end if;
+    end if;
+  end if;
+end process;
+######################################################################
+working on loop: rolled 4c-58
+TRANSDP mov
+TRANSDP add
+{:start=>76,
+ :end=>88,
+ :func=>"rolled",
+ :bbs=>
+  [{:func=>"rolled",
+    :addr=>64,
+    :size=>5,
+    :code=>
+     [{:addr=>72,
+       :raw=>"e3a03000",
+       :instr=>"mov",
+       :args=>["r3", "#0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>[],
+       :deps_lines=>[]},
+      {:addr=>76,
+       :raw=>"e2833001",
+       :instr=>"add",
+       :args=>["r3", "r3", "#1"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>
+        [{:addr=>72,
+          :raw=>"e3a03000",
+          :instr=>"mov",
+          :args=>["r3", "#0"],
+          :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+          :deps=>[],
+          :deps_lines=>[]}],
+       :deps_lines=>[72]},
+      {:addr=>80,
+       :raw=>"e1530002",
+       :instr=>"cmp",
+       :args=>["r3", "r2"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>[],
+       :deps_lines=>[]},
+      {:addr=>84,
+       :raw=>"e02c0c91",
+       :instr=>"mla",
+       :args=>["ip", "r1", "ip", "r0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>[],
+       :deps_lines=>[]},
+      {:addr=>88,
+       :raw=>"1afffffb",
+       :instr=>"bne",
+       :args=>["4c <rolled+0xc>"],
+       :branch=>{:base=>"rolled", :offset=>12, :absolute=>76},
+       :deps=>[],
+       :deps_lines=>[]}],
+    :prof=>nil,
+    :arith_num=>3,
+    :arith_seq=>2,
+    :arith_num_p=>75.0,
+    :arith_seq_p=>50.0,
+    :par_code=>
+     [[{:addr=>88,
+        :raw=>"1afffffb",
+        :instr=>"bne",
+        :args=>["4c <rolled+0xc>"]}],
+      [{:addr=>84,
+        :raw=>"e02c0c91",
+        :instr=>"mla",
+        :args=>["ip", "r1", "ip", "r0"]}],
+      [{:addr=>80, :raw=>"e1530002", :instr=>"cmp", :args=>["r3", "r2"]}],
+      [{:addr=>72, :raw=>"e3a03000", :instr=>"mov", :args=>["r3", "#0"]},
+       {:addr=>76,
+        :raw=>"e2833001",
+        :instr=>"add",
+        :args=>["r3", "r3", "#1"]}]],
+    :trans_code=>
+     [["-- bne@58",
+       "regs_out(0) <= regs_in(0);",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= regs_in(2);",
+       "regs_out(3) <= regs_in(3);",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"],
+      ["ip_54 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned() + unsigned(regs_in(0)), 32));",
+       "regs_out(0) <= regs_in(0);",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= regs_in(2);",
+       "regs_out(3) <= regs_in(3);",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"],
+      ["-- cmp@50",
+       "regs_out(0) <= regs_in(0);",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= regs_in(2);",
+       "regs_out(3) <= regs_in(3);",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"],
+      ["r3_48 := 0;",
+       "r3_4c := std_logic_vector(unsigned(r3_48) + unsigned(1));",
+       "regs_out(0) <= regs_in(0);",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= regs_in(2);",
+       "regs_out(3) <= r3_4c;",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"]],
+    :trans_signals=>
+     ["variable ip_54, r3_48, r3_4c : std_logic_vector(31 downto 0);"],
+    :trans_used_regs=>["ip_54", "r3_48", "r3_4c"]}],
+ :structured=>
+  {:counter_reg=>"r3",
+   :counter=>
+    [{:addr=>76,
+      :raw=>"e2833001",
+      :instr=>"add",
+      :args=>["r3", "r3", "#1"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+      :deps=>
+       [{:addr=>72,
+         :raw=>"e3a03000",
+         :instr=>"mov",
+         :args=>["r3", "#0"],
+         :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+         :deps=>[],
+         :deps_lines=>[]}],
+      :deps_lines=>[72]}],
+   :counter_init=>
+    [{:addr=>72,
+      :raw=>"e3a03000",
+      :instr=>"mov",
+      :args=>["r3", "#0"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+      :deps=>[],
+      :deps_lines=>[]}],
+   :branch=>
+    {:addr=>88,
+     :raw=>"1afffffb",
+     :instr=>"bne",
+     :args=>["4c <rolled+0xc>"],
+     :branch=>{:base=>"rolled", :offset=>12, :absolute=>76},
+     :deps=>[],
+     :deps_lines=>[]},
+   :comparison=>
+    {:addr=>80,
+     :raw=>"e1530002",
+     :instr=>"cmp",
+     :args=>["r3", "r2"],
+     :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+     :deps=>[],
+     :deps_lines=>[]},
+   :body=>
+    [{:addr=>84,
+      :raw=>"e02c0c91",
+      :instr=>"mla",
+      :args=>["ip", "r1", "ip", "r0"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+      :deps=>[],
+      :deps_lines=>[]}]},
+ :trans=>
+  {:name=>"loop_4c",
+   :sensitive_signals=>[],
+   :counter_init=>["r3_48 := 0;"],
+   :counter_increment=>
+    ["r3_4c := std_logic_vector(unsigned(r3_48) + unsigned(1));"],
+   :counter_fixup=>"r3_48 := r3_4c;",
+   :body=>
+    ["ip_54 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned() + unsigned(regs_in(0)), 32));"],
+   :condition=>"r3_4c = regs_in(2)",
+   :temps=>["r3_48", "r3_4c", "ip_54"]}}
+######################################################################
+loop_4c_proc : process(clk, reset)
+variable r3_48, r3_4c, ip_54 : std_logic_vector(31 downto 0)
+variable loop_finished : std_logic;
+begin
+  if clk = '1' and clk'event then
+    if reset = '1' then
+      loop_finished := '0';
+      r3_48 := 0;
+    elif loop_finished = '1' then
+    else
+      if r3_4c = regs_in(2) then
+        loop_finished := '1';
+      else
+-- body:
+        ip_54 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned() + unsigned(regs_in(0)), 32));
+-- counter:
+        r3_4c := std_logic_vector(unsigned(r3_48) + unsigned(1));
+        r3_48 := r3_4c;
+      end if;
+    end if;
+  end if;
+end process;
+######################################################################
+working on loop: partial_unrolled 74-8c
+TRANSDP mov
+TRANSDP add
+{:start=>116,
+ :end=>140,
+ :func=>"partial_unrolled",
+ :bbs=>
+  [{:func=>"partial_unrolled",
+    :addr=>100,
+    :size=>8,
+    :code=>
+     [{:addr=>112,
+       :raw=>"e3a0c000",
+       :instr=>"mov",
+       :args=>["ip", "#0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>[],
+       :deps_lines=>[]},
+      {:addr=>116,
+       :raw=>"e0230391",
+       :instr=>"mla",
+       :args=>["r3", "r1", "r3", "r0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>[],
+       :deps_lines=>[]},
+      {:addr=>120,
+       :raw=>"e28cc001",
+       :instr=>"add",
+       :args=>["ip", "ip", "#1"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>[],
+       :deps_lines=>[]},
+      {:addr=>124,
+       :raw=>"e15c0002",
+       :instr=>"cmp",
+       :args=>["ip", "r2"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>[],
+       :deps_lines=>[]},
+      {:addr=>128,
+       :raw=>"e0230193",
+       :instr=>"mla",
+       :args=>["r3", "r3", "r1", "r0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>
+        [{:addr=>116,
+          :raw=>"e0230391",
+          :instr=>"mla",
+          :args=>["r3", "r1", "r3", "r0"],
+          :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+          :deps=>[],
+          :deps_lines=>[]}],
+       :deps_lines=>[116]},
+      {:addr=>132,
+       :raw=>"e0230193",
+       :instr=>"mla",
+       :args=>["r3", "r3", "r1", "r0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>
+        [{:addr=>128,
+          :raw=>"e0230193",
+          :instr=>"mla",
+          :args=>["r3", "r3", "r1", "r0"],
+          :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+          :deps=>
+           [{:addr=>116,
+             :raw=>"e0230391",
+             :instr=>"mla",
+             :args=>["r3", "r1", "r3", "r0"],
+             :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+             :deps=>[],
+             :deps_lines=>[]}],
+          :deps_lines=>[116]}],
+       :deps_lines=>[128]},
+      {:addr=>136,
+       :raw=>"e0230193",
+       :instr=>"mla",
+       :args=>["r3", "r3", "r1", "r0"],
+       :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+       :deps=>
+        [{:addr=>132,
+          :raw=>"e0230193",
+          :instr=>"mla",
+          :args=>["r3", "r3", "r1", "r0"],
+          :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+          :deps=>
+           [{:addr=>128,
+             :raw=>"e0230193",
+             :instr=>"mla",
+             :args=>["r3", "r3", "r1", "r0"],
+             :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+             :deps=>
+              [{:addr=>116,
+                :raw=>"e0230391",
+                :instr=>"mla",
+                :args=>["r3", "r1", "r3", "r0"],
+                :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+                :deps=>[],
+                :deps_lines=>[]}],
+             :deps_lines=>[116]}],
+          :deps_lines=>[128]}],
+       :deps_lines=>[132]},
+      {:addr=>140,
+       :raw=>"1afffff8",
+       :instr=>"bne",
+       :args=>["74 <partial_unrolled+0x10>"],
+       :branch=>{:base=>"partial_unrolled", :offset=>16, :absolute=>116},
+       :deps=>[],
+       :deps_lines=>[]}],
+    :prof=>nil,
+    :arith_num=>6,
+    :arith_seq=>3,
+    :arith_num_p=>85.71428571428571,
+    :arith_seq_p=>42.857142857142854,
+    :par_code=>
+     [[{:addr=>140,
+        :raw=>"1afffff8",
+        :instr=>"bne",
+        :args=>["74 <partial_unrolled+0x10>"]}],
+      [{:addr=>116,
+        :raw=>"e0230391",
+        :instr=>"mla",
+        :args=>["r3", "r1", "r3", "r0"]},
+       {:addr=>128,
+        :raw=>"e0230193",
+        :instr=>"mla",
+        :args=>["r3", "r3", "r1", "r0"]},
+       {:addr=>132,
+        :raw=>"e0230193",
+        :instr=>"mla",
+        :args=>["r3", "r3", "r1", "r0"]},
+       {:addr=>136,
+        :raw=>"e0230193",
+        :instr=>"mla",
+        :args=>["r3", "r3", "r1", "r0"]}],
+      [{:addr=>124, :raw=>"e15c0002", :instr=>"cmp", :args=>["ip", "r2"]}],
+      [{:addr=>120,
+        :raw=>"e28cc001",
+        :instr=>"add",
+        :args=>["ip", "ip", "#1"]}],
+      [{:addr=>112, :raw=>"e3a0c000", :instr=>"mov", :args=>["ip", "#0"]}]],
+    :trans_code=>
+     [["-- bne@8c",
+       "regs_out(0) <= regs_in(0);",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= regs_in(2);",
+       "regs_out(3) <= regs_in(3);",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"],
+      ["r3_74 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(3)) + unsigned(regs_in(0)), 32));",
+       "r3_80 := std_logic_vector(RESIZE(unsigned(r3_74) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));",
+       "r3_84 := std_logic_vector(RESIZE(unsigned(r3_80) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));",
+       "r3_88 := std_logic_vector(RESIZE(unsigned(r3_84) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));",
+       "regs_out(0) <= regs_in(0);",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= regs_in(2);",
+       "regs_out(3) <= r3_88;",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"],
+      ["-- cmp@7c",
+       "regs_out(0) <= regs_in(0);",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= regs_in(2);",
+       "regs_out(3) <= regs_in(3);",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"],
+      ["ip_78 := std_logic_vector(unsigned() + unsigned(1));",
+       "regs_out(0) <= regs_in(0);",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= regs_in(2);",
+       "regs_out(3) <= regs_in(3);",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"],
+      ["ip_70 := 0;",
+       "regs_out(0) <= regs_in(0);",
+       "regs_out(1) <= regs_in(1);",
+       "regs_out(2) <= regs_in(2);",
+       "regs_out(3) <= regs_in(3);",
+       "regs_out(4) <= regs_in(4);",
+       "regs_out(5) <= regs_in(5);",
+       "regs_out(6) <= regs_in(6);",
+       "regs_out(7) <= regs_in(7);",
+       "regs_out(8) <= regs_in(8);",
+       "regs_out(9) <= regs_in(9);",
+       "regs_out(10) <= regs_in(10);",
+       "regs_out(11) <= regs_in(11);",
+       "regs_out(12) <= regs_in(12);",
+       "regs_out(13) <= regs_in(13);"]],
+    :trans_signals=>
+     ["variable r3_74, r3_80, r3_84, r3_88, ip_78, ip_70 : std_logic_vector(31 downto 0);"],
+    :trans_used_regs=>["r3_74", "r3_80", "r3_84", "r3_88", "ip_78", "ip_70"]}],
+ :structured=>
+  {:counter_reg=>"ip",
+   :counter=>
+    [{:addr=>120,
+      :raw=>"e28cc001",
+      :instr=>"add",
+      :args=>["ip", "ip", "#1"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+      :deps=>[],
+      :deps_lines=>[]}],
+   :counter_init=>
+    [{:addr=>112,
+      :raw=>"e3a0c000",
+      :instr=>"mov",
+      :args=>["ip", "#0"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+      :deps=>[],
+      :deps_lines=>[]}],
+   :branch=>
+    {:addr=>140,
+     :raw=>"1afffff8",
+     :instr=>"bne",
+     :args=>["74 <partial_unrolled+0x10>"],
+     :branch=>{:base=>"partial_unrolled", :offset=>16, :absolute=>116},
+     :deps=>[],
+     :deps_lines=>[]},
+   :comparison=>
+    {:addr=>124,
+     :raw=>"e15c0002",
+     :instr=>"cmp",
+     :args=>["ip", "r2"],
+     :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+     :deps=>[],
+     :deps_lines=>[]},
+   :body=>
+    [{:addr=>116,
+      :raw=>"e0230391",
+      :instr=>"mla",
+      :args=>["r3", "r1", "r3", "r0"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+      :deps=>[],
+      :deps_lines=>[]},
+     {:addr=>128,
+      :raw=>"e0230193",
+      :instr=>"mla",
+      :args=>["r3", "r3", "r1", "r0"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+      :deps=>
+       [{:addr=>116,
+         :raw=>"e0230391",
+         :instr=>"mla",
+         :args=>["r3", "r1", "r3", "r0"],
+         :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+         :deps=>[],
+         :deps_lines=>[]}],
+      :deps_lines=>[116]},
+     {:addr=>132,
+      :raw=>"e0230193",
+      :instr=>"mla",
+      :args=>["r3", "r3", "r1", "r0"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+      :deps=>
+       [{:addr=>128,
+         :raw=>"e0230193",
+         :instr=>"mla",
+         :args=>["r3", "r3", "r1", "r0"],
+         :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+         :deps=>
+          [{:addr=>116,
+            :raw=>"e0230391",
+            :instr=>"mla",
+            :args=>["r3", "r1", "r3", "r0"],
+            :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+            :deps=>[],
+            :deps_lines=>[]}],
+         :deps_lines=>[116]}],
+      :deps_lines=>[128]},
+     {:addr=>136,
+      :raw=>"e0230193",
+      :instr=>"mla",
+      :args=>["r3", "r3", "r1", "r0"],
+      :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+      :deps=>
+       [{:addr=>132,
+         :raw=>"e0230193",
+         :instr=>"mla",
+         :args=>["r3", "r3", "r1", "r0"],
+         :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+         :deps=>
+          [{:addr=>128,
+            :raw=>"e0230193",
+            :instr=>"mla",
+            :args=>["r3", "r3", "r1", "r0"],
+            :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+            :deps=>
+             [{:addr=>116,
+               :raw=>"e0230391",
+               :instr=>"mla",
+               :args=>["r3", "r1", "r3", "r0"],
+               :branch=>{:base=>nil, :offset=>nil, :absolute=>nil},
+               :deps=>[],
+               :deps_lines=>[]}],
+            :deps_lines=>[116]}],
+         :deps_lines=>[128]}],
+      :deps_lines=>[132]}]},
+ :trans=>
+  {:name=>"loop_74",
+   :sensitive_signals=>[],
+   :counter_init=>["ip_70 := 0;"],
+   :counter_increment=>
+    ["ip_78 := std_logic_vector(unsigned(ip_70) + unsigned(1));"],
+   :counter_fixup=>"ip_70 := ip_78;",
+   :body=>
+    ["r3_74 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(3)) + unsigned(regs_in(0)), 32));",
+     "r3_80 := std_logic_vector(RESIZE(unsigned(r3_74) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));",
+     "r3_84 := std_logic_vector(RESIZE(unsigned(r3_80) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));",
+     "r3_88 := std_logic_vector(RESIZE(unsigned(r3_84) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));"],
+   :condition=>"ip_78 = regs_in(2)",
+   :temps=>["ip_70", "ip_78", "r3_74", "r3_80", "r3_84", "r3_88"]}}
+######################################################################
+loop_74_proc : process(clk, reset)
+variable ip_70, ip_78, r3_74, r3_80, r3_84, r3_88 : std_logic_vector(31 downto 0)
+variable loop_finished : std_logic;
+begin
+  if clk = '1' and clk'event then
+    if reset = '1' then
+      loop_finished := '0';
+      ip_70 := 0;
+    elif loop_finished = '1' then
+    else
+      if ip_78 = regs_in(2) then
+        loop_finished := '1';
+      else
+-- body:
+        r3_74 := std_logic_vector(RESIZE(unsigned(regs_in(1)) * unsigned(regs_in(3)) + unsigned(regs_in(0)), 32));
+        r3_80 := std_logic_vector(RESIZE(unsigned(r3_74) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+        r3_84 := std_logic_vector(RESIZE(unsigned(r3_80) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+        r3_88 := std_logic_vector(RESIZE(unsigned(r3_84) * unsigned(regs_in(1)) + unsigned(regs_in(0)), 32));
+-- counter:
+        ip_78 := std_logic_vector(unsigned(ip_70) + unsigned(1));
+        ip_70 := ip_78;
+      end if;
+    end if;
+  end if;
+end process;
+######################################################################
+VHDL Generation concluded
