@@ -1,0 +1,19 @@
+for(COUNTER_INIT; COUNTER_CONDITION; COUNTER_INCREMENT) {
+  LOOP_BODY;
+}
+loop_process : process(clk, reset, loop_condition, loop_finished)
+  DEFINE_VARIABLES
+begin
+  if clk = '1' and clk'event then
+    if reset = '1' or loop_finished = '1' then
+      COUNTER_INIT
+    else
+      if LOOP_CONDITION then 
+        loop_finished := '1';
+      else
+        LOOP_BODY
+        COUNTER_INCREMENT
+      end if;
+    end if;
+  end if;
+end process;
