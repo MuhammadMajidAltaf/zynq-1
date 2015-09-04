@@ -16,11 +16,16 @@
 
 \begin{abstract}
   A feasibility study is conducted into automatically generating hardware for a binary program, allowing offloading of program critical regions to an adjacent configurable logic block for a host processor.
+  A program is created that demonstrates a heuristic-based technique for analysing and transliterating conventional ARM programs into a HDL, without access to the original source code, albeit with a non-trivial set of restrictions in the demonstrated implementation.
 \end{abstract}
 
 %------------------------------------------------------------------------------
 \section{Introduction}
 I investigated the ability to automatically speed-up (or reduce power of) parts of existing applications, without a need to write custom offload hardware for each program, or even to re-compile; in a computing system with both conventional CPUs but also some configurable logic (FPGA fabric-like) area, which I will refer to as an \emph{FPGA-soc}.
+
+For readers unfamiliar with FPGA, these can be thought of as a large quantity of user-configurable logic gates, capable of evaluating extensive logical expressions at high speed (hundrends of megahertz). Ordinarily such logic performs 'calculations' immediately (ignoring propogation delays), but by synchronising work to a clock signal, and through constructions such as finite state machines, it is possible to emulate sequential 'instructions' in a manner equivalant to a Turing machine processing a tape, which is the basis of models used for programming conventional computer processors.
+
+The intention of this work is to take calculations that take a long time to process on a conventional process, and perform as much work in parallel as possible through converting the representation to a set of logical expressions ideal for running on the FPGA. Whilst this is something that is done by humans at the moment, this work intends to demonstrate a method of automating such work, enabling programs to run faster without needing extensive human-performed optimization to utilise the FPGA.
 
 One such example of a computing system are the Xilinx Zynq series ICs, of which I have been working using a Zynq ZC702\cite{ZC702} development board, which contains a xc7z020 IC at its core. The xc7z020 IC contains a dual core ARM Cortex A9 'processor' (hereafter referred to as the PS) along with full MMU, DDR3 controller and APB peripherals (UART, Ethernet, SD, etc.), as well as a large programmable logic area based off a 28nm HKMG fabrication (hereafter referred to as the PL). A variety of AXI ports (and assosciated control signals such as user configurable clocks and interrupts) enabling communication between the PS and PL at high speed. Refer to figure \ref{fig:inter-block} for a detailed overview of how the PS and PL are interconnected. Whilst this is a quite specific system, there are strong parallels with a more conventional (as of the 2000s-2015s) PC, which could be supplemented with a PL card over PCI-E, in the same way that graphics tasks are offloaded to custom silicon in the form of a dedicated GPU, or more recent processing assistance designs such as the Xeon Phi.
 
