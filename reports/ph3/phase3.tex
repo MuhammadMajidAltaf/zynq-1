@@ -9,6 +9,7 @@
 \usepackage{cite}
 %\usepackage[margin=2in]{geometry}
 \begin{document}
+\lstset{basicstyle=\ttfamily\footnotesize, breaklines=true}
 \centerline{\Large \bf An Investigative Framework for Automatic Hardware Generation}
 \medskip
 \centerline{\bf Alexander Lown}
@@ -321,6 +322,61 @@ A DMA transfer to/from the FIFO of a $32\text{bit} * 1024 = 4096\text{bytes}$ wa
     \caption{Offloading results for a fused 10-deep integer mul-add sequence including DMA transfer time (ma.c)}
     \label{table:offload-simple}
   \end{table}
+
+\subsection{Analysis Demonstrations}
+
+Having now covered the fundamentals, I shall provide a few simple demonstrations of the analysis system.
+
+\subsubsection{Instruction Fusing 1}
+Refer to figure \ref{fig:if1}.
+
+\begin{sidewaysfigure}[hp]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \lstinputlisting[firstline=3,lastline=6]{ex/tools/trans_dp.c}
+    \lstinputlisting[firstline=7,lastline=11]{ex/tools/trans_dp.dis}
+    \caption{C form of function and Disassembly}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \lstinputlisting[firstline=93,lastline=109]{ex/tools/trans_dp.anal}
+    \caption{Transliterated output}
+  \end{subfigure}
+  \caption{Simple chained addition}
+  \label{fig:if1}
+\end{sidewaysfigure}
+
+\subsubsection{Instruction Fusing 2}
+Refer to figure \ref{fig:if2}.
+
+\begin{sidewaysfigure}[hp]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \lstinputlisting[firstline=1,lastline=7]{ex/possibilites/loops.c}
+    \lstinputlisting[firstline=7,lastline=17]{ex/possibilites/loops.dis}
+    \caption{C form of function and Disassembly}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \lstinputlisting[firstline=617,lastline=646]{ex/possibilites/loops.anal}
+    \caption{Transliterated output}
+  \end{subfigure}
+  \caption{Compiler unrolled loop, results in extensive fusing}
+  \label{fig:if2}
+\end{sidewaysfigure}
+
+\subsubsection{Loops - partially unrolled by nesting}
+Refer to figure \ref{fig:loop-partial}.
+
+\begin{sidewaysfigure}[hp]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \lstinputlisting[firstline=26,lastline=33]{ex/possibilites/loops.c}
+    \lstinputlisting[firstline=38,lastline=51]{ex/possibilites/loops.dis}
+    \caption{C form of function and Disassembly}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \lstinputlisting[firstline=2116,lastline=2140]{ex/possibilites/loops.anal}
+    \caption{Transliterated output}
+  \end{subfigure}
+  \caption{Nested loop, partially unrolled}
+  \label{fig:loop-partial}
+\end{sidewaysfigure}
 
 \section{Evalution}
 \subsection{Problems Left}
