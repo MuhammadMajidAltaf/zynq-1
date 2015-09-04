@@ -204,37 +204,109 @@ The project is designed currently to only work with basic blocks (BBs) which are
 \section{Completed Work}
 Due to the large area of interaction required to make this project complete, there has been work on programs in Linux user space, Linux kernel space, and HDLs (VHDL, Verilog and IP block design), utilizing a variety of tools and languages.
 
-  I could include large quantities of this as part of the report, but will chose instead to include only small snippets and point the reader to the Github repositories if they are interested in the full code bases, with all the supporting scripts and build systems - though I warn them that there is ~20-30GB of both proprietary and free tools required to recreate results.
+I could include large quantities of this as part of the report, but will chose instead to include only small snippets and point the reader to the Github repositories if they are interested in the full code bases, with all the supporting scripts and build systems - though I warn them that there is ~20-30GB of both proprietary and free tools required to recreate results on hardware. The analysis program by itself, however, runs just fine in any modern Ruby environment and demonstrates the majority of the principles needing no external tools.
 
-  The currently relevant code bases can be found at \url{https://github.com/alown/zynq}, \url{https://github.com/alown/zynq-xdma} and \url{https://github.com/alown/vtr}.
+The relevant code bases can be found at \url{https://github.com/alown/zynq}, \url{https://github.com/alown/zynq-xdma} and \url{https://github.com/alown/vtr}.
 
-  Some of the main files (the more interesting ones) are described briefly below:
+Important information relating to the implementation details can often be found in a \emph{NOTES} file at the root of the repositories.
 
-  In the zynq repository:
+\subsection{Analysis Program}
 
-  \verb elf/analysis/*  is a Ruby script that performs offline arm elf binary analysis involving splitting the application into BBs, then performing analysis looking for BBs with a high density of easily offloadable arithmetic instructions, and high density of NEON instructions. It is also able to emit VHDL for many of ARMs 'data-processing' instructions (including support for shifted register operands), as well as the 4 standard MUL variants. This VHDL acts like a 'fused instruction' for the entirety of the parallelizable section of the BB. The effectiveness of this depends entirely on the data dependencies in the BB under consideration. This VHDL fits into the \verb offload.vhdl  file.
+In the zynq repository, the analysis program can be found in \verb elf/analysis/* which is a program written in Ruby to take a given ARM ELF binary (in \texttt{objdump -d} form), and optionally a \texttt{GNU Gprof} profiling output to guide the analysis towards known areas of high contention.
 
-  \verb elf/offload.vhdl  is a simple wrapper entity for the generated VHDL that presents some signals representing the r0-r13 registers.
-  \verb elf/offload-top.vhdl  presents an AXI4-S (AXI-4 streaming) interface to unpack/pack the starting/end values for r0-r13 for the offload block, as well as coordinating everything using a simple FSM.
+It consists of a variety of \emph{phases}, which can be stacked by the user as appropriate, though a conventional call would use something along the lines of the following set, where \emph{phases} are seperated by colons: \texttt{Read:BB:Arith:Loop:GenVHDL}.
 
-  The Vivado Project \verb tmp/vivado/[\ldots]simple.xpr  holds together all of the generated offloaded code by linking it to the rest of the system using Xilinx DMA IP over the HP0 AXI port described earlier, and shown in figure \ref{fig:inter-block}. A high-level block diagram showing the interactions between the offloaded code (shown as the \verb addtest  IP block), and the rest of the design can be found in figure \ref{fig:vivado-block}.
+I shall now provide a brief description of what each \emph{phase} does.
 
-  \begin{sidewaysfigure}
-    \centering
-    \includegraphics[width=\textwidth]{fig/vivado-block.eps}
-    \caption{Vivado Block Design}
-    \label{fig:vivado-block}
-  \end{sidewaysfigure}
+\subsubsection{\texttt{Read}}
 
-  To avoid spending unnecessary time writing and debugging a Linux kernel module to do DMA, I have chosen to extend from an existing project called XDMA, which presents the DMA IP as a block device at \verb /dev/xdma . The XDMA project also came with a simple user-space shared library to make adding support to a new application as easy as linking to the shared library and the transfer function at appropriate times.
+This takes in and 'parses' the \texttt{objdump} file, creating a list of labelled blocks, called here \emph{functions}. For each \emph{function} it parses in the address, instruction and any arguments storing into an in-memory hash.
 
-  I verified the functionality of the PL DMA IP, and the whole userspace stack by originally connected the design with a 1024 deep FIFO over the AXI4-S interface, which then let me perform simple write/wait/read tests from userspace to verify a lack of corruption and to get an idea of the speed of such transfers.
-  A DMA transfer to/from the FIFO of a $32\text{bit} * 1024 = 4096\text{bytes}$ was able to achieve speeds of ~$190\text{MB/s}$ using an in-PL clock of $150\text{MHz}$.
+Optionally, if specified, it will also take the \texttt{gprof} file, parsing it similarly into a hash of \emph{functions} to profile data such as percentage of total runtime, or number of calls.
 
-  In the zynq-xdma repository:
+\subsubsection{\texttt{BB}}
 
-  \verb demo/xdma-offload.c  is a small user-space testing program which performs the required packetization of some possible register values, then transfers to the PL to do work, then reads the resulting register values back out of the DMA engine and prints it back to the user for verification.
+Simply iterates through each \emph{function}, breaking it down it \emph{basic-blocks} (\emph{BBvs}), which are denominated here by a branch/jump instruction. It also attaches any profiling data to the basic block.
 
+\subsubsection{\texttt{Arith}}
+
+Iterates through all the \emph{BBs} looking for arithmetic instructions, recording the quantity and length of uninterrupted sequential runs of such instructions, as these are likely to be prime candidates for 'fusing' into an emulated 'single instruction' run on the PL.
+
+\subsubsection{\text{SIMD}}
+
+Performs the same work as \texttt{Arith}, but is records such statistics for SIMD (here: NEON) instructions. As these are only likely to be used in code at already optimized sections, which are likely to correlate with areas of extensive runtime.
+
+\subsubsection{\text{Loop}}
+
+Scans all the \emph{BBs} for subsections where the control flow seems to loop - here taken to be a branch/jump instruction to an location behind the PC. After finding such a subsection, it then attempts to determine key factors of the known loop styles which would enable efficent transliteration of them.
+Support here only extends to simple C-style for loops, as the \texttt{GCC} compiler tends to produce these in a easy-to-find form: Counter initialization, an arithmetic operation on the counter variable, a compare condition for loop termination, the loop body's work, and finally the looping branch instruction.
+This leaves open the option to use the following heuristic for such style loops, see figure \ref{fig:loop-method}.
+
+\begin{enumerate}
+  \item Work backwards from the suspicious branch instruction to find a relevant compare condition, noting which registers are tested
+  \item Work forwards from the start of the loop (as determined by the branch target), looking for an arithmetic operation acting on one of the registers used in the found compare instructions. In this implementation the arithmetic operation should have an immediate operand (a constant change)
+    \begin{itemize}
+      \item If anything else acts on this now determined loop counter register, then this must be a more complex operation not currently supported
+    \end{itemize}
+  \item Having determined the loop counter register, we can find where it is written to before the start of the loop, and hence the counter initialization sequence
+  \item Any remaming instructions between the branch and the start of the loop, must be the loop body
+\end{enumerate}
+
+\subsubsection{\text{GenVHDL}}
+
+Transliterates any 'important enough' \emph{BBs}, and any fully identified loops, and attempts to transliterate them into VHDL using the following algorithm:
+
+\begin{description}
+  \item[Firstly] \hfill\\
+    'Parallelization' is performed on the \emph{BB}, which iterates through the instructions recording data-flow to enable the production of a data-flow graph.
+    Once a data-flow graph is determined, it is possible to 'pull apart' this set of instructions into multiple sets of instructions which can be performed at the same time without interferring with each other as they utilize completely independent register sets. These are referred to as \emph{pars}.
+  \item[Transliteration] \hfill\\
+    Each \emph{par} can then be iterated over in order and every instruction transliterated using an (effectively) fancy look-up-table into short sequences of VHDL code. Registers are identified and tracked through each \emph{par}. Any modifications cause the generation of a new variable, and subsequent reads from this register now use this variable rather than the initial value, building up extensive logical expressions, taking only the sum of the propogation delays to evaluate, rather than many instruction cycles.
+  \item[Loops] \hfill\\
+    Loops capable of being fully identified, can be transliterated as described in figure \ref{fig:loop-method}, by making use of the transliteration subsystem for individual independent lines e.g. counter initialization, and the parallelization subsystem can handle sequences of instructions such as the loop body.
+  \item[Output] \hfill\\
+    All of this information is currently simply dumped to \texttt{stdout}, and insertion into the corresponding hardware harnesses is left to the reader to perform. For \emph{BBs}, this simply involves inserting the generated logic and signals into the clearly delimited sections in the test harness. For loops this requires more extensive signalling and control logic to be written to interface.
+\end{description}
+
+\begin{figure}[pb]
+  \centering
+  \begin{subfigure}[b]{\textwidth}
+    \lstinputlisting[lastline=3]{LOOPMISC}
+    \caption{C-style for loop}
+  \end{subfigure}
+  \begin{subfigure}[b]{\textwidth}
+    \lstinputlisting[firstline=4]{LOOPMISC}
+    \caption{VHDL format this could transliterate to}
+  \end{subfigure}
+  \caption{Style of currently supported loop transliteration work}
+  \label{fig:loop-method}
+\end{figure}
+
+\subsection{Supporting Work}
+
+\verb elf/offload.vhdl  is a simple wrapper entity for the generated VHDL that presents some signals representing the r0-r13 registers. This file is where transliterated \emph{BBs} can be simply copy-pasted from the analysis output into the delimited sections before synthesising.
+\verb elf/offload-top.vhdl  presents an AXI4-S (AXI-4 streaming) interface to unpack/pack the starting/end values for r0-r13 for the offload block, as well as coordinating everything using a simple FSM.
+
+The Vivado Project \verb tmp/vivado/[\ldots]simple.xpr  holds together all of the generated offloaded code by linking it to the rest of the system using Xilinx DMA IP over the HP0 AXI port described earlier, and shown in figure \ref{fig:inter-block}. A high-level block diagram showing the interactions between the offloaded code (shown as the \verb addtest  IP block), and the rest of the design can be found in figure \ref{fig:vivado-block}.
+
+\begin{sidewaysfigure}
+  \centering
+  \includegraphics[width=\textwidth]{fig/vivado-block.eps}
+  \caption{Vivado Block Design}
+  \label{fig:vivado-block}
+\end{sidewaysfigure}
+
+\subsection{DMA}
+
+To avoid spending unnecessary time writing and debugging a Linux kernel module to do DMA, I have chosen to extend from an existing project called XDMA, which presents the DMA IP as a block device at \verb /dev/xdma . The XDMA project also came with a simple user-space shared library to make adding support to a new application as easy as linking to the shared library and the transfer function at appropriate times.
+
+I verified the functionality of the PL DMA IP, and the whole userspace stack by originally connected the design with a 1024 deep FIFO over the AXI4-S interface, which then let me perform simple write/wait/read tests from userspace to verify a lack of corruption and to get an idea of the speed of such transfers.
+A DMA transfer to/from the FIFO of a $32\text{bit} * 1024 = 4096\text{bytes}$ was able to achieve speeds of ~$190\text{MB/s}$ using an in-PL clock of $150\text{MHz}$.
+
+\verb demo/xdma-offload.c  is a small user-space testing program which performs the required packetization of some possible register values, then transfers to the PL to do work, then reads the resulting register values back out of the DMA engine and prints it back to the user for verification.
+
+
+\subsection{Initial Hardware Results}
 
   Together the analysis script when fed in a objdump disassembly (to avoid the need to internally handle disassembly the ELF binary format, keeping the complexity of the analysis system lower) and a gprof profiling file to enable location of program critical sections for offloading, the analysis system is able to parse in BBs, detect sequences of arithmetic instructions (support for NEON arithmetic instructions is included), choose some important sections, and then transliterate into VHDL for a certain limited susbset of arithmetic instructions. (ADD, SUB, MOV, MUL in register-register modes). This generated code can then be included in the hardware framework and then synthesised for an appropriate target device. The host program can then be 'modified' (currently manually) to do the appropriate DMA transfers to/from the hardware framework. This enables demonstration of offloading of very simple programs to hardware, allowing us to benchwark the situation. Refer to table \ref{table:offload-simple} for results.
 
