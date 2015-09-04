@@ -311,7 +311,7 @@ A DMA transfer to/from the FIFO of a $32\text{bit} * 1024 = 4096\text{bytes}$ wa
 
   Together the analysis script when fed in a objdump disassembly (to avoid the need to internally handle disassembly the ELF binary format, keeping the complexity of the analysis system lower) and a gprof profiling file to enable location of program critical sections for offloading, the analysis system is able to parse in BBs, detect sequences of arithmetic instructions (support for NEON arithmetic instructions is included), choose some important sections, and then transliterate into VHDL for a certain limited susbset of arithmetic instructions. (ADD, SUB, MOV, MUL in register-register modes). This generated code can then be included in the hardware framework and then synthesised for an appropriate target device. The host program can then be 'modified' (currently manually) to do the appropriate DMA transfers to/from the hardware framework. This enables demonstration of offloading of very simple programs to hardware, allowing us to benchwark the situation. Refer to table \ref{table:offload-simple} for results.
 
-  \begin{table}[tbp]
+  \begin{table}[btp]
     \centering
     \begin{tabular}{l|l}
       Mode & Runtime/$\mu S$\\
@@ -319,7 +319,7 @@ A DMA transfer to/from the FIFO of a $32\text{bit} * 1024 = 4096\text{bytes}$ wa
       Host CPU only & 1 \\
       Offloaded using DMA & 60
     \end{tabular}
-    \caption{Offloading results for a fused 10-deep integer mul-add sequence including DMA transfer time (ma.c)}
+    \caption{Offloading results for a fused 10-deep integer mul-add sequence including DMA transfer time (\verb arm-test/ma.c )}
     \label{table:offload-simple}
   \end{table}
 
